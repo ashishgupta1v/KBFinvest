@@ -7,9 +7,18 @@ putenv('VERCEL=1');
 $_ENV['VERCEL'] = '1';
 $_SERVER['VERCEL'] = '1';
 
-putenv('APP_DEBUG=true');
-$_ENV['APP_DEBUG'] = 'true';
-$_SERVER['APP_DEBUG'] = 'true';
+if (! getenv('APP_MAINTENANCE_DRIVER')) {
+    putenv('APP_MAINTENANCE_DRIVER=file');
+    $_ENV['APP_MAINTENANCE_DRIVER'] = 'file';
+    $_SERVER['APP_MAINTENANCE_DRIVER'] = 'file';
+}
+
+$appDebug = getenv('APP_DEBUG');
+if ($appDebug === false || $appDebug === '') {
+    putenv('APP_DEBUG=false');
+    $_ENV['APP_DEBUG'] = 'false';
+    $_SERVER['APP_DEBUG'] = 'false';
+}
 
 // Set cache files to /tmp/storage
 $storagePath = '/tmp/storage';
