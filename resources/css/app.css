@@ -1,0 +1,399 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.{vue,js,ts}';
+
+:root {
+  --kb-bg: #070E1C;
+  --kb-bg-soft: #0A1526;
+  --kb-surface: #0D1A31;
+  --kb-surface-2: #132441;
+  --kb-surface-3: #1A2E4F;
+  --kb-primary: #3B7BD0;
+  --kb-primary-deep: #1F4E86;
+  --kb-accent: #D4A537;
+  --kb-accent-hi: #EFD08A;
+  --kb-accent-lo: #9C7420;
+  --kb-champagne: #F7E9C4;
+  --kb-text: #FFFFFF;
+  --kb-body: #CBD6E8;
+  --kb-muted: #8FA0BF;
+  --accent-text: #E0B856;
+  --on-accent: #0A1A33;
+  --kb-border: rgba(212, 165, 55, 0.30);
+  --kb-line: rgba(180, 199, 230, 0.12);
+  --kb-hair: rgba(255, 255, 255, 0.07);
+  --kb-whatsapp: #25D366;
+  --kb-success: #34B07F;
+  --kb-error: #F0736F;
+  --kb-warning: #E8A13A;
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  --card-flat: rgba(255, 255, 255, 0.04);
+  --glass: rgba(7, 14, 28, 0.85);
+  color-scheme: dark;
+}
+
+
+@theme {
+  /* Typography */
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Brand Colors */
+  --color-kb-bg: var(--kb-bg);
+  --color-kb-bg-soft: var(--kb-bg-soft);
+  --color-kb-surface: var(--kb-surface);
+  --color-kb-surface-2: var(--kb-surface-2);
+  --color-kb-surface-3: var(--kb-surface-3);
+  --color-kb-primary: var(--kb-primary);
+  --color-kb-accent: var(--kb-accent);
+  --color-kb-accent-hi: var(--kb-accent-hi);
+  --color-kb-champagne: var(--kb-champagne);
+  --color-kb-text: var(--kb-text);
+  --color-kb-body: var(--kb-body);
+  --color-kb-muted: var(--kb-muted);
+  --color-accent-text: var(--accent-text);
+  --color-kb-border: var(--kb-border);
+  --color-kb-line: var(--kb-line);
+  --color-kb-hair: var(--kb-hair);
+}
+
+/* ── Base ── */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--kb-bg);
+  color: var(--kb-text);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-serif);
+}
+
+/* ── Custom Gradients & Utilities ── */
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #F7E9C4 0%, #EFD08A 20%, #D4A537 58%, #A67C1F 100%);
+}
+
+.bg-gold-soft {
+  background: linear-gradient(160deg, rgba(247, 233, 196, 0.16), rgba(212, 165, 55, 0.04));
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F7E9C4 0%, #EFD08A 25%, #D4A537 60%, #B88B27 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+.gold-glow {
+  box-shadow: 0 0 30px rgba(212, 165, 55, 0.15);
+}
+
+.gold-glow-lg {
+  box-shadow: 0 0 50px rgba(212, 165, 55, 0.22);
+}
+
+.card-frame {
+  background: var(--card-bg);
+  border: 1px solid var(--kb-line);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-frame:hover {
+  border-color: var(--kb-border);
+  box-shadow: 0 10px 30px rgba(2, 7, 16, 0.4);
+}
+
+.card-frame-gold {
+  background: var(--card-bg);
+  border: 1px solid var(--kb-border);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(212, 165, 55, 0.08);
+  backdrop-filter: blur(14px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-frame-gold:hover {
+  border-color: var(--kb-accent);
+  box-shadow: 0 8px 30px rgba(212, 165, 55, 0.16);
+}
+
+/* Luxury card with subtle inner depth & gold foil edge */
+.card-luxury {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid rgba(212, 165, 55, 0.25);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px -4px rgba(2, 7, 16, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.card-luxury:hover {
+  border-color: var(--kb-accent);
+  box-shadow: 0 16px 40px -4px rgba(2, 7, 16, 0.65), 0 0 24px rgba(212, 165, 55, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Wealth-Tech Prestige Card with ambient gold sheen */
+.card-prestige {
+  position: relative;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(212, 165, 55, 0.06) 0%, rgba(13, 26, 49, 0.95) 50%, rgba(7, 14, 28, 0.98) 100%);
+  border: 1px solid rgba(212, 165, 55, 0.22);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.card-prestige:hover {
+  border-color: var(--kb-accent);
+  box-shadow: 0 20px 48px -12px rgba(2, 7, 16, 0.75), 0 0 32px rgba(212, 165, 55, 0.22);
+  transform: translateY(-3px);
+}
+
+/* Glass panel for high-contrast overlays and navigation bars */
+.glass-panel {
+  background: rgba(13, 26, 49, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 165, 55, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+
+/* Refined Pill Badges */
+.badge-gold {
+  background: rgba(212, 165, 55, 0.12);
+  border: 1px solid rgba(212, 165, 55, 0.35);
+  color: var(--kb-accent-hi);
+}
+
+
+.badge-emerald {
+  background: rgba(52, 176, 127, 0.12);
+  border: 1px solid rgba(52, 176, 127, 0.35);
+  color: #6EE7B7;
+}
+
+
+/* Shimmer button animation */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 80%
+  );
+  transform: rotate(30deg) translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-shimmer:hover::after {
+  transform: rotate(30deg) translateX(100%);
+}
+
+/* ── Animation Keyframes ── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-from-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slide-in-from-top-4 {
+  from { transform: translateY(-1rem); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── Animation Utility Classes ── */
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease both;
+}
+
+.slide-in-from-right {
+  animation: slide-in-from-right 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.slide-in-from-top-4 {
+  animation: slide-in-from-top-4 0.25s ease both;
+}
+
+.pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Custom Scrollbars & Mobile No-Scrollbar ── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area padding for edge-to-edge mobile devices (iPhone notch/island & home bar) */
+.pb-safe {
+  padding-bottom: calc(0.625rem + env(safe-area-inset-bottom, 0px));
+}
+.pt-safe {
+  padding-top: calc(0.625rem + env(safe-area-inset-top, 0px));
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--kb-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--kb-surface-3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kb-accent);
+}
+
+/* ── Range Slider Styling with Touch Area ── */
+input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--kb-surface-3);
+  outline: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin: 8px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--kb-accent);
+  cursor: pointer;
+  border: 2px solid var(--kb-surface);
+  box-shadow: 0 2px 10px rgba(212, 165, 55, 0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.18);
+  box-shadow: 0 2px 16px rgba(212, 165, 55, 0.85);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--kb-accent);
+  cursor: pointer;
+  border: 2px solid var(--kb-surface);
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(212, 165, 55, 0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover,
+input[type="range"]:active::-moz-range-thumb {
+  transform: scale(1.18);
+  box-shadow: 0 2px 16px rgba(212, 165, 55, 0.85);
+}
+
+/* Clean numeric inputs (hide browser spin buttons) */
+input[type="number"].no-spin::-webkit-inner-spin-button,
+input[type="number"].no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"].no-spin {
+  -moz-appearance: textfield;
+}
+
+/* ── Accessibility & Focus Rings ── */
+:focus-visible {
+  outline: 2px solid var(--kb-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgba(212, 165, 55, 0.45);
+  color: #FFFFFF;
+}
+
+/* Smooth Scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ── Reduced Motion Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Custom Dark Luxury Scrollbar ── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070E1C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A2E4F;
+  border-radius: 5px;
+  border: 2px solid #070E1C;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4A537;
+}
+

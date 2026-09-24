@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- HDFC Official Bank / AMC Emblem -->
+  <rect width="100" height="100" rx="12" fill="#004C8F" />
+  <!-- Corner Red Elements -->
+  <rect x="8" y="8" width="84" height="84" rx="4" fill="#ED232A" />
+  <!-- White Cross and Inner Frame -->
+  <rect x="22" y="22" width="56" height="56" fill="#FFFFFF" />
+  <rect x="44" y="8" width="12" height="84" fill="#FFFFFF" />
+  <rect x="8" y="44" width="84" height="12" fill="#FFFFFF" />
+  <!-- Blue Center Square -->
+  <rect x="32" y="32" width="36" height="36" fill="#004C8F" />
+</svg>
