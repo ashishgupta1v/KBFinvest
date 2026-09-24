@@ -7,6 +7,10 @@ putenv('VERCEL=1');
 $_ENV['VERCEL'] = '1';
 $_SERVER['VERCEL'] = '1';
 
+putenv('APP_DEBUG=true');
+$_ENV['APP_DEBUG'] = 'true';
+$_SERVER['APP_DEBUG'] = 'true';
+
 // Set cache files to /tmp/storage
 $storagePath = '/tmp/storage';
 putenv("APP_CONFIG_CACHE={$storagePath}/config.php");
