@@ -37,6 +37,7 @@ return [
 
     'zapier' => [
         'booking_webhook_url' => env('MAKE_BOOKING_WEBHOOK_URL', env('ZAPIER_BOOKING_WEBHOOK_URL', env('BOOKING_WEBHOOK_URL'))),
+        'lead_webhook_url' => env('MAKE_LEAD_WEBHOOK_URL', env('ZAPIER_LEAD_WEBHOOK_URL', env('LEAD_WEBHOOK_URL', env('MAKE_BOOKING_WEBHOOK_URL', env('ZAPIER_BOOKING_WEBHOOK_URL', env('BOOKING_WEBHOOK_URL')))))),
     ],
 
 ];
