@@ -35,7 +35,7 @@ const never = computed(() => props.data.never || []);
             <span>Independent & Fiduciary-Aligned Practice</span>
           </div>
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-kb-text">
-            The person behind <span class="italic text-gold-gradient font-serif">KB Finvest</span>
+            The person behind <span class="italic text-gold-gradient font-serif inline-block">KB Finvest</span>
           </h1>
           <p class="text-base sm:text-lg text-kb-body leading-relaxed max-w-2xl">
             Founded by <strong>Kulwinder Singh</strong> in Central Town, Ludhiana. Built on the belief that families and businesses deserve unified financial guidance across investments, insurance, and lending without hidden agendas.
