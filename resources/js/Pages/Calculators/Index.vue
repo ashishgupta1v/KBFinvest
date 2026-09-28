@@ -113,6 +113,18 @@ const presets = {
     p: [5000, 10000, 25000],
     s: [5, 10, 15],
   },
+  goal: {
+    g: [1000000, 2500000, 5000000, 10000000],
+    y: [5, 10, 15, 20],
+  },
+  swp: {
+    c: [2500000, 5000000, 10000000],
+    w: [20000, 35000, 50000],
+  },
+  retire: {
+    e: [30000, 50000, 100000],
+    ra: [55, 58, 60],
+  },
 };
 
 // State for inputs across all calculators
@@ -180,75 +192,85 @@ function pvAnnuityDue(pmt, rate, n) {
 // Reactive Calculation Engine
 const result = computed(() => {
   const id = activeId.value;
-  const v = formState[id];
+  const v = formState[id] || {};
 
   if (id === 'sip') {
-    const i = v.r / 1200;
-    const n = v.y * 12;
-    const fv = fvSip(v.p, i, n);
-    const inv = v.p * n;
+    const p = Math.max(0, Number(v.p) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+    const r = Math.max(0, Number(v.r) || 0);
+    const i = r / 1200;
+    const n = y * 12;
+    const fv = fvSip(p, i, n);
+    const inv = p * n;
     return {
-      cap: `Estimated value after ${v.y} years`,
+      cap: `Estimated value after ${y} years`,
       big: shortInr(fv),
       sub: inr(fv),
       rows: [
         ['You invest', inr(inv)],
         ['Estimated wealth gain', inr(fv - inv)],
-        ['Monthly instalment', inr(v.p)],
+        ['Monthly instalment', inr(p)],
         ['Instalments paid', `${n} months`],
       ],
       chartType: 'line',
       chartTitle: 'Projected SIP Growth (Gold) vs Amount Invested (Blue)',
-      xLabels: ['Now', `Yr ${Math.round(v.y / 2)}`, `Yr ${v.y}`],
+      xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
       series: [
-        { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => fvSip(v.p, i, (n * k) / 24)) },
-        { cls: 'ln-b', vals: Array.from({ length: 25 }, (_, k) => v.p * ((n * k) / 24)) },
+        { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => fvSip(p, i, (n * k) / 24)) },
+        { cls: 'ln-b', vals: Array.from({ length: 25 }, (_, k) => p * ((n * k) / 24)) },
       ],
-      wa: `I used the KB Finvest SIP calculator: ${inr(v.p)} a month for ${v.y} years at ${v.r}%. Can we discuss this?`,
+      wa: `I used the KB Finvest SIP calculator: ${inr(p)} a month for ${y} years at ${r}%. Can we discuss this?`,
     };
   }
 
   if (id === 'lump') {
-    const fv = v.p * Math.pow(1 + v.r / 100, v.y);
+    const p = Math.max(0, Number(v.p) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+    const r = Math.max(0, Number(v.r) || 0);
+    const fv = p * Math.pow(1 + r / 100, y);
     return {
-      cap: `Estimated value after ${v.y} years`,
+      cap: `Estimated value after ${y} years`,
       big: shortInr(fv),
       sub: inr(fv),
       rows: [
-        ['You invest', inr(v.p)],
-        ['Estimated growth', inr(fv - v.p)],
-        ['Multiple of capital', `${(fv / v.p).toFixed(2)}x`],
+        ['You invest', inr(p)],
+        ['Estimated growth', inr(fv - p)],
+        ['Multiple of capital', p > 0 ? `${(fv / p).toFixed(2)}x` : '0.00x'],
       ],
       chartType: 'line',
       chartTitle: 'Lump Sum Growth (Gold) vs Principal (Blue)',
-      xLabels: ['Now', `Yr ${Math.round(v.y / 2)}`, `Yr ${v.y}`],
+      xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
       series: [
-        { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => v.p * Math.pow(1 + v.r / 100, (v.y * k) / 24)) },
-        { cls: 'ln-b', vals: Array.from({ length: 25 }, () => v.p) },
+        { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => p * Math.pow(1 + r / 100, (y * k) / 24)) },
+        { cls: 'ln-b', vals: Array.from({ length: 25 }, () => p) },
       ],
-      wa: `I used the lump sum calculator: ${inr(v.p)} for ${v.y} years at ${v.r}%.`,
+      wa: `I used the lump sum calculator: ${inr(p)} for ${y} years at ${r}%.`,
     };
   }
 
   if (id === 'stepup') {
-    const i = v.r / 1200;
+    const p = Math.max(0, Number(v.p) || 0);
+    const s = Math.max(0, Number(v.s) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+    const r = Math.max(0, Number(v.r) || 0);
+    const i = r / 1200;
     let bal = 0;
     let inv = 0;
-    let p = v.p;
+    let currentP = p;
     const B = [0];
     const I = [0];
-    for (let y = 0; y < v.y; y++) {
+    for (let yr = 0; yr < y; yr++) {
       for (let m = 0; m < 12; m++) {
-        bal = (bal + p) * (1 + i);
-        inv += p;
+        bal = (bal + currentP) * (1 + i);
+        inv += currentP;
       }
       B.push(bal);
       I.push(inv);
-      p *= 1 + v.s / 100;
+      currentP *= 1 + s / 100;
     }
-    const flat = fvSip(v.p, i, v.y * 12);
+    const flat = fvSip(p, i, y * 12);
     return {
-      cap: `Estimated value after ${v.y} years`,
+      cap: `Estimated value after ${y} years`,
       big: shortInr(bal),
       sub: inr(bal),
       rows: [
@@ -258,122 +280,268 @@ const result = computed(() => {
       ],
       chartType: 'line',
       chartTitle: 'Step-up SIP Corpus (Gold) vs Total Invested (Blue)',
-      xLabels: ['Now', `Yr ${Math.round(v.y / 2)}`, `Yr ${v.y}`],
+      xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
       series: [
         { cls: 'ln-a', vals: B },
         { cls: 'ln-b', vals: I },
       ],
-      wa: `I used the step-up SIP calculator: starting ${inr(v.p)}/mo rising ${v.s}% yearly.`,
+      wa: `I used the step-up SIP calculator: starting ${inr(p)}/mo rising ${s}% yearly.`,
     };
   }
 
   if (id === 'swp') {
-    const i = v.r / 1200;
-    let bal = v.c;
-    const months = v.y * 12;
+    const c = Math.max(0, Number(v.c) || 0);
+    const w = Math.max(0, Number(v.w) || 0);
+    const r = Math.max(0, Number(v.r) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+
+    const i = r / 1200;
+    let bal = c;
+    const months = y * 12;
     let drawn = 0;
     let out = -1;
     const A = [bal];
     for (let k = 0; k < months; k++) {
-      bal = bal * (1 + i) - v.w;
+      bal = bal * (1 + i) - w;
       if (bal <= 0 && out === -1) {
         out = k + 1;
-        drawn += v.w + bal;
+        drawn += w + bal;
         bal = 0;
       } else if (bal > 0) {
-        drawn += v.w;
+        drawn += w;
       }
-      if (k % Math.ceil(months / 24) === 0) A.push(Math.max(0, bal));
+      if (k % Math.max(1, Math.ceil(months / 24)) === 0) A.push(Math.max(0, bal));
     }
-    const lasts = out === -1 ? `Beyond ${v.y} years` : `${Math.floor(out / 12)} yrs ${out % 12} mo`;
+    const lasts = out === -1 ? `Beyond ${y} years` : `${Math.floor(out / 12)} yrs ${out % 12} mo`;
     return {
       cap: 'Your corpus lasts',
       big: lasts,
-      sub: out === -1 ? `Still has ${inr(bal)} left at end of ${v.y} years` : `Corpus runs out in month ${out}`,
+      sub: out === -1 ? `Still has ${inr(bal)} left at end of ${y} years` : `Corpus runs out in month ${out}`,
       rows: [
-        ['Corpus at start', inr(v.c)],
-        ['Monthly withdrawal', inr(v.w)],
+        ['Corpus at start', inr(c)],
+        ['Monthly withdrawal', inr(w)],
         ['Total withdrawn', inr(drawn)],
-        ['Safe monthly draw at this return', inr(v.c * i)],
+        ['Safe monthly draw at this return', inr(c * i)],
       ],
       chartType: 'line',
       chartTitle: 'Corpus Balance Trajectory Over Time',
-      xLabels: ['Now', `Yr ${Math.round(v.y / 2)}`, `Yr ${v.y}`],
+      xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
       series: [{ cls: 'ln-a', vals: A }],
-      wa: `I used the SWP calculator: corpus ${shortInr(v.c)}, drawing ${inr(v.w)} monthly.`,
+      wa: `I used the SWP calculator: corpus ${shortInr(c)}, drawing ${inr(w)} monthly.`,
+    };
+  }
+
+  if (id === 'goal') {
+    const g = Math.max(0, Number(v.g) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+    const f = Math.max(0, Number(v.f) || 0);
+    const r = Math.max(0, Number(v.r) || 0);
+    const e = Math.max(0, Number(v.e) || 0);
+
+    const futureCost = g * Math.pow(1 + f / 100, y);
+    const existingFv = e * Math.pow(1 + r / 100, y);
+    const netGoal = Math.max(0, futureCost - existingFv);
+
+    const n = y * 12;
+    const i = (r / 100) / 12;
+    const monthlySip = netGoal <= 0 ? 0 : (i === 0 ? netGoal / n : netGoal / (((Math.pow(1 + i, n) - 1) / i) * (1 + i)));
+
+    const inflationAddition = Math.max(0, futureCost - g);
+    const savingsCoverage = Math.min(futureCost, existingFv);
+
+    return {
+      cap: 'Required Monthly Saving',
+      big: shortInr(monthlySip) + (monthlySip > 0 ? '/mo' : ''),
+      sub: monthlySip > 0 ? `To accumulate ${shortInr(futureCost)} in ${y} years` : 'Existing savings will exceed target cost!',
+      rows: [
+        [`Target goal cost in ${y} years`, inr(futureCost)],
+        ["Goal cost in today's terms", inr(g)],
+        [`Inflation increase (${f}% p.a.)`, `+ ${inr(inflationAddition)}`],
+        ['Existing savings grown to target date', inr(existingFv)],
+        ['Net shortfall to accumulate', inr(netGoal)],
+        ['Suggested monthly SIP', inr(monthlySip)],
+      ],
+      chartType: 'donut',
+      mid: shortInr(futureCost),
+      donutSub: 'Goal Cost',
+      donutParts: [
+        { l: 'Base cost today', v: g, c: '#3B7BD0', t: inr(g) },
+        { l: 'Inflation impact', v: inflationAddition, c: '#D4A537', t: inr(inflationAddition) },
+        ...(existingFv > 0 ? [{ l: 'Existing savings grown', v: savingsCoverage, c: '#34B07F', t: inr(savingsCoverage) }] : []),
+      ],
+      wa: `I used the Goal Planner: my ${inr(g)} goal in ${y} years will cost ${shortInr(futureCost)} with ${f}% inflation. Suggested SIP is ${inr(monthlySip)}/mo at ${r}%.`,
+    };
+  }
+
+  if (id === 'retire') {
+    const a = Math.max(18, Number(v.a) || 35);
+    const ra = Math.max(a + 1, Number(v.ra) || 60);
+    const le = Math.max(ra + 1, Number(v.le) || 85);
+    const e = Math.max(0, Number(v.e) || 50000);
+    const f = Math.max(0, Number(v.f) || 6);
+    const r1 = Math.max(0, Number(v.r1) || 11);
+    const r2 = Math.max(0, Number(v.r2) || 7);
+    const s = Math.max(0, Number(v.s) || 0);
+
+    const yearsToRetire = ra - a;
+    const yearsInRetire = le - ra;
+
+    // Monthly expenses when entering retirement
+    const monthlyExpAtRetire = e * Math.pow(1 + f / 100, yearsToRetire);
+    const annualExpAtRetire = monthlyExpAtRetire * 12;
+
+    // Real rate of return after retirement
+    const realRate = ((1 + r2 / 100) / (1 + f / 100)) - 1;
+
+    // Present value of retirement expenses (Corpus required at age ra)
+    let corpusRequired = 0;
+    if (Math.abs(realRate) < 0.0001) {
+      corpusRequired = annualExpAtRetire * yearsInRetire;
+    } else {
+      corpusRequired = (annualExpAtRetire * (1 - Math.pow(1 + realRate, -yearsInRetire)) / realRate) * (1 + realRate);
+    }
+    corpusRequired = Math.max(0, corpusRequired);
+
+    // Existing savings grown to retirement age
+    const fvSavings = s * Math.pow(1 + r1 / 100, yearsToRetire);
+    const shortfall = Math.max(0, corpusRequired - fvSavings);
+
+    // Monthly SIP needed during accumulation years
+    const n = yearsToRetire * 12;
+    const i = (r1 / 100) / 12;
+    const monthlySip = shortfall <= 0 ? 0 : (i === 0 ? shortfall / n : shortfall / (((Math.pow(1 + i, n) - 1) / i) * (1 + i)));
+
+    return {
+      cap: 'Required Retirement Corpus',
+      big: shortInr(corpusRequired),
+      sub: shortfall > 0 ? `Requires saving ${inr(monthlySip)}/month for ${yearsToRetire} years` : 'Existing savings are sufficient for retirement!',
+      rows: [
+        ['Monthly expenses today', inr(e)],
+        [`Monthly expenses at age ${ra}`, inr(monthlyExpAtRetire)],
+        [`Target corpus needed at age ${ra}`, inr(corpusRequired)],
+        [`Existing savings grown to age ${ra}`, inr(fvSavings)],
+        ['Net corpus shortfall', inr(shortfall)],
+        [`Suggested monthly SIP until age ${ra}`, inr(monthlySip)],
+      ],
+      chartType: 'donut',
+      mid: shortInr(corpusRequired),
+      donutSub: 'Corpus',
+      donutParts: [
+        ...(fvSavings > 0 ? [{ l: 'Existing savings grown', v: Math.min(fvSavings, corpusRequired), c: '#34B07F', t: inr(Math.min(fvSavings, corpusRequired)) }] : []),
+        { l: 'Corpus shortfall to accumulate', v: shortfall, c: '#D4A537', t: inr(shortfall) },
+      ],
+      wa: `I used the Retirement Planner: targeting a retirement corpus of ${shortInr(corpusRequired)} at age ${ra} (requires ${inr(monthlySip)}/mo SIP).`,
     };
   }
 
   if (id === 'emi') {
-    const i = v.r / 1200;
-    const n = v.y * 12;
-    const emi = emiOf(v.p, i, n);
-    const tot = emi * n;
-    let bal = v.p;
-    let cum = 0;
-    const B = [v.p];
+    const p = Math.max(0, Number(v.p) || 0);
+    const r = Math.max(0, Number(v.r) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+    const x = Math.max(0, Number(v.x) || 0);
+
+    const i = r / 1200;
+    const n = y * 12;
+    const emi = emiOf(p, i, n);
+    const regularTotal = emi * n;
+    const regularInterest = Math.max(0, regularTotal - p);
+
+    let bal = p;
+    let cumInt = 0;
+    let payoffMonths = n;
+    const monthlyPay = emi + x;
+    const B = [p];
     const C = [0];
+
     for (let k = 0; k < n; k++) {
-      const int = bal * i;
-      cum += int;
-      bal = Math.max(0, bal + int - emi);
-      if (k % Math.ceil(n / 24) === 0) {
+      if (bal <= 0) {
+        if (payoffMonths === n) payoffMonths = k;
+        bal = 0;
+      } else {
+        const int = bal * i;
+        cumInt += int;
+        bal = Math.max(0, bal + int - monthlyPay);
+        if (bal === 0 && payoffMonths === n) payoffMonths = k + 1;
+      }
+      if (k % Math.max(1, Math.ceil(n / 24)) === 0) {
         B.push(bal);
-        C.push(cum);
+        C.push(cumInt);
       }
     }
+
+    const interestSaved = Math.max(0, regularInterest - cumInt);
+    const monthsSaved = Math.max(0, n - payoffMonths);
+
+    const rows = [
+      ['Principal borrowed', inr(p)],
+      ['Base monthly EMI', inr(emi)],
+      ...(x > 0 ? [['Extra monthly prepayment', `+ ${inr(x)}`]] : []),
+      ['Total interest payable', inr(cumInt)],
+      ['Total loan outflow (P + I)', inr(p + cumInt)],
+      ...(x > 0 ? [
+        ['Interest saved via prepayments', inr(interestSaved)],
+        ['Tenure shortened by', `${Math.floor(monthsSaved / 12)} yrs ${monthsSaved % 12} mo`],
+      ] : []),
+    ];
+
     return {
       cap: 'Monthly EMI instalment',
       big: inr(emi),
-      sub: `Over ${n} instalments at ${v.r}%`,
-      rows: [
-        ['Principal borrowed', inr(v.p)],
-        ['Total interest payable', inr(tot - v.p)],
-        ['Total payable (P + I)', inr(tot)],
-      ],
+      sub: x > 0 ? `With ${inr(x)} extra/mo, loan finishes ${monthsSaved} months early` : `Over ${n} instalments at ${r}%`,
+      rows,
       chartType: 'line',
       chartTitle: 'Outstanding Principal (Gold) vs Cumulative Interest Paid (Blue)',
-      xLabels: ['Now', `Yr ${Math.round(v.y / 2)}`, `Yr ${v.y}`],
+      xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
       series: [
         { cls: 'ln-a', vals: B },
         { cls: 'ln-b', vals: C },
       ],
-      wa: `I used the EMI calculator: loan ${shortInr(v.p)} at ${v.r}% for ${v.y} years. EMI is ${inr(emi)}.`,
+      wa: `I used the EMI calculator: loan ${shortInr(p)} at ${r}% for ${y} years. Base EMI is ${inr(emi)}${x > 0 ? ` (+ ${inr(x)} extra monthly)` : ''}.`,
     };
   }
 
   if (id === 'elig') {
-    const cap = (v.i * v.foir) / 100;
-    const room = Math.max(0, cap - v.o);
-    const i = v.r / 1200;
-    const n = v.y * 12;
+    const inc = Math.max(0, Number(v.i) || 0);
+    const foir = Math.max(10, Math.min(100, Number(v.foir) || 55));
+    const out = Math.max(0, Number(v.o) || 0);
+    const r = Math.max(0, Number(v.r) || 0);
+    const y = Math.max(1, Number(v.y) || 1);
+
+    const cap = (inc * foir) / 100;
+    const room = Math.max(0, cap - out);
+    const i = r / 1200;
+    const n = y * 12;
     const loan = i === 0 ? room * n : room * (Math.pow(1 + i, n) - 1) / (i * Math.pow(1 + i, n));
     return {
       cap: 'Indicative loan amount',
       big: shortInr(loan),
       sub: inr(Math.floor(loan / 1000) * 1000),
       rows: [
-        ['Net monthly income', inr(v.i)],
+        ['Net monthly income', inr(inc)],
         ['Maximum total EMI allowance', inr(cap)],
-        ['Existing commitments', inr(v.o)],
+        ['Existing commitments', inr(out)],
         ['Available EMI capacity', inr(room)],
       ],
       chartType: 'donut',
-      mid: `${v.foir}%`,
-      sub: 'FOIR Cap',
+      mid: `${foir}%`,
+      donutSub: 'FOIR Cap',
       donutParts: [
-        { l: 'Existing EMIs', v: Math.min(v.o, cap), c: '#64748B', t: inr(Math.min(v.o, cap)) },
+        { l: 'Existing EMIs', v: Math.min(out, cap), c: '#64748B', t: inr(Math.min(out, cap)) },
         { l: 'Available room', v: room, c: '#D4A537', t: inr(room) },
-        { l: 'Living expenses', v: Math.max(0, v.i - cap), c: '#34B07F', t: inr(Math.max(0, v.i - cap)) },
+        { l: 'Living expenses', v: Math.max(0, inc - cap), c: '#34B07F', t: inr(Math.max(0, inc - cap)) },
       ],
-      wa: `I checked loan eligibility: income ${inr(v.i)}, indicative eligibility ${shortInr(loan)}.`,
+      wa: `I checked loan eligibility: income ${inr(inc)}, indicative eligibility ${shortInr(loan)}.`,
     };
   }
 
   if (id === 'lamf') {
-    const a = v.sh * 0.6;
-    const b = v.eq * 0.75;
-    const c = v.db * 0.85;
+    const sh = Math.max(0, Number(v.sh) || 0);
+    const eq = Math.max(0, Number(v.eq) || 0);
+    const db = Math.max(0, Number(v.db) || 0);
+
+    const a = sh * 0.6;
+    const b = eq * 0.75;
+    const c = db * 0.85;
     const raw = a + b + c;
     const capped = Math.min(raw, 10000000);
     return {
@@ -384,11 +552,11 @@ const result = computed(() => {
         ['Listed shares at 60%', inr(a)],
         ['Equity funds & ETFs at 75%', inr(b)],
         ['Debt mutual funds at 85%', inr(c)],
-        ['Portfolio pledged', inr(v.sh + v.eq + v.db)],
+        ['Portfolio pledged', inr(sh + eq + db)],
       ],
       chartType: 'donut',
       mid: shortInr(capped),
-      sub: 'Limit',
+      donutSub: 'Limit',
       donutParts: [
         { l: 'Shares (60%)', v: a, c: '#3B7BD0', t: inr(a) },
         { l: 'Equity MF (75%)', v: b, c: '#D4A537', t: inr(b) },
@@ -399,29 +567,254 @@ const result = computed(() => {
   }
 
   if (id === 'hlv') {
-    const pv = pvAnnuityDue(v.inc, 0.03, v.yrs);
-    const need = Math.max(0, pv + v.deb + v.goal - v.ass - v.cov);
+    const inc = Math.max(0, Number(v.inc) || 0);
+    const yrs = Math.max(1, Number(v.yrs) || 1);
+    const deb = Math.max(0, Number(v.deb) || 0);
+    const goal = Math.max(0, Number(v.goal) || 0);
+    const ass = Math.max(0, Number(v.ass) || 0);
+    const cov = Math.max(0, Number(v.cov) || 0);
+
+    const pv = pvAnnuityDue(inc, 0.03, yrs);
+    const need = Math.max(0, pv + deb + goal - ass - cov);
     const rounded = Math.ceil(need / 500000) * 500000;
     return {
       cap: 'Suggested additional life cover',
       big: shortInr(rounded),
       sub: inr(need),
       rows: [
-        [`Income replacement (${v.yrs} yrs)`, inr(pv)],
-        ['Liabilities to clear', inr(v.deb)],
-        ['Future goals to fund', inr(v.goal)],
-        ['Less assets & cover held', `− ${inr(v.ass + v.cov)}`],
+        [`Income replacement (${yrs} yrs)`, inr(pv)],
+        ['Liabilities to clear', inr(deb)],
+        ['Future goals to fund', inr(goal)],
+        ['Less assets & cover held', `− ${inr(ass + cov)}`],
       ],
       chartType: 'donut',
-      mid: `${v.yrs}y`,
-      sub: 'Support',
+      mid: `${yrs}y`,
+      donutSub: 'Support',
       donutParts: [
         { l: 'Income needed', v: pv, c: '#D4A537', t: shortInr(pv) },
-        { l: 'Liabilities', v: v.deb, c: '#3B7BD0', t: shortInr(v.deb) },
-        { l: 'Future goals', v: v.goal, c: '#34B07F', t: shortInr(v.goal) },
-        { l: 'Existing assets', v: v.ass + v.cov, c: '#64748B', t: shortInr(v.ass + v.cov) },
+        { l: 'Liabilities', v: deb, c: '#3B7BD0', t: shortInr(deb) },
+        { l: 'Future goals', v: goal, c: '#34B07F', t: shortInr(goal) },
+        { l: 'Existing assets', v: ass + cov, c: '#64748B', t: shortInr(ass + cov) },
       ],
       wa: `I used the life cover calculator: suggested cover is ${shortInr(rounded)}.`,
+    };
+  }
+
+  if (id === 'health') {
+    const adults = Math.max(1, Number(v.adults) || 2);
+    const kids = Math.max(0, Number(v.kids) || 0);
+    const age = Math.max(18, Number(v.age) || 40);
+    const cur = Math.max(0, Number(v.cur) || 0);
+
+    // City tier base cost (Ludhiana/Chandigarh = tier2)
+    let base = v.city === 'metro' ? 1500000 : (v.city === 'tier2' ? 1000000 : 750000);
+    base += (adults - 1) * 300000;
+    base += kids * 200000;
+
+    // Age loading
+    if (age >= 60) {
+      base *= 1.5;
+    } else if (age >= 50) {
+      base *= 1.3;
+    } else if (age >= 40) {
+      base *= 1.15;
+    }
+
+    // Pre-existing condition buffer
+    if (v.ped === 'yes') {
+      base *= 1.25;
+    }
+
+    const recCover = Math.min(5000000, Math.max(1000000, Math.ceil(base / 500000) * 500000));
+    const gap = Math.max(0, recCover - cur);
+
+    const strategy = recCover > 1000000 
+      ? '₹10 Lakhs Base Policy + ₹25L–50L Super Top-Up' 
+      : 'Comprehensive Base Mediclaim with Restoration';
+
+    return {
+      cap: 'Recommended Family Health Cover',
+      big: shortInr(recCover),
+      sub: cur >= recCover ? 'Your current cover meets adequacy guidelines' : `Protection gap: ${inr(gap)} shortfall`,
+      rows: [
+        ['Current active cover', inr(cur)],
+        ['Recommended total sum insured', inr(recCover)],
+        ['Coverage shortfall', inr(gap)],
+        ['Recommended structure', strategy],
+        ['Family composition', `${adults} Adult${adults > 1 ? 's' : ''}${kids > 0 ? ` + ${kids} Child${kids > 1 ? 'ren' : ''}` : ''} (eldest ${age}y)`],
+      ],
+      chartType: 'donut',
+      mid: shortInr(recCover),
+      donutSub: 'Health SI',
+      donutParts: [
+        { l: 'Current cover held', v: Math.min(cur, recCover), c: '#34B07F', t: inr(Math.min(cur, recCover)) },
+        ...(gap > 0 ? [{ l: 'Unprotected health gap', v: gap, c: '#E11D48', t: inr(gap) }] : []),
+      ],
+      wa: `I checked health insurance adequacy: our family needs an estimated ${shortInr(recCover)} cover (current cover: ${inr(cur)}). Can we discuss top-up options?`,
+    };
+  }
+
+  if (id === 'idv') {
+    const price = Math.max(0, Number(v.price) || 0);
+    const acc = Math.max(0, Number(v.acc) || 0);
+
+    const depMap = { '0': 5, '0.5': 15, '1': 20, '2': 30, '3': 40, '4': 50, '5': 60 };
+    const ncbMap = { '0': 0, '1': 20, '2': 25, '3': 35, '4': 45, '5': 50 };
+
+    const depPct = depMap[String(v.age)] ?? 30;
+    const ncbPct = ncbMap[String(v.ncb)] ?? 25;
+
+    const vehicleIdv = Math.round(price * (1 - depPct / 100));
+    const accIdv = Math.round(acc * (1 - depPct / 100));
+    const totalIdv = vehicleIdv + accIdv;
+    const depAmt = price - vehicleIdv;
+
+    return {
+      cap: 'Indicative Insured Declared Value (IDV)',
+      big: shortInr(totalIdv),
+      sub: `Based on standard IRDAI ${depPct}% vehicle depreciation`,
+      rows: [
+        ['Ex-showroom vehicle price', inr(price)],
+        [`IRDAI depreciation (${depPct}%)`, `− ${inr(depAmt)}`],
+        ['Accessories IDV added', inr(accIdv)],
+        ['Recommended renewal IDV', inr(totalIdv)],
+        ['Eligible NCB on Own Damage', `${ncbPct}% discount`],
+      ],
+      chartType: 'donut',
+      mid: `${100 - depPct}%`,
+      donutSub: 'Retained',
+      donutParts: [
+        { l: 'Depreciated vehicle IDV', v: vehicleIdv, c: '#D4A537', t: inr(vehicleIdv) },
+        ...(accIdv > 0 ? [{ l: 'Accessories covered', v: accIdv, c: '#34B07F', t: inr(accIdv) }] : []),
+        { l: 'Depreciation applied', v: depAmt, c: '#64748B', t: inr(depAmt) },
+      ],
+      wa: `I checked motor IDV: for ex-showroom ₹${shortInr(price)}, calculated IDV is ${shortInr(totalIdv)} with ${ncbPct}% NCB.`,
+    };
+  }
+
+  if (id === 'cgtmse') {
+    const amt = Math.max(0, Number(v.amt) || 0);
+    const udyam = Boolean(v.udyam);
+    const type = Boolean(v.type);
+    const nocol = Boolean(v.nocol);
+    const lender = Boolean(v.lender);
+    const clean = Boolean(v.clean);
+    const women = Boolean(v.women);
+
+    const conditionsMet = [udyam, type, nocol, lender, clean].filter(Boolean).length;
+    const schemeCeiling = 50000000; // ₹5 Crore max under CGTMSE
+    const eligibleAmount = Math.min(amt, schemeCeiling);
+    
+    // Coverage %: Women-led or Micro loans get 85%, standard get 75%
+    const guaranteePct = women ? 85 : 75;
+    const guaranteeAmount = eligibleAmount * (guaranteePct / 100);
+    const uncoveredAmount = eligibleAmount - guaranteeAmount;
+
+    let statusText = 'Fully Eligible';
+    let subText = `Guarantee cover up to ${shortInr(guaranteeAmount)} (${guaranteePct}%)`;
+
+    if (amt > schemeCeiling) {
+      statusText = 'Cap Applied: ₹5 Cr';
+      subText = `Scheme limit is ₹5 Cr. Excess ₹${shortInr(amt - schemeCeiling)} requires alternate structure.`;
+    } else if (conditionsMet < 5) {
+      statusText = `${conditionsMet}/5 Criteria Met`;
+      subText = 'Action required on non-compliant checklist items below.';
+    }
+
+    return {
+      cap: 'CGTMSE Collateral-Free Eligibility',
+      big: statusText,
+      sub: subText,
+      rows: [
+        ['Requested credit facility', inr(amt)],
+        ['Scheme guarantee limit', inr(eligibleAmount)],
+        [`Trust guarantee coverage (${guaranteePct}%)`, inr(guaranteeAmount)],
+        [`Bank retained risk (${100 - guaranteePct}%)`, inr(uncoveredAmount)],
+        ['Indicative Annual Guarantee Fee (AGF)', women ? '~0.45%–0.70% (10% women concession)' : '~0.55%–0.85% p.a.'],
+        ['Collateral requirement', '₹0 (100% Collateral-Free)'],
+      ],
+      chartType: 'donut',
+      mid: `${guaranteePct}%`,
+      donutSub: 'Guarantee',
+      donutParts: [
+        { l: 'CGTMSE trust guarantee', v: guaranteeAmount, c: '#D4A537', t: inr(guaranteeAmount) },
+        { l: 'Bank retained risk', v: uncoveredAmount, c: '#3B7BD0', t: inr(uncoveredAmount) },
+      ],
+      wa: `I checked CGTMSE eligibility for a ₹${shortInr(amt)} credit facility. Can KB Finvest assist with project report and bank facilitation?`,
+    };
+  }
+
+  if (id === 'risk') {
+    const ageScore = Number(v.age) || 4;
+    const hzScore = Number(v.hz) || 4;
+    const dropScore = Number(v.drop) || 4;
+    const incScore = Number(v.inc) || 4;
+    const expScore = Number(v.exp) || 2;
+
+    const totalScore = ageScore + hzScore + dropScore + incScore + expScore;
+
+    let profile = {
+      name: 'Moderate / Balanced',
+      desc: 'Balanced risk appetite focused on beating inflation with manageable volatility.',
+      equity: 50,
+      debt: 40,
+      gold: 10,
+    };
+
+    if (totalScore <= 10) {
+      profile = {
+        name: 'Conservative',
+        desc: 'Focus on capital preservation and predictable regular liquidity.',
+        equity: 20,
+        debt: 70,
+        gold: 10,
+      };
+    } else if (totalScore <= 16) {
+      profile = {
+        name: 'Balanced Growth',
+        desc: 'Focus on inflation-beating wealth accumulation with moderate stability.',
+        equity: 50,
+        debt: 40,
+        gold: 10,
+      };
+    } else if (totalScore <= 21) {
+      profile = {
+        name: 'Growth Focused',
+        desc: 'High comfort with market volatility to maximize long-term compounding.',
+        equity: 70,
+        debt: 20,
+        gold: 10,
+      };
+    } else {
+      profile = {
+        name: 'Aggressive Growth',
+        desc: 'Maximum wealth generation with extended horizon and high risk tolerance.',
+        equity: 85,
+        debt: 10,
+        gold: 5,
+      };
+    }
+
+    return {
+      cap: 'Your Risk Profile',
+      big: profile.name,
+      sub: `Risk Score: ${totalScore} / 25 · ${profile.desc}`,
+      rows: [
+        ['Overall risk score', `${totalScore} of 25 points`],
+        ['Recommended equity allocation', `${profile.equity}% (Flexicap / Large & Midcap)`],
+        ['Recommended debt allocation', `${profile.debt}% (High-grade bonds / Short duration)`],
+        ['Recommended gold / hedge', `${profile.gold}% (Sovereign Gold / Multi-Asset)`],
+        ['Review & rebalancing', 'Annually or on ±5% asset drift'],
+      ],
+      chartType: 'donut',
+      mid: `${profile.equity}%`,
+      donutSub: 'Equity',
+      donutParts: [
+        { l: 'Equity funds', v: profile.equity, c: '#D4A537', t: `${profile.equity}%` },
+        { l: 'Debt & fixed income', v: profile.debt, c: '#3B7BD0', t: `${profile.debt}%` },
+        { l: 'Gold & alternates', v: profile.gold, c: '#34B07F', t: `${profile.gold}%` },
+      ],
+      wa: `I completed the Risk Comfort Check: score is ${totalScore}/25 (${profile.name} profile). Can we discuss an asset allocation strategy?`,
     };
   }
 
@@ -452,9 +845,17 @@ const bookConsultationUrl = computed(() => {
   const st = formState[activeId.value];
   if (st) {
     if (st.p) params.set('amount', st.p);
-    if (st.y) params.set('years', st.y);
-    if (st.r) params.set('rate', st.r);
+    if (st.g) params.set('amount', st.g);
+    if (st.c) params.set('amount', st.c);
+    if (st.price) params.set('amount', st.price);
     if (st.amt) params.set('amount', st.amt);
+    if (st.cur) params.set('amount', st.cur);
+    if (st.inc) params.set('amount', st.inc);
+    if (st.i) params.set('amount', st.i);
+    if (st.y) params.set('years', st.y);
+    if (st.yrs) params.set('years', st.yrs);
+    if (st.r) params.set('rate', st.r);
+    if (st.r1) params.set('rate', st.r1);
   }
   return `/book?${params.toString()}`;
 });
@@ -463,20 +864,29 @@ const bookConsultationUrl = computed(() => {
 const sipMilestones = computed(() => {
   if (activeId.value !== 'sip' && activeId.value !== 'stepup') return null;
   const v = formState[activeId.value];
+  if (!v) return null;
   const p = Number(v.p) || 10000;
   const r = (Number(v.r) || 12) / 1200;
   const totalY = Number(v.y) || 10;
+  const s = activeId.value === 'stepup' ? (Number(v.s) || 0) : 0;
   
   const years = [3, 5, 10, totalY].filter((y, idx, arr) => arr.indexOf(y) === idx && y > 0 && y <= totalY).sort((a, b) => a - b);
   
   return years.map((y) => {
-    const n = y * 12;
-    const inv = p * n;
-    const fv = r === 0 ? inv : p * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    let bal = 0;
+    let inv = 0;
+    let currentP = p;
+    for (let yr = 0; yr < y; yr++) {
+      for (let m = 0; m < 12; m++) {
+        bal = (bal + currentP) * (1 + r);
+        inv += currentP;
+      }
+      currentP *= 1 + s / 100;
+    }
     return {
       year: y,
       invested: shortInr(inv),
-      projected: shortInr(fv),
+      projected: shortInr(bal),
     };
   });
 });
@@ -687,7 +1097,7 @@ const sipMilestones = computed(() => {
               v-else-if="result.chartType === 'donut'"
               :parts="result.donutParts"
               :mid="result.mid"
-              :sub="result.sub"
+              :sub="result.donutSub || result.sub"
             />
 
             <!-- Milestone Projections Table for Compounding -->
