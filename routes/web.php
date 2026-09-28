@@ -45,3 +45,10 @@ Route::post('/contact', [LeadsController::class, 'store'])
 
 // Compliance & Legal
 Route::get('/legal/{slug?}', [LegalController::class, 'show'])->name('legal.show');
+
+// XML Sitemap for Search Engines
+Route::get('/sitemap.xml', function () {
+    return response(file_get_contents(public_path('sitemap.xml')), 200, [
+        'Content-Type' => 'application/xml',
+    ]);
+})->name('sitemap');

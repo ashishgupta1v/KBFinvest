@@ -81,4 +81,13 @@ class RoutesTest extends TestCase
             'phone' => '9812345678',
         ]);
     }
+
+    public function test_sitemap_xml_returns_valid_xml(): void
+    {
+        $response = $this->get('/sitemap.xml');
+
+        $response->assertStatus(200);
+        $this->assertStringContainsString('urlset', $response->getContent());
+        $this->assertStringContainsString('https://kb-finvest-two.vercel.app/', $response->getContent());
+    }
 }

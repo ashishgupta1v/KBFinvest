@@ -16,7 +16,7 @@
       "dest": "/public/images/$1"
     },
     {
-      "src": "/(favicon.*|robots.txt)",
+      "src": "/(favicon.*|robots.txt|sitemap.xml)",
       "dest": "/public/$1"
     },
     {
