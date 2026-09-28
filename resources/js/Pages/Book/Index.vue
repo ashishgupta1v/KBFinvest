@@ -370,31 +370,57 @@ function downloadIcs() {
               <!-- Pre-loaded Context Banner -->
               <div
                 v-if="preloadedContext"
-                class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start justify-between gap-3 text-xs"
+                class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs space-y-3"
               >
-                <div class="flex items-start gap-2.5">
-                  <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-kb-accent flex items-center justify-center shrink-0 mt-0.5">
-                    <SvgIcon name="i-growth" className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div class="font-bold text-kb-text flex items-center gap-2">
-                      <span>Calculated Plan Pre-Loaded:</span>
-                      <span class="text-kb-accent font-mono">{{ form.topic }}</span>
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-start gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-kb-accent flex items-center justify-center shrink-0 mt-0.5">
+                      <SvgIcon name="i-growth" className="w-4 h-4" />
                     </div>
-                    <p class="text-kb-muted mt-0.5 leading-snug">
-                      <span v-if="preloadedContext.amount">Target: ₹{{ Number(preloadedContext.amount).toLocaleString('en-IN') }} · </span>
-                      <span v-if="preloadedContext.years">Horizon: {{ preloadedContext.years }} yrs · </span>
-                      <span v-if="preloadedContext.result" class="text-emerald-400 font-semibold">Outcome: {{ preloadedContext.result }}</span>
-                    </p>
+                    <div>
+                      <div class="font-bold text-kb-text flex items-center gap-2">
+                        <span>Calculated Plan Pre-Loaded:</span>
+                        <span class="text-kb-accent font-semibold">{{ form.topic }}</span>
+                      </div>
+                      <p class="text-kb-muted mt-0.5 leading-snug">
+                        <span v-if="preloadedContext.amount">Target: ₹{{ Number(preloadedContext.amount).toLocaleString('en-IN') }} · </span>
+                        <span v-if="preloadedContext.years">Horizon: {{ preloadedContext.years }} yrs · </span>
+                        <span v-if="preloadedContext.result" class="text-emerald-400 font-semibold">Outcome: {{ preloadedContext.result }}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    @click="currentStep = 1"
+                    class="text-[11px] font-bold text-kb-accent hover:underline shrink-0 cursor-pointer"
+                  >
+                    Change Topic
+                  </button>
+                </div>
+
+                <!-- Inline Mode Selector for Instant Convenience -->
+                <div class="pt-2 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-2">
+                  <div class="text-[11px] text-kb-muted flex items-center gap-1.5">
+                    <span>Meeting Mode:</span>
+                    <span class="text-kb-text font-semibold">{{ form.mode }}</span>
+                  </div>
+                  <div class="inline-flex rounded-lg p-0.5 bg-kb-surface-3/80 border border-kb-line">
+                    <button
+                      v-for="m in ['In-person (Office visit)', 'Phone Call', 'Video call']"
+                      :key="m"
+                      type="button"
+                      @click="form.mode = m"
+                      :class="[
+                        'px-2 py-1 rounded text-[10px] font-medium transition cursor-pointer',
+                        form.mode === m
+                          ? 'bg-amber-400 text-stone-950 font-bold shadow-xs'
+                          : 'text-kb-muted hover:text-kb-text',
+                      ]"
+                    >
+                      {{ m === 'In-person (Office visit)' ? 'In-Person' : (m === 'Phone Call' ? 'Phone' : 'Video') }}
+                    </button>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  @click="currentStep = 1"
-                  class="text-[11px] font-bold text-kb-accent hover:underline shrink-0"
-                >
-                  Change Topic
-                </button>
               </div>
 
               <!-- Wizard Progress Bar & Step Indicators -->

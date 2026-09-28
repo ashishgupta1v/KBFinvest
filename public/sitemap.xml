@@ -68,7 +68,13 @@
 
   <!-- Legal & Regulatory Disclosures -->
   <url>
-    <loc>https://kb-finvest-two.vercel.app/legal/privacy-policy</loc>
+    <loc>https://kb-finvest-two.vercel.app/legal/disclosures</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kb-finvest-two.vercel.app/legal/privacy</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
@@ -80,25 +86,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kb-finvest-two.vercel.app/legal/disclaimer</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kb-finvest-two.vercel.app/legal/code-of-conduct</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kb-finvest-two.vercel.app/legal/commission-disclosure</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kb-finvest-two.vercel.app/legal/grievance-redressal</loc>
+    <loc>https://kb-finvest-two.vercel.app/legal/grievance</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

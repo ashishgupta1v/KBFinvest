@@ -21,16 +21,60 @@ const calculators = computed(() => props.data.calculators || []);
 const activeId = ref(props.initialCalc);
 const copied = ref(false);
 
+const CALC_TOPIC_MAP = {
+  sip: 'SIP & Long-Term Wealth Creation',
+  lump: 'Mutual Fund Portfolio Review',
+  stepup: 'SIP & Long-Term Wealth Creation',
+  swp: 'Retirement & Pension Planning',
+  goal: 'Goal-Based Investing (Child Education/Wedding)',
+  retire: 'Retirement & Pension Planning',
+  emi: 'Home Loan Purchase / Transfer',
+  elig: 'Home Loan Purchase / Transfer',
+  lamf: 'Loan Against Property (LAP)',
+  cgtmse: 'Collateral-Free CGTMSE Loan',
+  hlv: 'Term Life Insurance (High Cover, Low Cost)',
+  health: 'Comprehensive Health & Super Top-up Insurance',
+  idv: 'Motor & Commercial Vehicle Fleet Insurance',
+  risk: 'General 360° Financial Checkup',
+};
+
+function fallbackCopy(text, cb) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  try {
+    document.execCommand('copy');
+    cb();
+  } catch (err) {
+    console.error('Fallback copy failed', err);
+  } finally {
+    document.body.removeChild(el);
+  }
+}
+
 function copyCalculationSummary() {
   const c = currentCalc.value;
   const res = result.value;
-  const summaryText = `${c.title} — KB Finvest Calculation\nResult: ${res.big} (${res.sub})\n${res.rows.map(r => `${r[0]}: ${r[1]}`).join('\n')}\nConsultation: +91 79734 61669 | https://kbfinvest.com`;
-  
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(summaryText).then(() => {
-      copied.value = true;
-      setTimeout(() => { copied.value = false; }, 2500);
-    });
+  if (!c || !res) return;
+
+  const rows = (res.rows || []).map(([lbl, val]) => `• ${lbl}: ${val}`).join('\n');
+  const summaryText = `📊 ${c.title} — KB Finvest Calculation\nOutcome: ${res.big} (${res.sub || ''})\n${rows}\n\nCalculated at: https://kbfinvest.com/calculators\nBook Strategy Call: +91 79734 61669`;
+
+  const onCopied = () => {
+    copied.value = true;
+    setTimeout(() => { copied.value = false; }, 2500);
+  };
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(summaryText)
+      .then(onCopied)
+      .catch(() => fallbackCopy(summaryText, onCopied));
+  } else {
+    fallbackCopy(summaryText, onCopied);
   }
 }
 
@@ -398,8 +442,10 @@ const bookConsultationUrl = computed(() => {
   const res = result.value;
   if (!c || !res) return '/book';
 
+  const mappedTopic = CALC_TOPIC_MAP[activeId.value] || c.title;
+
   const params = new URLSearchParams();
-  params.set('topic', c.title);
+  params.set('topic', mappedTopic);
   params.set('calc', activeId.value);
   if (res.big) params.set('result', res.big);
 
@@ -681,7 +727,7 @@ const sipMilestones = computed(() => {
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <Link
                   :href="bookConsultationUrl"
-                  class="py-2.5 px-3 rounded-xl border border-kb-border text-kb-text hover:bg-kb-surface-2 transition flex items-center justify-center gap-1.5 text-xs font-semibold min-h-[44px]"
+                  class="py-2.5 px-3 rounded-xl border border-amber-400/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 transition flex items-center justify-center gap-1.5 text-xs font-semibold min-h-[44px] shadow-sm active:scale-95"
                 >
                   <SvgIcon name="i-cal" className="w-3.5 h-3.5 text-kb-accent shrink-0" />
                   <span>Book Consultation on this Plan</span>
