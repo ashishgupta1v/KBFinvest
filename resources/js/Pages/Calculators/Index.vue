@@ -18,7 +18,7 @@ const props = defineProps({
 });
 
 const calculators = computed(() => props.data.calculators || []);
-const activeId = ref(props.initialCalc);
+const activeId = ref(props.initialCalc === 'prepay' ? 'emi' : props.initialCalc);
 const copied = ref(false);
 
 const CALC_TOPIC_MAP = {
@@ -95,6 +95,28 @@ const filteredCalculators = computed(() => {
   return calculators.value.filter((c) => cat.ids.includes(c.id));
 });
 
+watch(activeCategory, (newCat) => {
+  if (newCat === 'all') return;
+  const cat = categories.find((c) => c.id === newCat);
+  if (cat && cat.ids && !cat.ids.includes(activeId.value)) {
+    activeId.value = cat.ids[0];
+  }
+});
+
+watch(activeId, (newId) => {
+  if (activeCategory.value !== 'all') {
+    const cat = categories.find((c) => c.ids && c.ids.includes(newId));
+    if (cat && cat.id !== activeCategory.value) {
+      activeCategory.value = cat.id;
+    }
+  }
+  if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('calc', newId);
+    window.history.replaceState({}, '', url.toString());
+  }
+});
+
 // Quick preset chips for common financial queries
 const presets = {
   sip: {
@@ -158,6 +180,10 @@ const formState = reactive({
   // Risk
   risk: { age: '4', hz: '4', drop: '4', inc: '4', exp: '2' },
 });
+
+if (props.initialCalc === 'prepay') {
+  formState.emi.x = 5000;
+}
 
 const currentCalc = computed(() => calculators.value.find((c) => c.id === activeId.value) || calculators.value[0]);
 
