@@ -20,17 +20,52 @@ const flow = computed(() => props.data.flow || []);
 const safety = computed(() => props.data.safety || []);
 const flowNote = computed(() => props.data.flowNote || {});
 
-// Partner Institutions Ecosystem
+// Partner Institutions Ecosystem (Leading AMCs via NJ Wealth Partner Network)
 const partnerInstitutions = [
-  { id: 'hdfc', name: 'HDFC Mutual Fund', type: 'Asset Management', badge: 'AMC Partner' },
-  { id: 'icici', name: 'ICICI Prudential', type: 'Mutual Fund & Life', badge: 'AMC Partner' },
-  { id: 'sbi', name: 'SBI Mutual Fund', type: 'Asset Management', badge: 'AMC Partner' },
-  { id: 'nippon', name: 'Nippon India MF', type: 'Asset Management', badge: 'AMC Partner' },
-  { id: 'bajaj', name: 'Bajaj Finance', type: 'Lending & Fixed Dep', badge: 'Lender' },
-  { id: 'tata', name: 'Tata Capital', type: 'Commercial & MSME', badge: 'Lender' },
-  { id: 'axis', name: 'Axis Bank', type: 'Banking & CGTMSE', badge: 'Bank Facilitation' },
-  { id: 'kotak', name: 'Kotak Mahindra', type: 'Funds & Insurance', badge: 'Partner' },
+  { id: 'hdfc', name: 'HDFC Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'sbi', name: 'SBI Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'icici', name: 'ICICI Prudential MF', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'nippon', name: 'Nippon India MF', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'kotak', name: 'Kotak Mahindra MF', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'axis', name: 'Axis Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'tata', name: 'Tata Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'dsp', name: 'DSP Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
 ];
+
+// Interactive Mini SIP Compounding Widget for Main Screen
+const homeSipMonthly = ref(10000);
+const homeSipYears = ref(15);
+const homeSipRate = ref(12);
+
+function formatShortInr(n) {
+  n = Math.round(Number(n) || 0);
+  const a = Math.abs(n);
+  if (a >= 1e7) return '₹' + (n / 1e7).toFixed(2).replace(/\.00$/, '') + ' Cr';
+  if (a >= 1e5) return '₹' + (n / 1e5).toFixed(2).replace(/\.00$/, '') + ' Lakh';
+  if (a >= 1e3) return '₹' + (n / 1e3).toFixed(0) + 'k';
+  return '₹' + n;
+}
+
+const homeSipResult = computed(() => {
+  const p = Math.max(500, Number(homeSipMonthly.value) || 500);
+  const y = Math.max(1, Number(homeSipYears.value) || 1);
+  const r = Math.max(1, Number(homeSipRate.value) || 1);
+  const i = r / 1200;
+  const n = y * 12;
+  const fv = i === 0 ? p * n : p * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+  const inv = p * n;
+  const returns = Math.max(0, fv - inv);
+  const returnPct = inv > 0 ? ((returns / inv) * 100).toFixed(1) : 0;
+  return {
+    investedFmt: '₹' + Math.round(inv).toLocaleString('en-IN'),
+    returnsFmt: '₹' + Math.round(returns).toLocaleString('en-IN'),
+    totalFmt: '₹' + Math.round(fv).toLocaleString('en-IN'),
+    investedShort: formatShortInr(inv),
+    returnsShort: formatShortInr(returns),
+    totalShort: formatShortInr(fv),
+    returnPct: returnPct,
+  };
+});
 
 // Interactive Comparison Matrix Data
 const activeComparisonTab = ref('fiduciary');
@@ -495,9 +530,9 @@ function fmtInr(n) {
             <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded badge-gold text-[10px] font-bold uppercase tracking-wider mb-1">
               <span>Ecosystem Access</span>
             </div>
-            <h3 class="text-base sm:text-lg font-bold text-kb-text">Regulated Distribution with India's Premier Financial Institutions</h3>
+            <h3 class="text-base sm:text-lg font-bold text-kb-text">Regulated Distribution with India's Leading Asset Management Companies</h3>
           </div>
-          <span class="text-xs text-kb-muted">Client folios, policies, and contracts held directly with AMCs and lenders</span>
+          <span class="text-xs text-kb-muted">Direct folio investments via NJ Wealth Partner Network · AMFI ARN-178400</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
           <div
@@ -671,6 +706,149 @@ function fmtInr(n) {
               <div class="text-[10px] text-kb-muted truncate mt-0.5">{{ c.sub }}</div>
             </Link>
           </div>
+
+          <!-- LIVE INTERACTIVE SIP COMPOUNDING WORKSPACE ON HOME SCREEN -->
+          <div class="mt-8 pt-8 border-t border-kb-line/70">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <!-- Left: Sliders -->
+              <div class="lg:col-span-6 space-y-5 bg-kb-surface-2/60 p-5 sm:p-7 rounded-2xl border border-kb-line/70">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Live SIP Compounding</span>
+                  </div>
+                  <span class="text-[11px] text-kb-muted font-mono">Instant Result</span>
+                </div>
+
+                <!-- Monthly SIP Slider -->
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs">
+                    <span class="text-kb-muted font-medium">Monthly Investment</span>
+                    <span class="font-bold font-mono text-kb-accent text-sm">₹{{ homeSipMonthly.toLocaleString('en-IN') }}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="500"
+                    max="100000"
+                    step="500"
+                    v-model.number="homeSipMonthly"
+                    class="w-full accent-amber-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
+                  />
+                  <div class="flex justify-between text-[10px] text-kb-muted font-mono">
+                    <span>₹500</span>
+                    <span>₹25,000</span>
+                    <span>₹1,00,000</span>
+                  </div>
+                </div>
+
+                <!-- Years Slider -->
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs">
+                    <span class="text-kb-muted font-medium">Investment Period</span>
+                    <span class="font-bold font-mono text-kb-accent text-sm">{{ homeSipYears }} Years</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="30"
+                    step="1"
+                    v-model.number="homeSipYears"
+                    class="w-full accent-amber-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
+                  />
+                  <div class="flex justify-between text-[10px] text-kb-muted font-mono">
+                    <span>1 yr</span>
+                    <span>15 yrs</span>
+                    <span>30 yrs</span>
+                  </div>
+                </div>
+
+                <!-- Return Rate Slider -->
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs">
+                    <span class="text-kb-muted font-medium">Expected Return Rate (p.a.)</span>
+                    <span class="font-bold font-mono text-emerald-400 text-sm">{{ homeSipRate }}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="8"
+                    max="18"
+                    step="0.5"
+                    v-model.number="homeSipRate"
+                    class="w-full accent-emerald-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
+                  />
+                  <div class="flex justify-between text-[10px] text-kb-muted font-mono">
+                    <span>8% (Conservative)</span>
+                    <span>12% (Balanced)</span>
+                    <span>18% (Aggressive)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: 3-Box Headline Result with Gold & Emerald Glow -->
+              <div class="lg:col-span-6 space-y-4">
+                <div class="p-5 sm:p-7 rounded-2xl bg-gradient-to-br from-kb-surface-3/80 via-kb-surface-2 to-kb-surface/90 border border-amber-500/30 shadow-xl space-y-5">
+                  <div class="text-center sm:text-left">
+                    <div class="text-[11px] font-bold uppercase tracking-wider text-kb-muted">
+                      Expected Maturity Corpus after {{ homeSipYears }} Years
+                    </div>
+                    <div class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-gold-gradient mt-1">
+                      {{ homeSipResult.totalShort }}
+                    </div>
+                    <div class="text-xs text-kb-muted font-mono mt-0.5">
+                      Exact Maturity: <strong class="text-kb-text">{{ homeSipResult.totalFmt }}</strong>
+                    </div>
+                  </div>
+
+                  <!-- 3 High-Visibility Return Metrics -->
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2">
+                    <!-- Total Invested -->
+                    <div class="p-3 rounded-xl bg-kb-surface/80 border border-kb-line">
+                      <div class="text-[10px] uppercase font-bold text-kb-muted tracking-wider">Total Invested</div>
+                      <div class="text-base font-bold text-kb-text font-mono mt-1">{{ homeSipResult.investedShort }}</div>
+                      <div class="text-[10px] text-kb-muted font-mono truncate">{{ homeSipResult.investedFmt }}</div>
+                    </div>
+
+                    <!-- Estimated Returns (Front & Center!) -->
+                    <div class="p-3 rounded-xl bg-emerald-950/25 border border-emerald-500/40">
+                      <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase font-bold text-emerald-300 tracking-wider">Est. Returns</span>
+                        <span class="text-[9px] font-bold text-emerald-400 font-mono">+{{ homeSipResult.returnPct }}%</span>
+                      </div>
+                      <div class="text-base font-bold text-emerald-400 font-mono mt-1">{{ homeSipResult.returnsShort }}</div>
+                      <div class="text-[10px] text-emerald-300/80 font-mono truncate">{{ homeSipResult.returnsFmt }}</div>
+                    </div>
+
+                    <!-- Net Wealth Gain Multiplier -->
+                    <div class="p-3 rounded-xl bg-amber-950/20 border border-amber-500/30">
+                      <div class="text-[10px] uppercase font-bold text-amber-300 tracking-wider">Maturity Value</div>
+                      <div class="text-base font-bold text-amber-400 font-mono mt-1">{{ homeSipResult.totalShort }}</div>
+                      <div class="text-[9px] text-kb-muted mt-0.5">Wealth gain: {{ homeSipResult.returnsShort }}</div>
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <a
+                      href="https://p.njw.bz/11786"
+                      target="_blank"
+                      rel="noopener"
+                      class="btn-shimmer flex-1 py-3 px-4 rounded-xl bg-gold-gradient text-black font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow-md shadow-amber-500/15 min-h-[44px]"
+                    >
+                      <SvgIcon name="i-rocket" className="w-3.5 h-3.5" />
+                      <span>Start SIP Online (e-KYC)</span>
+                    </a>
+                    <Link
+                      href="/calculators?calc=sip"
+                      class="px-4 py-3 rounded-xl border border-kb-line hover:border-kb-accent text-xs font-semibold text-kb-text text-center transition min-h-[44px] flex items-center justify-center gap-1.5"
+                    >
+                      <span>Custom Scenario</span>
+                      <SvgIcon name="i-arr" className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -724,7 +902,7 @@ function fmtInr(n) {
                     </p>
                     <div class="flex items-center justify-center gap-2 mt-2">
                       <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                        AMFI Registered · ARN-286477
+                        AMFI Registered · ARN-178400
                       </span>
                     </div>
                   </div>
@@ -834,7 +1012,7 @@ function fmtInr(n) {
                     title="Open office location in Google Maps"
                   >
                     <SvgIcon name="i-pin" className="w-3.5 h-3.5 text-kb-accent shrink-0" />
-                    <span>179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142021</span>
+                    <span>179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142022</span>
                   </a>
                 </div>
 

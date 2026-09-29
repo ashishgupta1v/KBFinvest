@@ -393,15 +393,24 @@ const result = computed(() => {
     const n = y * 12;
     const fv = fvSip(p, i, n);
     const inv = p * n;
+    const returns = Math.max(0, fv - inv);
+    const returnPct = inv > 0 ? ((returns / inv) * 100).toFixed(1) : 0;
     return {
-      cap: `Estimated value after ${y} years`,
+      cap: `Estimated Maturity Value After ${y} Years`,
       big: shortInr(fv),
       sub: inr(fv),
+      highlightCards: [
+        { label: 'Total Invested', val: inr(inv), short: shortInr(inv), sub: `${n} monthly SIPs`, cls: 'text-kb-text', bg: 'bg-kb-surface-3/70' },
+        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-400', bg: 'bg-emerald-950/30 border-emerald-500/40' },
+        { label: 'Total Maturity Value', val: inr(fv), short: shortInr(fv), sub: `@ ${r}% expected return`, cls: 'text-amber-400', bg: 'bg-amber-950/30 border-amber-500/40' },
+      ],
       rows: [
-        ['You invest', inr(inv)],
-        ['Estimated wealth gain', inr(fv - inv)],
-        ['Monthly instalment', inr(p)],
-        ['Instalments paid', `${n} months`],
+        ['Total Invested Amount', inr(inv)],
+        ['Estimated Returns / Profit', inr(returns)],
+        ['Total Maturity Value', inr(fv)],
+        ['Monthly Instalment', inr(p)],
+        ['Assumed Annual Return', `${r}%`],
+        ['Instalments Paid', `${n} months (${y} years)`],
       ],
       chartType: 'line',
       chartTitle: 'Projected SIP Growth (Gold) vs Amount Invested (Blue)',
@@ -410,7 +419,7 @@ const result = computed(() => {
         { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => fvSip(p, i, (n * k) / 24)) },
         { cls: 'ln-b', vals: Array.from({ length: 25 }, (_, k) => p * ((n * k) / 24)) },
       ],
-      wa: `I used the KB Finvest SIP calculator: ${inr(p)} a month for ${y} years at ${r}%. Can we discuss this?`,
+      wa: `I used the KB Finvest SIP calculator: ${inr(p)} a month for ${y} years at ${r}%. Estimated returns: ${inr(returns)} (Total Value: ${shortInr(fv)}). Can we discuss this?`,
     };
   }
 
@@ -419,14 +428,23 @@ const result = computed(() => {
     const y = Math.max(1, Number(v.y) || 1);
     const r = Math.max(0, Number(v.r) || 0);
     const fv = p * Math.pow(1 + r / 100, y);
+    const returns = Math.max(0, fv - p);
+    const returnPct = p > 0 ? ((returns / p) * 100).toFixed(1) : 0;
     return {
-      cap: `Estimated value after ${y} years`,
+      cap: `Estimated Maturity Value After ${y} Years`,
       big: shortInr(fv),
       sub: inr(fv),
+      highlightCards: [
+        { label: 'Principal Invested', val: inr(p), short: shortInr(p), sub: 'One-time lump sum', cls: 'text-kb-text', bg: 'bg-kb-surface-3/70' },
+        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-400', bg: 'bg-emerald-950/30 border-emerald-500/40' },
+        { label: 'Total Maturity Value', val: inr(fv), short: shortInr(fv), sub: `${p > 0 ? (fv / p).toFixed(2) : 0}x capital multiplier`, cls: 'text-amber-400', bg: 'bg-amber-950/30 border-amber-500/40' },
+      ],
       rows: [
-        ['You invest', inr(p)],
-        ['Estimated growth', inr(fv - p)],
-        ['Multiple of capital', p > 0 ? `${(fv / p).toFixed(2)}x` : '0.00x'],
+        ['Principal Invested', inr(p)],
+        ['Estimated Returns / Profit', inr(returns)],
+        ['Total Maturity Value', inr(fv)],
+        ['Assumed Annual Return', `${r}%`],
+        ['Multiple of Capital', p > 0 ? `${(fv / p).toFixed(2)}x` : '0.00x'],
       ],
       chartType: 'line',
       chartTitle: 'Lump Sum Growth (Gold) vs Principal (Blue)',
@@ -435,7 +453,7 @@ const result = computed(() => {
         { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => p * Math.pow(1 + r / 100, (y * k) / 24)) },
         { cls: 'ln-b', vals: Array.from({ length: 25 }, () => p) },
       ],
-      wa: `I used the lump sum calculator: ${inr(p)} for ${y} years at ${r}%.`,
+      wa: `I used the lump sum calculator: ${inr(p)} for ${y} years at ${r}%. Estimated returns: ${inr(returns)}.`,
     };
   }
 
@@ -459,15 +477,25 @@ const result = computed(() => {
       I.push(inv);
       currentP *= 1 + s / 100;
     }
-    const flat = fvSip(p, i, y * 12);
+    const returns = Math.max(0, bal - inv);
+    const returnPct = inv > 0 ? ((returns / inv) * 100).toFixed(1) : 0;
     return {
-      cap: `Estimated value after ${y} years`,
+      cap: `Estimated Maturity Value After ${y} Years (${s}% Step-Up)`,
       big: shortInr(bal),
       sub: inr(bal),
+      highlightCards: [
+        { label: 'Total Invested', val: inr(inv), short: shortInr(inv), sub: `Stepping up ${s}%/yr`, cls: 'text-kb-text', bg: 'bg-kb-surface-3/70' },
+        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-400', bg: 'bg-emerald-950/30 border-emerald-500/40' },
+        { label: 'Total Maturity Value', val: inr(bal), short: shortInr(bal), sub: `@ ${r}% expected return`, cls: 'text-amber-400', bg: 'bg-amber-950/30 border-amber-500/40' },
+      ],
       rows: [
-        ['You invest in total', inr(inv)],
-        ['Estimated growth', inr(bal - inv)],
-        ['Extra vs a flat SIP', inr(bal - flat)],
+        ['Total Invested Amount', inr(inv)],
+        ['Estimated Returns / Profit', inr(returns)],
+        ['Total Maturity Value', inr(bal)],
+        ['Starting Monthly SIP', inr(p)],
+        ['Annual Step-Up Rate', `${s}%`],
+        ['Assumed Annual Return', `${r}%`],
+        ['Extra vs Flat SIP', inr(bal - fvSip(p, i, y * 12))],
       ],
       chartType: 'line',
       chartTitle: 'Step-up SIP Corpus (Gold) vs Total Invested (Blue)',
@@ -476,7 +504,7 @@ const result = computed(() => {
         { cls: 'ln-a', vals: B },
         { cls: 'ln-b', vals: I },
       ],
-      wa: `I used the step-up SIP calculator: starting ${inr(p)}/mo rising ${s}% yearly.`,
+      wa: `I used the step-up SIP calculator: starting ${inr(p)}/mo rising ${s}% yearly. Estimated value: ${shortInr(bal)}.`,
     };
   }
 
@@ -1267,8 +1295,25 @@ const sipMilestones = computed(() => {
               >{{ displayBig || result.big }}</div>
               <div class="text-xs text-kb-body font-mono">{{ result.sub }}</div>
 
+              <!-- 3-Box Highlight Cards (Total Invested, Estimated Returns, Total Maturity Value) -->
+              <div v-if="result.highlightCards && result.highlightCards.length" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-3 text-left">
+                <div
+                  v-for="(card, cIdx) in result.highlightCards"
+                  :key="cIdx"
+                  :class="['p-3 rounded-xl border border-kb-line/70 flex flex-col justify-between transition-all shadow-sm', card.bg || 'bg-kb-surface-3/60']"
+                >
+                  <div class="flex items-center justify-between gap-1">
+                    <span class="text-[10px] uppercase font-bold text-kb-muted tracking-wider">{{ card.label }}</span>
+                    <span v-if="card.badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 font-mono">{{ card.badge }}</span>
+                  </div>
+                  <div :class="['text-base sm:text-lg font-bold font-mono mt-1', card.cls]">{{ card.short }}</div>
+                  <div class="text-[10px] text-kb-muted font-mono truncate">{{ card.val }}</div>
+                  <div v-if="card.sub" class="text-[9px] text-kb-body/70 mt-0.5">{{ card.sub }}</div>
+                </div>
+              </div>
+
               <!-- Output rows breakdown -->
-              <div class="pt-6 mt-6 border-t border-kb-line space-y-2.5 text-left text-xs">
+              <div class="pt-5 mt-5 border-t border-kb-line space-y-2.5 text-left text-xs">
                 <div
                   v-for="(row, idx) in result.rows"
                   :key="idx"

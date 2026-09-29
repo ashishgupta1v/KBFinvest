@@ -24,8 +24,8 @@ const searchIndex = [
   { k: 'Loans', t: 'Business & MSME Loans', d: 'Working capital, unsecured business credit and term loans', url: '/loans?tab=biz' },
   { k: 'Loans', t: 'CGTMSE Collateral-Free Loans', d: 'Credit guarantee cover up to ₹10 crore for micro & small enterprises', url: '/loans?tab=cgtmse' },
   { k: 'Loans', t: 'Loan Against Securities (LAMF)', d: 'Borrow against mutual funds & shares without selling', url: '/loans?tab=lamf' },
-  { k: 'Advisory', t: 'Pre-IPO & Unlisted Shares', d: 'Off-market growth opportunities for informed investors', url: '/advisory?tab=pe' },
-  { k: 'Advisory', t: 'Stressed Account & NPA Handling', d: 'Restructuring, OTS analysis and confidential assistance', url: '/advisory?tab=stress' },
+  { k: 'Investments', t: 'Bonds & Fixed Income', d: 'RBI Floating Rate Bonds, 54EC Capital Gains & NCDs', url: '/investments?tab=bonds' },
+  { k: 'Investments', t: 'Loan Against Mutual Funds (LAMF)', d: 'Instant credit limit against mutual fund units without selling', url: '/investments#lamf' },
 
   // Calculators
   { k: 'Calculator', t: 'SIP Calculator', d: 'Calculate monthly compounding and wealth projection', url: '/calculators?calc=sip' },

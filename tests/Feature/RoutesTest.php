@@ -17,7 +17,6 @@ class RoutesTest extends TestCase
             '/investments' => 'Investments/Index',
             '/insurance' => 'Insurance/Index',
             '/loans' => 'Loans/Index',
-            '/advisory' => 'Advisory/Index',
             '/calculators' => 'Calculators/Index',
             '/resources' => 'Resources/Index',
             '/about' => 'About/Index',
@@ -34,6 +33,9 @@ class RoutesTest extends TestCase
             $response->assertStatus(200);
             $response->assertInertia(fn (Assert $page) => $page->component($component));
         }
+
+        $advisoryResponse = $this->get('/advisory');
+        $advisoryResponse->assertRedirect('/investments', 301);
     }
 
     public function test_contact_form_submission(): void

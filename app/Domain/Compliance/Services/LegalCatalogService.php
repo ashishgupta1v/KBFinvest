@@ -12,7 +12,7 @@ class LegalCatalogService
                 'sections' => [
                     [
                         'heading' => 'Who we are',
-                        'content' => 'KB Finvest is the financial distribution and facilitation practice of Kulwinder Singh, located at 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab.',
+                        'content' => 'KB Finvest is the financial distribution and facilitation practice of Kulwinder Singh, located at 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab - 142022.',
                     ],
                     [
                         'heading' => 'Remuneration & Commissions',

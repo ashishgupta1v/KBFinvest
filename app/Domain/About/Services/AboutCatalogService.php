@@ -15,7 +15,7 @@ class AboutCatalogService
             ],
             'registrations' => [
                 ['k' => 'Legal Entity', 'v' => 'KB Finvest', 'hint' => 'Registered proprietorship in Ludhiana, Punjab'],
-                ['k' => 'AMFI ARN', 'v' => 'Pending Verification', 'hint' => 'AMFI Registered Mutual Fund Distributor'],
+                ['k' => 'AMFI ARN', 'v' => 'ARN-178400', 'hint' => 'AMFI Registered Mutual Fund Distributor'],
                 ['k' => 'SEBI RIA', 'v' => 'Not Registered', 'hint' => 'KB Finvest does not offer fee-based investment advice'],
                 ['k' => 'EUIN', 'v' => 'To be confirmed', 'hint' => 'Employee Unique Identification Number'],
                 ['k' => 'Insurance Channel', 'v' => 'Licensed POSP / Corporate Intermediary', 'hint' => 'IRDAI compliant distribution'],

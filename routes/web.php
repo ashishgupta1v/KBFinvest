@@ -1,7 +1,6 @@
 <?php
 
 use App\Domain\About\Http\Controllers\AboutController;
-use App\Domain\Advisory\Http\Controllers\AdvisoryController;
 use App\Domain\Calculators\Http\Controllers\CalculatorsController;
 use App\Domain\Compliance\Http\Controllers\LegalController;
 use App\Domain\Consultation\Http\Controllers\ConsultationController;
@@ -20,7 +19,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/investments', [InvestmentsController::class, 'index'])->name('investments');
 Route::get('/insurance', [InsuranceController::class, 'index'])->name('insurance');
 Route::get('/loans', [LoansController::class, 'index'])->name('loans');
-Route::get('/advisory', [AdvisoryController::class, 'index'])->name('advisory');
+Route::permanentRedirect('/advisory', '/investments');
 
 // Interactive Calculators
 Route::get('/calculators', [CalculatorsController::class, 'index'])->name('calculators');

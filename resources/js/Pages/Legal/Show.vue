@@ -80,7 +80,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-kb-muted">ARN Number:</span>
-                  <span class="font-bold text-amber-300 font-mono">ARN-286477</span>
+                  <span class="font-bold text-amber-300 font-mono">ARN-178400</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-kb-muted">Jurisdiction:</span>

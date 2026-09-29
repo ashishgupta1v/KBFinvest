@@ -227,7 +227,7 @@ function submitInquiry() {
                 <span>Visit Our Office</span>
               </h3>
               <p class="text-xs text-kb-body leading-relaxed">
-                179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab.
+                179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab, 142022.
               </p>
               <div class="text-xs text-kb-muted space-y-1 pt-1">
                 <div><strong>Hours:</strong> Mon–Fri 9:30 am – 6:30 pm</div>

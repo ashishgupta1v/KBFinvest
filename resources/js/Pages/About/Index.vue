@@ -108,7 +108,7 @@ const never = computed(() => props.data.never || []);
                 <div>
                   <div class="flex items-center gap-2">
                     <h3 class="text-xl font-bold text-kb-text font-display">Kulwinder Singh</h3>
-                    <span class="px-2 py-0.5 rounded-full bg-amber-500/15 text-[10px] font-bold text-amber-300 border border-amber-500/30">ARN-286477</span>
+                    <span class="px-2 py-0.5 rounded-full bg-amber-500/15 text-[10px] font-bold text-amber-300 border border-amber-500/30">ARN-178400</span>
                   </div>
                   <p class="text-xs text-kb-accent font-medium mt-0.5">Founder · Mutual Fund Distributor</p>
                   <p class="text-xs text-kb-muted">Central Town, Ludhiana, Punjab</p>

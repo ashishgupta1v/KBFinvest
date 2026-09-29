@@ -949,7 +949,7 @@ function downloadIcs() {
                   <span class="text-kb-muted">Lead Advisor</span>
                   <div class="text-right">
                     <span class="font-bold text-kb-text block">Kulwinder Singh</span>
-                    <span class="text-[10px] text-amber-300 font-mono">ARN-286477 (AMFI)</span>
+                    <span class="text-[10px] text-amber-300 font-mono">ARN-178400 (AMFI)</span>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">

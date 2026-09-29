@@ -223,7 +223,7 @@ function scrollToTop() {
               type="button"
               :class="[
                 'px-3.5 py-2 rounded-lg transition-all flex items-center gap-1.5',
-                isPathActive(['/investments', '/insurance', '/loans', '/advisory']) || activeDropdown === 'services'
+                isPathActive(['/investments', '/insurance', '/loans']) || activeDropdown === 'services'
                   ? 'text-kb-accent font-semibold bg-kb-surface-2/60'
                   : 'text-kb-body hover:text-kb-text hover:bg-kb-surface/40',
               ]"
@@ -317,15 +317,15 @@ function scrollToTop() {
                   </Link>
 
                   <Link
-                    href="/advisory"
+                    href="/investments?tab=bonds"
                     class="group block p-2.5 rounded-xl hover:bg-kb-surface-2 transition"
                     @click="closeDropdownNow"
                   >
                     <div class="font-semibold text-xs text-kb-text group-hover:text-kb-accent flex items-center justify-between">
-                      <span>Specialist Advisory</span>
+                      <span>Bonds & Fixed Income</span>
                       <SvgIcon name="i-arr" className="w-3 h-3 opacity-0 group-hover:opacity-100 transition text-kb-accent" />
                     </div>
-                    <p class="text-[11px] text-kb-muted mt-0.5 leading-snug">Unlisted equities & confidential NPA / debt restructuring</p>
+                    <p class="text-[11px] text-kb-muted mt-0.5 leading-snug">RBI Floating Rate Savings Bonds, 54EC Capital Gains & NCDs</p>
                   </Link>
                 </div>
               </div>
@@ -584,11 +584,11 @@ function scrollToTop() {
               <SvgIcon name="i-arr" className="w-3.5 h-3.5 opacity-40" />
             </Link>
             <Link
-              href="/advisory"
+              href="/investments?tab=bonds"
               @click="mobileMenuOpen = false"
               class="px-3.5 py-2 rounded-xl text-sm font-medium transition hover:bg-kb-surface-2 text-kb-body flex items-center justify-between"
             >
-              <span>Specialist Advisory</span>
+              <span>Bonds & Fixed Income</span>
               <SvgIcon name="i-arr" className="w-3.5 h-3.5 opacity-40" />
             </Link>
 
@@ -755,7 +755,7 @@ function scrollToTop() {
                   class="hover:text-kb-accent transition inline-flex items-center gap-1 text-kb-muted"
                   title="Open in Google Maps"
                 >
-                  <span>📍 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142021</span>
+                  <span>📍 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142022</span>
                 </a>
               </div>
               <div>📞 +91 79734 61669</div>
@@ -785,7 +785,7 @@ function scrollToTop() {
                   target="_blank"
                   rel="noopener"
                   class="text-emerald-400 hover:text-emerald-300 transition inline-flex items-center gap-1 font-semibold"
-                  title="NJ Wealth Partner Onboarding Desk (ARN-286477)"
+                  title="NJ Wealth Partner Onboarding Desk (ARN-178400)"
                 >
                   <span>Start SIP Online (e-KYC)</span>
                   <SvgIcon name="i-arr" className="w-2.5 h-2.5 -rotate-45" />
@@ -795,7 +795,8 @@ function scrollToTop() {
               <li><Link href="/insurance" class="hover:text-kb-accent transition">Health, Life & Motor Insurance</Link></li>
               <li><Link href="/loans?tab=cgtmse" class="hover:text-kb-accent transition">CGTMSE Collateral-Free Loans</Link></li>
               <li><Link href="/loans?tab=lap" class="hover:text-kb-accent transition">Loan Against Property & Home Loans</Link></li>
-              <li><Link href="/advisory" class="hover:text-kb-accent transition">Specialist Advisory & NPA Support</Link></li>
+              <li><Link href="/investments?tab=bonds" class="hover:text-kb-accent transition">Bonds & Fixed Income</Link></li>
+              <li><Link href="/investments" class="hover:text-kb-accent transition">Loan Against Mutual Funds (LAMF)</Link></li>
             </ul>
           </div>
 

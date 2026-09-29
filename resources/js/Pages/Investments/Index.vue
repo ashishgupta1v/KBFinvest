@@ -22,6 +22,9 @@ const currentService = computed(() => services.value.find((s) => s.id === active
 const onboarding = computed(() => props.data.onboarding || {});
 
 const calculatorLink = computed(() => {
+  if (activeTab.value === 'bonds') {
+    return { url: '/calculators?calc=lump', label: 'Fixed Return Yield Calc' };
+  }
   if (activeTab.value === 'pms') {
     return { url: '/calculators?calc=lump', label: 'PMS Lump Sum Growth' };
   }
@@ -214,7 +217,7 @@ const calculatorLink = computed(() => {
             <div class="p-3.5 rounded-2xl bg-kb-surface/90 border border-kb-border/60 text-left lg:text-right shrink-0 shadow-sm">
               <div class="text-[10px] uppercase font-bold tracking-wider text-kb-accent">Official Distributor Desk</div>
               <div class="text-sm font-bold text-kb-text">Kulwinder Singh</div>
-              <div class="text-[11px] text-kb-muted font-mono mt-0.5">AMFI ARN-286477 · Partner: {{ onboarding.partnerCode }}</div>
+              <div class="text-[11px] text-kb-muted font-mono mt-0.5">AMFI ARN-178400 · Partner: {{ onboarding.partnerCode }}</div>
             </div>
           </div>
 
@@ -256,6 +259,37 @@ const calculatorLink = computed(() => {
                 <span>Start Paperless Onboarding (5 mins)</span>
                 <SvgIcon name="i-arr" className="w-4 h-4" />
               </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOAN AGAINST MUTUAL FUNDS (LAMF) PROMINENT FEATURE CARD -->
+        <div
+          v-reveal
+          class="card-prestige p-6 sm:p-8 border border-amber-500/35 bg-gradient-to-r from-amber-950/20 via-kb-surface-2 to-kb-surface-3/80 shadow-xl rounded-3xl relative overflow-hidden"
+        >
+          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div class="space-y-2 max-w-2xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-gold text-xs font-bold uppercase tracking-wider">
+                <SvgIcon name="i-coin" className="w-3.5 h-3.5 text-kb-accent" />
+                <span>Instant Liquidity · Zero Redemption Loss</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-kb-text">
+                Need Funds Urgently? <span class="text-gold-gradient italic font-serif">Never Break Your Compounding SIPs</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-kb-muted leading-relaxed">
+                Avail a fast <strong>Loan Against Mutual Funds (LAMF)</strong> with an overdraft credit line up to 75% of your portfolio value. Your units remain lien-marked and continue compounding in the market with zero capital gains tax triggered.
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
+              <Link
+                href="/loans?tab=lamf"
+                class="btn-shimmer px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:brightness-105 transition flex items-center justify-center gap-2 shadow-md shadow-amber-500/15 min-h-[44px]"
+              >
+                <span>Explore Loan Against MF</span>
+                <SvgIcon name="i-arr" className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>

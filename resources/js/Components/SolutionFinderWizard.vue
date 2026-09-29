@@ -31,11 +31,11 @@ const goals = [
     badge: 'Up to ₹10 Cr',
   },
   {
-    id: 'specialist',
-    title: 'Specialist Advisory',
-    desc: 'Unlisted/Pre-IPO opportunities & Stressed NPA resolution',
+    id: 'bonds',
+    title: 'Bonds & Fixed Income',
+    desc: 'RBI Floating Rate Bonds, 54EC Tax Savers & Loan Against MFs',
     icon: 'i-scale',
-    badge: 'Confidential',
+    badge: 'Capital Safety',
   },
 ];
 
@@ -49,7 +49,7 @@ const protectCover = ref('25L');
 const loanAmount = ref(5000000);
 const loanType = ref('cgtmse');
 
-const specialistType = ref('pe');
+const bondType = ref('rbi');
 
 // Calculations for preview
 const wealthProjection = computed(() => {
@@ -124,20 +124,50 @@ const recommendation = computed(() => {
     };
   }
 
+  if (bondType.value === '54ec') {
+    return {
+      title: 'Section 54EC Capital Gain Bonds (REC / PFC / NHAI)',
+      category: 'Tax-Exempt Capital Preservation',
+      topic: 'Capital Gain Bonds',
+      lead: 'Exempt long-term capital gains on real estate sales up to ₹50 Lakhs under Section 54EC with 100% government-backed safety.',
+      highlights: [
+        'Zero capital gains tax on invested property proceeds',
+        'AAA-rated PSU issuers with 5-year lock-in and annual interest payouts',
+        'Assisted allotment and paperless demat processing directly at our Ludhiana desk',
+      ],
+      bookUrl: '/book?topic=Capital%20Gain%20Bonds',
+      waText: 'Hello Kulwinder, I want to invest in Section 54EC Capital Gain Bonds to save tax on property sales.',
+    };
+  }
+
+  if (bondType.value === 'lamf') {
+    return {
+      title: 'Loan Against Mutual Funds (LAMF) — Instant Liquidity',
+      category: 'Non-Dilutive Liquidity',
+      topic: 'Loan Against Mutual Funds',
+      lead: 'Unlock instant cash credit against your equity and debt mutual funds at attractive 9–10.5% p.a. interest rates without redeeming your units.',
+      highlights: [
+        'Compounding continues unbroken — your portfolio remains invested and growing',
+        'Pay interest only on the exact drawn amount with flexible overdraft limits',
+        '100% digital sanction via NJ Wealth / NBFC partners within 24 to 48 hours',
+      ],
+      bookUrl: '/book?topic=Loan%20Against%20Mutual%20Funds',
+      waText: 'Hello Kulwinder, I would like to explore Loan Against Mutual Funds (LAMF) without selling my portfolio.',
+    };
+  }
+
   return {
-    title: specialistType.value === 'pe' ? 'Pre-IPO & Unlisted High-Growth Equity' : 'Stressed Loan & NPA Restructuring Support',
-    category: 'Specialist Situations',
-    topic: specialistType.value === 'pe' ? 'General Financial Planning' : 'Stressed Loan Advisory',
-    lead: specialistType.value === 'pe'
-      ? 'Access to pre-IPO equity allocations for accredited, knowledgeable investors.'
-      : 'Calm, confidential advisory to navigate bank restructuring, SMA stages, and OTS negotiations.',
+    title: 'RBI Floating Rate Savings Bonds (FRSB 2020)',
+    category: 'Sovereign Fixed Income',
+    topic: 'RBI Savings Bonds',
+    lead: 'Sovereign Government of India backed bonds offering 8.05% floating rate (pegged at NSC + 35 bps) with semi-annual payouts.',
     highlights: [
-      specialistType.value === 'pe' ? 'Carefully audited corporate cap tables & valuation multiples' : '100% confidential discussion directly with Kulwinder Singh',
-      specialistType.value === 'pe' ? 'Demat transfer directly to your NSDL/CDSL account' : 'Clear roadmap before SARFAESI or DRT escalation',
-      'One-on-one consultation in Central Town office or private phone call',
+      '100% Sovereign credit safety backed directly by the Reserve Bank of India',
+      'Inflation-protected coupon automatically resets with National Savings Certificate rates',
+      'Ideal for senior citizens, retirees, and conservative high-net-worth families',
     ],
-    bookUrl: `/book?topic=${specialistType.value === 'pe' ? 'General%20Financial%20Planning' : 'Stressed%20Loan%20Advisory'}`,
-    waText: `Hello Kulwinder, I would like to book a confidential discussion regarding ${specialistType.value === 'pe' ? 'Pre-IPO opportunities' : 'Stressed account / NPA resolution'}.`,
+    bookUrl: '/book?topic=RBI%20Savings%20Bonds',
+    waText: 'Hello Kulwinder, I am interested in investing in RBI Floating Rate Savings Bonds.',
   };
 });
 </script>
@@ -387,34 +417,46 @@ const recommendation = computed(() => {
         </div>
       </div>
 
-      <!-- Parameters for Specialist -->
+      <!-- Parameters for Bonds & Fixed Income -->
       <div v-else class="space-y-6 max-w-2xl bg-kb-surface-2/50 p-6 rounded-2xl border border-kb-line">
         <div>
-          <label class="text-xs font-semibold text-kb-body block mb-2">Select Advisory Domain</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <label class="text-xs font-semibold text-kb-body block mb-2">Select Fixed Income & Liquidity Solution</label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <button
               type="button"
-              @click="specialistType = 'pe'"
+              @click="bondType = 'rbi'"
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
-                specialistType === 'pe'
+                bondType === 'rbi'
                   ? 'bg-kb-accent text-black border-kb-accent'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
-              Pre-IPO & Unlisted Shares
+              RBI Floating Bonds
             </button>
             <button
               type="button"
-              @click="specialistType = 'stress'"
+              @click="bondType = '54ec'"
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
-                specialistType === 'stress'
+                bondType === '54ec'
                   ? 'bg-kb-accent text-black border-kb-accent'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
-              Stressed Account / NPA Relief
+              54EC Tax-Exempt
+            </button>
+            <button
+              type="button"
+              @click="bondType = 'lamf'"
+              :class="[
+                'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
+                bondType === 'lamf'
+                  ? 'bg-kb-accent text-black border-kb-accent'
+                  : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
+              ]"
+            >
+              Loan Against MF (LAMF)
             </button>
           </div>
         </div>

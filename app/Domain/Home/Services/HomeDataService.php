@@ -23,12 +23,12 @@ class HomeDataService
             ],
             'figuresSrc' => 'Sources: SEBI and AMFI circulars; RBI capital-market-exposure amendment directions of 13 February 2026 (effective 1 July 2026); RBI MSME Master Direction of 9 February 2026; CGTMSE scheme guidelines. Checked 20 September 2026.',
             'pillars' => [
-                ['ic' => 'i-growth', 't' => 'Mutual Funds', 'd' => 'SIPs and lump sums arranged around your goals, reviewed every year, with the paperwork done properly the first time.', 'url' => '/investments?tab=mf'],
+                ['ic' => 'i-growth', 't' => 'Mutual Funds & SIPs', 'd' => 'Goal-based SIPs and lump sums, reviewed annually, with 100% paperless digital e-KYC or walk-in Ludhiana desk support.', 'url' => '/investments?tab=mf'],
                 ['ic' => 'i-pie', 't' => 'PMS Introductions', 'd' => 'For portfolios of ₹50 lakh and above — introductions to SEBI-registered portfolio managers, with the disclosure document explained.', 'url' => '/investments?tab=pms'],
-                ['ic' => 'i-cert', 't' => 'Shares, ETFs and Bonds', 'd' => 'Understand what you are buying: equity, index ETFs, government and corporate bonds, and where each one fits.', 'url' => '/investments?tab=mkt'],
-                ['ic' => 'i-shield', 't' => 'Insurance', 'd' => 'Health, life and motor cover selected on the wording, not the brochure — and supported when you have to claim.', 'url' => '/insurance?tab=health'],
-                ['ic' => 'i-coin', 't' => 'Loans and Business Finance', 'd' => 'Home, property, business, working capital, loans against securities and collateral-free CGTMSE funding.', 'url' => '/loans?tab=lap'],
-                ['ic' => 'i-scale', 't' => 'Specialist Advisory', 'd' => 'Pre-IPO and unlisted opportunities for informed investors, and confidential support on stressed accounts.', 'url' => '/advisory?tab=pe'],
+                ['ic' => 'i-cert', 't' => 'Bonds & Fixed Income', 'd' => 'Sovereign Gold Bonds (SGB), RBI Floating Rate Bonds, 54EC Capital Gain Exemption Bonds, and high-safety corporate NCDs.', 'url' => '/investments?tab=bonds'],
+                ['ic' => 'i-shield', 't' => 'Insurance', 'd' => 'Health, life and motor cover selected on policy wording, not sales brochures — with dedicated claim advocacy when you need it.', 'url' => '/insurance?tab=health'],
+                ['ic' => 'i-coin', 't' => 'Loans & Business Finance', 'd' => 'Home, property, business working capital, and government-backed collateral-free CGTMSE facilities.', 'url' => '/loans?tab=lap'],
+                ['ic' => 'i-refresh', 't' => 'Loan Against Mutual Funds', 'd' => 'Instant overdraft liquidity against your existing MF portfolio without redeeming units or breaking long-term SIP compounding.', 'url' => '/loans?tab=lamf'],
             ],
             'flow' => [
                 ['ic' => 'i-users', 't' => 'You', 'd' => 'Your bank account, your PAN, your signature. Payment leaves your account only when you authorise it.'],
