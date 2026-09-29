@@ -402,3 +402,41 @@ input[type="number"].no-spin {
   background: #D4A537;
 }
 
+/* ── Print / PDF Advisory Report ── */
+@media print {
+  body * { visibility: hidden !important; }
+
+  #kb-print-report,
+  #kb-print-report * {
+    visibility: visible !important;
+  }
+
+  #kb-print-report {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    padding: 2cm;
+    background: #ffffff !important;
+    color: #0F172A !important;
+    border: none !important;
+    border-radius: 0 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #kb-print-report .text-gold-gradient {
+    background: none !important;
+    -webkit-text-fill-color: #92400e !important;
+    color: #92400e !important;
+  }
+
+  #kb-print-report .text-kb-muted,
+  #kb-print-report .text-kb-body { color: #475569 !important; }
+  #kb-print-report .text-kb-text { color: #0F172A !important; }
+  #kb-print-report .text-kb-accent { color: #92400e !important; }
+  #kb-print-report .text-kb-primary { color: #1d4ed8 !important; }
+  #kb-print-report .border-kb-line { border-color: #e2e8f0 !important; }
+  #kb-print-report .border-b { border-bottom: 1px solid #e2e8f0 !important; }
+}
+
+

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, watch } from 'vue';
+import { ref, reactive, computed, watch, watchEffect } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SvgIcon from '@/Components/SvgIcon.vue';
@@ -76,6 +76,171 @@ function copyCalculationSummary() {
   } else {
     fallbackCopy(summaryText, onCopied);
   }
+}
+
+// ─── Animated Counter for the hero result ───────────────────────────────────
+const displayBig = ref('');
+const bigGlowing = ref(false);
+let _counterRaf = null;
+let _counterFrom = 0;
+let _counterTo = 0;
+let _counterStr = '';
+
+function _parseNumeric(str) {
+  if (typeof str !== 'string') return NaN;
+  // Extract leading numeric portion before any alpha/symbol suffix
+  const m = str.match(/^[\d,\.]+/);
+  return m ? parseFloat(m[0].replace(/,/g, '')) : NaN;
+}
+
+function animateBig(newBig) {
+  const num = _parseNumeric(newBig);
+  if (!isFinite(num)) {
+    displayBig.value = newBig;
+    return;
+  }
+  const suffix = newBig.replace(/^[\d,\.]+/, '');
+  _counterStr = suffix;
+  _counterTo = num;
+  _counterFrom = _parseNumeric(displayBig.value) || 0;
+  if (_counterRaf) cancelAnimationFrame(_counterRaf);
+  let startTs = null;
+  const duration = 280;
+  function step(ts) {
+    if (!startTs) startTs = ts;
+    const progress = Math.min((ts - startTs) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const cur = _counterFrom + (_counterTo - _counterFrom) * eased;
+    displayBig.value = Math.round(cur).toLocaleString('en-IN') + _counterStr;
+    if (progress < 1) {
+      _counterRaf = requestAnimationFrame(step);
+    } else {
+      displayBig.value = newBig;
+      bigGlowing.value = true;
+      setTimeout(() => { bigGlowing.value = false; }, 700);
+    }
+  }
+  _counterRaf = requestAnimationFrame(step);
+}
+
+// Watch result.big and trigger counter animation
+watchEffect(() => {
+  const newBig = result.value?.big;
+  if (newBig !== undefined) animateBig(newBig);
+});
+
+// ─── Year-by-Year Schedule / Amortization Table Builder ─────────────────────
+const scheduleExpanded = ref(false);
+
+const scheduleTable = computed(() => {
+  const id = activeId.value;
+  const v = formState[id] || {};
+
+  if (id === 'sip' || id === 'stepup') {
+    const p = Math.max(0, Number(v.p) || 0);
+    const r = Math.max(0, Number(v.r) || 12) / 1200;
+    const totalY = Math.max(1, Number(v.y) || 10);
+    const s = id === 'stepup' ? (Math.max(0, Number(v.s) || 0)) : 0;
+    const rows = [];
+    let bal = 0; let inv = 0; let currentP = p;
+    for (let yr = 1; yr <= totalY; yr++) {
+      const openBal = bal;
+      let yearInv = 0;
+      for (let m = 0; m < 12; m++) {
+        bal = (bal + currentP) * (1 + r);
+        inv += currentP;
+        yearInv += currentP;
+      }
+      const growth = bal - openBal - yearInv;
+      rows.push({ yr, open: openBal, invested: yearInv, growth, close: bal });
+      currentP *= 1 + s / 100;
+    }
+    return { type: 'growth', rows, headers: ['Yr', 'Opening', 'Invested', 'Growth', 'Closing'] };
+  }
+
+  if (id === 'lump') {
+    const p = Math.max(0, Number(v.p) || 0);
+    const r = Math.max(0, Number(v.r) || 0) / 100;
+    const totalY = Math.max(1, Number(v.y) || 10);
+    const rows = [];
+    let bal = p;
+    for (let yr = 1; yr <= totalY; yr++) {
+      const openBal = bal;
+      const growth = bal * r;
+      bal = bal + growth;
+      rows.push({ yr, open: openBal, invested: 0, growth, close: bal });
+    }
+    return { type: 'growth', rows, headers: ['Yr', 'Opening', 'Principal', 'Growth', 'Closing'] };
+  }
+
+  if (id === 'emi') {
+    const p = Math.max(0, Number(v.p) || 0);
+    const r = Math.max(0, Number(v.r) || 0) / 1200;
+    const y = Math.max(1, Number(v.y) || 1);
+    const x = Math.max(0, Number(v.x) || 0);
+    const n = y * 12;
+    const emi = r === 0 ? p / n : (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    const monthlyPay = emi + x;
+    let bal = p;
+    const rows = [];
+    for (let yr = 1; yr <= y; yr++) {
+      if (bal <= 0) break;
+      const openBal = bal;
+      let principal = 0; let interest = 0;
+      for (let m = 0; m < 12; m++) {
+        if (bal <= 0) break;
+        const intMonth = bal * r;
+        const prinMonth = Math.min(bal, monthlyPay - intMonth);
+        interest += intMonth;
+        principal += prinMonth;
+        bal = Math.max(0, bal - prinMonth);
+      }
+      rows.push({ yr, open: openBal, invested: principal, growth: interest, close: bal });
+    }
+    return { type: 'amort', rows, headers: ['Yr', 'Opening Balance', 'Principal Paid', 'Interest Paid', 'Closing Balance'] };
+  }
+
+  if (id === 'swp') {
+    const c = Math.max(0, Number(v.c) || 0);
+    const w = Math.max(0, Number(v.w) || 0);
+    const r = Math.max(0, Number(v.r) || 0) / 1200;
+    const y = Math.max(1, Number(v.y) || 1);
+    let bal = c;
+    const rows = [];
+    for (let yr = 1; yr <= y; yr++) {
+      if (bal <= 0) break;
+      const openBal = bal;
+      let withdrawn = 0; let growth = 0;
+      for (let m = 0; m < 12; m++) {
+        const gr = bal * r;
+        growth += gr;
+        bal = bal + gr - w;
+        withdrawn += w;
+        if (bal <= 0) { bal = 0; break; }
+      }
+      rows.push({ yr, open: openBal, invested: withdrawn, growth, close: Math.max(0, bal) });
+    }
+    return { type: 'swp', rows, headers: ['Yr', 'Opening Balance', 'Withdrawn', 'Growth Earned', 'Closing Balance'] };
+  }
+
+  return null;
+});
+
+// ─── Print / PDF Report Modal ─────────────────────────────────────────────────
+const showPrintModal = ref(false);
+const reportClientName = ref('');
+const reportNotes = ref('');
+
+function openPrintModal() {
+  showPrintModal.value = true;
+}
+
+function closePrintModal() {
+  showPrintModal.value = false;
+}
+
+function triggerPrint() {
+  window.print();
 }
 
 // Category groupings for 14 calculators
@@ -1095,7 +1260,11 @@ const sipMilestones = computed(() => {
             <!-- Big Hero Result Card -->
             <div class="card-luxury p-5 sm:p-8 text-center space-y-3">
               <div class="text-xs font-semibold uppercase tracking-wider text-kb-muted">{{ result.cap }}</div>
-              <div class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-gold-gradient break-words">{{ result.big }}</div>
+              <!-- Animated counter with gold glow -->
+              <div
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-gold-gradient break-words transition-all duration-300"
+                :class="{ 'drop-shadow-[0_0_18px_rgba(212,165,55,0.7)]': bigGlowing }"
+              >{{ displayBig || result.big }}</div>
               <div class="text-xs text-kb-body font-mono">{{ result.sub }}</div>
 
               <!-- Output rows breakdown -->
@@ -1148,6 +1317,55 @@ const sipMilestones = computed(() => {
               </div>
             </div>
 
+            <!-- Year-by-Year Schedule / Amortization Accordion -->
+            <div v-if="scheduleTable" class="card-frame border border-kb-line rounded-xl overflow-hidden">
+              <button
+                type="button"
+                @click="scheduleExpanded = !scheduleExpanded"
+                class="w-full flex items-center justify-between px-4 py-3 text-xs font-bold text-kb-text hover:bg-kb-surface-2/60 transition cursor-pointer"
+              >
+                <span class="flex items-center gap-2">
+                  <SvgIcon name="i-growth" className="w-4 h-4 text-kb-accent" />
+                  <span>{{ scheduleTable.type === 'amort' ? 'Year-by-Year Amortization Schedule' : scheduleTable.type === 'swp' ? 'Annual Drawdown Schedule' : 'Annual Growth Schedule' }}</span>
+                </span>
+                <span class="text-kb-muted flex items-center gap-1 font-normal text-[10px]">
+                  {{ scheduleExpanded ? 'Collapse' : 'View Full Breakdown' }}
+                  <svg :class="['w-3 h-3 transition-transform duration-200', scheduleExpanded ? 'rotate-180' : '']" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </span>
+              </button>
+              <Transition
+                enter-active-class="transition-all duration-300 ease-out"
+                enter-from-class="opacity-0 max-h-0"
+                enter-to-class="opacity-100 max-h-[480px]"
+                leave-active-class="transition-all duration-200 ease-in"
+                leave-from-class="opacity-100 max-h-[480px]"
+                leave-to-class="opacity-0 max-h-0"
+              >
+                <div v-if="scheduleExpanded" class="overflow-auto max-h-[480px]">
+                  <table class="w-full text-[10px] font-mono border-collapse">
+                    <thead class="sticky top-0 z-10">
+                      <tr class="bg-kb-surface-3 text-kb-muted">
+                        <th v-for="h in scheduleTable.headers" :key="h" class="px-3 py-2 text-left font-semibold uppercase tracking-wider border-b border-kb-line">{{ h }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="row in scheduleTable.rows"
+                        :key="row.yr"
+                        class="border-b border-kb-line/30 hover:bg-kb-surface-2/40 transition"
+                      >
+                        <td class="px-3 py-2 text-kb-accent font-bold">{{ row.yr }}</td>
+                        <td class="px-3 py-2 text-kb-body">{{ shortInr(row.open) }}</td>
+                        <td class="px-3 py-2 text-kb-primary">{{ shortInr(row.invested) }}</td>
+                        <td class="px-3 py-2" :class="scheduleTable.type === 'amort' ? 'text-red-400' : 'text-emerald-400'">{{ shortInr(row.growth) }}</td>
+                        <td class="px-3 py-2 font-bold text-kb-text">{{ shortInr(row.close) }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </Transition>
+            </div>
+
             <!-- Action Buttons Suite -->
             <div class="pt-2 space-y-2.5">
               <a
@@ -1177,6 +1395,16 @@ const sipMilestones = computed(() => {
                   <SvgIcon :name="copied ? 'i-check' : 'i-doc'" className="w-3.5 h-3.5 shrink-0" :class="copied ? 'text-emerald-400' : 'text-kb-muted'" />
                   <span>{{ copied ? 'Copied!' : 'Copy Summary' }}</span>
                 </button>
+
+                <!-- Print / PDF Advisory Report -->
+                <button
+                  type="button"
+                  @click="openPrintModal"
+                  class="py-2.5 px-3 rounded-xl border border-kb-border/50 text-kb-accent hover:bg-kb-accent/10 hover:border-kb-accent/60 transition flex items-center justify-center gap-1.5 text-xs font-semibold min-h-[44px]"
+                >
+                  <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+                  <span>Print / Save PDF</span>
+                </button>
               </div>
 
               <div class="text-center text-[10px] text-kb-muted pt-1">
@@ -1187,5 +1415,125 @@ const sipMilestones = computed(() => {
         </div>
       </div>
     </section>
+
+    <!-- ── Print / PDF Report Modal ──────────────────────────────────────── -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition duration-150 ease-in"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="showPrintModal"
+          class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+          @click.self="closePrintModal"
+        >
+          <!-- Backdrop -->
+          <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="closePrintModal" />
+
+          <!-- Modal Card -->
+          <div class="relative z-10 w-full max-w-lg card-luxury p-6 sm:p-8 space-y-5">
+            <!-- Header -->
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="text-xs font-semibold uppercase tracking-wider text-kb-accent mb-1">Advisory Report</div>
+                <h3 class="text-lg font-bold font-display text-kb-text">Print / Save as PDF</h3>
+                <p class="text-xs text-kb-muted mt-0.5">Optionally personalise the report before printing.</p>
+              </div>
+              <button type="button" @click="closePrintModal" class="text-kb-muted hover:text-kb-text transition p-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <!-- Preview Card (printed letterhead) -->
+            <div id="kb-print-report" class="rounded-xl border border-kb-border/50 bg-kb-surface-2/40 p-4 space-y-3">
+              <!-- Letterhead -->
+              <div class="flex items-center justify-between border-b border-kb-line pb-3">
+                <div>
+                  <div class="text-base font-bold font-display text-gold-gradient">KB Finvest Advisory</div>
+                  <div class="text-[10px] text-kb-muted font-mono">AMFI-Registered · IRDAI-Licensed · CGTMSE Facilitation</div>
+                </div>
+                <div class="text-right text-[10px] text-kb-muted font-mono">
+                  <div>{{ new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }) }}</div>
+                  <div class="text-kb-accent">kbfinvest.com</div>
+                </div>
+              </div>
+
+              <!-- Calculator name & outcome -->
+              <div class="text-center py-2">
+                <div class="text-[10px] uppercase tracking-widest text-kb-muted mb-1">{{ result.cap }}</div>
+                <div class="text-2xl font-bold font-display text-gold-gradient">{{ result.big }}</div>
+                <div class="text-[11px] text-kb-body font-mono mt-0.5">{{ result.sub }}</div>
+              </div>
+
+              <!-- Breakdown rows -->
+              <div class="space-y-1 text-[11px]">
+                <div v-for="(row, idx) in result.rows" :key="idx" class="flex justify-between py-1 border-b border-kb-line/20">
+                  <span class="text-kb-muted">{{ row[0] }}</span>
+                  <span class="font-mono font-bold text-kb-text">{{ row[1] }}</span>
+                </div>
+              </div>
+
+              <!-- Optional client name -->
+              <div v-if="reportClientName" class="pt-2 border-t border-kb-line/30 text-[10px] text-kb-body">
+                Prepared for: <strong class="text-kb-text">{{ reportClientName }}</strong>
+              </div>
+              <div v-if="reportNotes" class="text-[10px] text-kb-muted italic">{{ reportNotes }}</div>
+
+              <!-- Footer disclaimer -->
+              <div class="text-[9px] text-kb-muted pt-2 border-t border-kb-line/30 leading-relaxed">
+                This is an illustrative estimate only — not a quote, sanction, or financial advice. All figures are subject to market conditions and regulatory norms. Contact KB Finvest before making financial decisions.
+              </div>
+            </div>
+
+            <!-- Optional personalization fields -->
+            <div class="space-y-3">
+              <div>
+                <label class="text-xs font-medium text-kb-body block mb-1" for="report-client">Client Name <span class="text-kb-muted">(optional)</span></label>
+                <input
+                  id="report-client"
+                  v-model="reportClientName"
+                  type="text"
+                  placeholder="e.g., Mr. Rajesh Sharma"
+                  class="w-full bg-kb-surface-3 border border-kb-line rounded-lg px-3 py-2 text-xs text-kb-text placeholder:text-kb-muted outline-none focus:border-kb-accent transition"
+                />
+              </div>
+              <div>
+                <label class="text-xs font-medium text-kb-body block mb-1" for="report-notes">Advisor Notes <span class="text-kb-muted">(optional)</span></label>
+                <textarea
+                  id="report-notes"
+                  v-model="reportNotes"
+                  rows="2"
+                  placeholder="Add context, next steps, or remarks..."
+                  class="w-full bg-kb-surface-3 border border-kb-line rounded-lg px-3 py-2 text-xs text-kb-text placeholder:text-kb-muted outline-none focus:border-kb-accent transition resize-none"
+                />
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-2 pt-1">
+              <button
+                type="button"
+                @click="closePrintModal"
+                class="flex-1 py-2.5 rounded-xl border border-kb-line text-kb-body hover:bg-kb-surface-2 transition text-xs font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                @click="triggerPrint"
+                class="flex-1 py-2.5 rounded-xl bg-kb-accent text-black hover:bg-kb-accent-hi transition text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-amber-900/20"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+                Print / Save PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </AppLayout>
 </template>
