@@ -235,7 +235,7 @@ function submitInquiry() {
               </div>
               <div class="pt-2">
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=KB+Finvest+Central+Town+Ludhiana"
+                  href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
                   target="_blank"
                   rel="noopener"
                   class="text-xs font-bold text-kb-accent hover:underline flex items-center gap-1.5"

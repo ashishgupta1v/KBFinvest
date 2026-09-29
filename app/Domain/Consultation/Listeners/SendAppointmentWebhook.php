@@ -62,7 +62,7 @@ class SendAppointmentWebhook
         [$startTime, $endTime, $startFormatted, $endFormatted] = $this->resolveStartAndEndTime($appointment->date, $appointment->time);
 
         $location = match ($appointment->mode) {
-            'Office visit' => 'KB Finvest, 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab',
+            'Office visit' => 'KB Finvest, 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab (https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw)',
             'Phone call' => 'Phone Call (+91 79734 61669 / '.$appointment->phone.')',
             'Video call' => 'Google Meet / Online Video Call',
             default => 'KB Finvest, Ludhiana',

@@ -141,7 +141,7 @@ const never = computed(() => props.data.never || []);
                 </p>
                 <div class="pt-2">
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=KB+Finvest+Central+Town+Ludhiana"
+                    href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
                     target="_blank"
                     rel="noopener"
                     class="text-amber-400 font-bold hover:underline inline-flex items-center gap-1.5"

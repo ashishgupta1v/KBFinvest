@@ -160,7 +160,7 @@ function fmtInr(n) {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <!-- Left Column -->
-          <div class="lg:col-span-7 space-y-6">
+          <div v-reveal class="lg:col-span-7 space-y-6">
             <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-kb-surface-2/90 border border-kb-border/60 text-xs font-semibold text-kb-accent shadow-sm backdrop-blur-md">
               <div class="relative w-6 h-6 rounded-full overflow-hidden border border-amber-400/60 shadow-sm shrink-0">
                 <img
@@ -221,7 +221,7 @@ function fmtInr(n) {
           </div>
 
           <!-- Right Column: Interactive Wealth Teaser Widget & Advisor Credentials -->
-          <div class="lg:col-span-5 space-y-4">
+          <div v-reveal="{ delay: 150 }" class="lg:col-span-5 space-y-4">
             <!-- Interactive Live Teaser Widget -->
             <div class="card-luxury p-5 sm:p-6 relative border border-kb-border/60 shadow-2xl">
               <!-- Top Header & Tabs -->
@@ -465,6 +465,7 @@ function fmtInr(n) {
           <div
             v-for="(p, idx) in proof"
             :key="idx"
+            v-reveal="{ delay: idx * 100 }"
             class="card-frame p-4 flex items-start gap-3.5 hover:border-kb-border transition"
           >
             <div class="w-9 h-9 rounded-xl bg-kb-surface-3 flex items-center justify-center text-kb-accent shrink-0 shadow-inner">
@@ -480,7 +481,7 @@ function fmtInr(n) {
     </section>
 
     <!-- INTERACTIVE SOLUTION FINDER WIZARD -->
-    <section class="py-16 border-b border-kb-line bg-gradient-to-b from-kb-bg via-kb-surface/30 to-kb-bg relative">
+    <section v-reveal class="py-16 border-b border-kb-line bg-gradient-to-b from-kb-bg via-kb-surface/30 to-kb-bg relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SolutionFinderWizard />
       </div>
@@ -489,7 +490,7 @@ function fmtInr(n) {
     <!-- INSTITUTIONAL PARTNERS & REGULATED ECOSYSTEM -->
     <section class="py-12 border-b border-kb-line bg-kb-surface-2/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div v-reveal class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
             <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded badge-gold text-[10px] font-bold uppercase tracking-wider mb-1">
               <span>Ecosystem Access</span>
@@ -500,8 +501,9 @@ function fmtInr(n) {
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
           <div
-            v-for="inst in partnerInstitutions"
+            v-for="(inst, idx) in partnerInstitutions"
             :key="inst.name"
+            v-reveal="{ delay: (idx % 8) * 50 }"
             class="p-3 rounded-2xl bg-kb-surface/80 border border-kb-line/80 flex flex-col items-center justify-center text-center gap-1.5 hover:border-kb-accent/50 hover:bg-kb-surface-2/60 transition-all duration-300 shadow-sm group"
           >
             <!-- Authentic Institutional Brand Emblem -->
@@ -525,7 +527,7 @@ function fmtInr(n) {
     <!-- SIX FIGURES THAT QUIETLY DECIDE WHAT YOU CAN DO -->
     <section class="py-20 bg-kb-surface/30 border-b border-kb-line">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div v-reveal class="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div class="inline-block px-3 py-1 rounded-full bg-kb-surface-2 text-xs font-semibold uppercase tracking-wider text-kb-accent border border-kb-border/40">
             The rules, in numbers
           </div>
@@ -541,6 +543,7 @@ function fmtInr(n) {
           <div
             v-for="(fig, idx) in figures"
             :key="idx"
+            v-reveal="{ delay: (idx % 3) * 100 }"
             class="card-luxury p-6 relative group"
           >
             <div class="text-3xl sm:text-4xl font-bold text-gold-gradient font-display mb-2 group-hover:scale-105 transition-transform origin-left">
@@ -560,7 +563,7 @@ function fmtInr(n) {
     <!-- FIVE PILLARS OVERVIEW -->
     <section class="py-20 border-b border-kb-line">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div v-reveal class="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div class="inline-block px-3 py-1 rounded-full bg-kb-surface-2 text-xs font-semibold uppercase tracking-wider text-kb-accent border border-kb-border/40">
             Our Services
           </div>
@@ -577,6 +580,7 @@ function fmtInr(n) {
             v-for="(pillar, idx) in pillars"
             :key="idx"
             :href="pillar.url"
+            v-reveal="{ delay: (idx % 3) * 100 }"
             class="card-luxury p-6 group hover:border-kb-accent transition block"
           >
             <div class="w-11 h-11 rounded-xl bg-kb-surface-3 flex items-center justify-center text-kb-accent mb-4 group-hover:scale-110 group-hover:bg-kb-accent group-hover:text-black transition shadow-md">
@@ -591,7 +595,7 @@ function fmtInr(n) {
         </div>
 
         <!-- 30-min Review Ribbon -->
-        <div class="mt-12 p-8 rounded-2xl bg-gradient-to-r from-kb-surface-3 via-kb-surface-2 to-kb-surface border border-kb-border flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl card-luxury">
+        <div v-reveal="{ delay: 150 }" class="mt-12 p-8 rounded-2xl bg-gradient-to-r from-kb-surface-3 via-kb-surface-2 to-kb-surface border border-kb-border flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl card-luxury">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-kb-accent shrink-0 shadow-inner">
               <SvgIcon name="i-shield" className="w-6 h-6" />
@@ -619,7 +623,7 @@ function fmtInr(n) {
     <!-- 14 FINANCIAL CALCULATORS SUITE SHOWCASE -->
     <section class="py-16 border-b border-kb-line bg-gradient-to-r from-kb-surface-2/40 via-kb-surface/60 to-kb-surface-2/40 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="card-prestige p-6 sm:p-10 border border-kb-border/50 shadow-2xl relative overflow-hidden">
+        <div v-reveal class="card-prestige p-6 sm:p-10 border border-kb-border/50 shadow-2xl relative overflow-hidden">
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-kb-line/60">
             <div>
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-gold text-xs font-semibold uppercase tracking-wider mb-2">
@@ -679,7 +683,7 @@ function fmtInr(n) {
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div v-reveal class="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full badge-gold text-xs font-semibold uppercase tracking-wider">
             <SvgIcon name="i-shield" className="w-3.5 h-3.5 text-kb-accent" />
             <span>Personal Leadership & Local Accountability</span>
@@ -693,7 +697,7 @@ function fmtInr(n) {
         </div>
 
         <!-- Main Spotlight Card -->
-        <div class="card-prestige p-6 sm:p-10 lg:p-12 border border-kb-border/70 rounded-3xl shadow-2xl relative overflow-hidden bg-kb-surface/90 backdrop-blur-xl">
+        <div v-reveal="{ delay: 100 }" class="card-prestige p-6 sm:p-10 lg:p-12 border border-kb-border/70 rounded-3xl shadow-2xl relative overflow-hidden bg-kb-surface/90 backdrop-blur-xl">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             <!-- Left Column: High-Res Framed Portrait with Prestige Gold Border -->
@@ -822,10 +826,16 @@ function fmtInr(n) {
                       <span>@kb_finvest_</span>
                     </a>
                   </div>
-                  <div class="text-[11px] text-kb-muted flex items-center gap-1.5 pt-0.5">
+                  <a
+                    href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-[11px] text-kb-muted hover:text-kb-accent transition flex items-center gap-1.5 pt-0.5"
+                    title="Open office location in Google Maps"
+                  >
                     <SvgIcon name="i-pin" className="w-3.5 h-3.5 text-kb-accent shrink-0" />
                     <span>179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142021</span>
-                  </div>
+                  </a>
                 </div>
 
                 <!-- Action CTAs -->
@@ -858,7 +868,7 @@ function fmtInr(n) {
     <!-- INTERACTIVE COMPARISON MATRIX: WHY KB FINVEST -->
     <section class="py-20 border-b border-kb-line bg-kb-surface/20 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div v-reveal class="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div class="inline-block px-3 py-1 rounded-full badge-gold text-xs font-semibold uppercase tracking-wider">
             Unbiased Comparison
           </div>
@@ -871,7 +881,7 @@ function fmtInr(n) {
         </div>
 
         <!-- Desktop Comparison Table / Cards -->
-        <div class="card-prestige p-6 sm:p-8 border border-kb-border/40 shadow-2xl overflow-hidden">
+        <div v-reveal="{ delay: 100 }" class="card-prestige p-6 sm:p-8 border border-kb-border/40 shadow-2xl overflow-hidden">
           <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
             <!-- Header Column -->
             <div class="hidden lg:flex flex-col justify-between py-2 border-r border-kb-line/60 pr-6">
@@ -977,7 +987,7 @@ function fmtInr(n) {
     <!-- REALISTIC CLIENT SCENARIO VIGNETTES -->
     <section class="py-20 border-b border-kb-line">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div v-reveal class="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div class="inline-block px-3 py-1 rounded-full badge-emerald text-xs font-semibold uppercase tracking-wider">
             Proven Outcomes
           </div>
@@ -993,6 +1003,7 @@ function fmtInr(n) {
           <div
             v-for="(vig, idx) in clientVignettes"
             :key="idx"
+            v-reveal="{ delay: idx * 100 }"
             class="card-luxury p-6 flex flex-col justify-between gap-6 relative group"
           >
             <div class="space-y-3">
@@ -1023,7 +1034,7 @@ function fmtInr(n) {
     <!-- MONEY FLOW SAFETY (IT NEVER PASSES THROUGH OUR HANDS) -->
     <section class="py-20 bg-kb-surface/30">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div v-reveal class="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div class="inline-block px-3 py-1 rounded-full bg-kb-surface-2 text-xs font-semibold uppercase tracking-wider text-kb-accent border border-kb-border/40">
             Where your money actually goes
           </div>
@@ -1040,6 +1051,7 @@ function fmtInr(n) {
           <div
             v-for="(step, idx) in flow"
             :key="idx"
+            v-reveal="{ delay: idx * 100 }"
             :class="[
               'p-6 rounded-2xl border relative transition-all duration-300',
               step.mid
@@ -1056,7 +1068,7 @@ function fmtInr(n) {
         </div>
 
         <!-- Warning Callout -->
-        <div class="mt-8 p-4 rounded-xl bg-amber-950/30 border border-amber-500/40 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3 backdrop-blur-md">
+        <div v-reveal class="mt-8 p-4 rounded-xl bg-amber-950/30 border border-amber-500/40 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3 backdrop-blur-md">
           <SvgIcon name="i-alert" className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
           <div>
             <strong>{{ flowNote.t }}</strong> {{ flowNote.d }}
@@ -1068,6 +1080,7 @@ function fmtInr(n) {
           <div
             v-for="(s, idx) in safety"
             :key="idx"
+            v-reveal="{ delay: idx * 75 }"
             class="p-4 rounded-xl bg-kb-surface-2/60 border border-kb-line text-xs card-frame"
           >
             <div class="flex items-center gap-2 font-bold text-kb-text mb-1">
@@ -1079,7 +1092,7 @@ function fmtInr(n) {
         </div>
 
         <!-- Central Town Ludhiana Walk-in & Regulatory Seals Banner -->
-        <div class="mt-14 card-prestige p-6 sm:p-8 border border-kb-border/50 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div v-reveal class="mt-14 card-prestige p-6 sm:p-8 border border-kb-border/50 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div class="space-y-2">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-emerald text-xs font-semibold">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -1094,7 +1107,7 @@ function fmtInr(n) {
           </div>
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
             <a
-              href="https://maps.google.com/?q=179-A,+St.+No.+1,+Central+Town,+Ludhiana,+Punjab"
+              href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
               target="_blank"
               rel="noopener"
               class="w-full sm:w-auto min-h-[44px] justify-center px-5 py-3 rounded-xl bg-kb-surface-2 hover:bg-kb-surface-3 border border-kb-line hover:border-kb-accent text-xs font-bold text-kb-text transition flex items-center gap-2"

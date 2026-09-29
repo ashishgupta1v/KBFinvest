@@ -247,7 +247,8 @@ const googleCalendarUrl = computed(() => {
   const fmt = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
 
   const title = encodeURIComponent(`KB Finvest Consultation — ${form.topic}`);
-  const details = encodeURIComponent(`30-minute private consultation with Kulwinder Singh (+91 79734 61669).\nMode: ${form.mode}\nClient: ${form.name}`);
+  const mapLink = form.mode === 'Office visit' ? '\nMap: https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw' : '';
+  const details = encodeURIComponent(`30-minute private consultation with Kulwinder Singh (+91 79734 61669).\nMode: ${form.mode}\nClient: ${form.name}${mapLink}`);
   const location = encodeURIComponent(form.mode === 'Office visit' ? '179-A, St. No. 1, Central Town, Ludhiana, Punjab' : form.mode);
 
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}&location=${location}`;
@@ -269,7 +270,7 @@ function downloadIcs() {
     `DTEND:${f(end)}`,
     `SUMMARY:KB Finvest Consultation — ${form.topic}`,
     `LOCATION:${form.mode === 'Office visit' ? '179-A, Central Town, Ludhiana' : form.mode}`,
-    'DESCRIPTION:30-minute consultation with Kulwinder Singh, KB Finvest (+91 79734 61669).',
+    `DESCRIPTION:30-minute consultation with Kulwinder Singh, KB Finvest (+91 79734 61669).${form.mode === 'Office visit' ? ' Location: https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw' : ''}`,
     'END:VEVENT',
     'END:VCALENDAR',
   ].join('\r\n');
@@ -973,10 +974,21 @@ function downloadIcs() {
               </div>
 
               <!-- Central Town Desk Address -->
-              <div class="p-3.5 rounded-xl bg-kb-surface-2/60 border border-kb-border/50 text-xs text-kb-muted leading-relaxed space-y-1">
-                <div class="font-bold text-kb-text flex items-center gap-1.5">
-                  <SvgIcon name="i-pin" className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Central Town Consultation Room</span>
+              <div class="p-3.5 rounded-xl bg-kb-surface-2/60 border border-kb-border/50 text-xs text-kb-muted leading-relaxed space-y-1.5">
+                <div class="font-bold text-kb-text flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <SvgIcon name="i-pin" className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Central Town Consultation Room</span>
+                  </div>
+                  <a
+                    href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-[11px] text-amber-400 hover:underline font-bold inline-flex items-center gap-1"
+                  >
+                    <span>View Map</span>
+                    <SvgIcon name="i-arr" className="w-3 h-3" />
+                  </a>
                 </div>
                 <p class="text-[11px]">
                   179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, Punjab.

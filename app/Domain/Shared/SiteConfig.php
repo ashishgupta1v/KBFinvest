@@ -22,9 +22,12 @@ class SiteConfig
                 'line2' => 'Near Hotel Keys',
                 'city' => 'Ludhiana',
                 'state' => 'Punjab',
-                'pin' => '',
+                'pin' => '142021',
                 'country' => 'IN',
             ],
+            'mapUrl' => 'https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw',
+            'investOnlineUrl' => 'https://p.njw.bz/11786',
+            'njPartnerCode' => '11786',
             'hoursLabel' => 'Mon–Fri 9:30 am – 6:30 pm · Sat 9:30 am – 5:30 pm · Sun closed',
             'hours' => [
                 1 => [570, 1110],

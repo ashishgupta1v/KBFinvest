@@ -143,6 +143,36 @@ class InvestmentCatalogService
                 ['nm' => 'Mid, small-cap and sectoral equity', 'hz' => '7 years and beyond · satellite, high volatility', 'risk' => 88],
                 ['nm' => 'Unlisted, pre-IPO and private equity', 'hz' => 'Undefined · illiquid, may lose everything', 'risk' => 100],
             ],
+            'onboarding' => [
+                'url' => 'https://p.njw.bz/11786',
+                'title' => 'Start Your Mutual Fund Portfolio 100% Online',
+                'subtitle' => 'Paperless e-KYC in 5 minutes via NJ Wealth Partner Network · AMFI ARN-286477',
+                'badge' => 'Instant Digital Onboarding',
+                'partnerCode' => '11786',
+                'partnerName' => 'NJ Wealth Partner Network',
+                'features' => [
+                    [
+                        't' => '100% Paperless Aadhaar e-KYC',
+                        'd' => 'Zero physical paperwork. Complete instant video/Aadhaar OTP verification from your smartphone.',
+                        'ic' => 'i-shield',
+                    ],
+                    [
+                        't' => 'Direct Access to 40+ AMCs',
+                        'd' => 'Invest across HDFC, SBI, ICICI Prudential, Nippon, Kotak, Axis, Tata, DSP, and all major Indian fund houses.',
+                        'ic' => 'i-bank',
+                    ],
+                    [
+                        't' => 'Instant SIP & Auto-Pay Mandate',
+                        'd' => 'Activate automated monthly SIPs starting from ₹500 via NetBanking or UPI mandate in minutes.',
+                        'ic' => 'i-growth',
+                    ],
+                    [
+                        't' => '24/7 Mobile App Portfolio Tracking',
+                        'd' => 'Live NAV updates, capital gains statements, family portfolio consolidation, and mobile app access anytime.',
+                        'ic' => 'i-trend',
+                    ],
+                ],
+            ],
         ];
     }
 }

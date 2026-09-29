@@ -19,6 +19,7 @@ const activeTab = ref(props.initialTab);
 const services = computed(() => props.data.services || []);
 const ladder = computed(() => props.data.ladder || []);
 const currentService = computed(() => services.value.find((s) => s.id === activeTab.value) || services.value[0]);
+const onboarding = computed(() => props.data.onboarding || {});
 
 const calculatorLink = computed(() => {
   if (activeTab.value === 'pms') {
@@ -80,6 +81,17 @@ const calculatorLink = computed(() => {
               {{ currentService.tag }}
             </span>
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center w-full sm:w-auto gap-2.5">
+              <a
+                v-if="activeTab === 'mf' && onboarding.url"
+                :href="onboarding.url"
+                target="_blank"
+                rel="noopener"
+                class="w-full sm:w-auto min-h-[44px] justify-center px-4 py-2 rounded-xl font-bold text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 transition flex items-center gap-1.5 active:scale-95 shadow-sm"
+                title="Open paperless account & start SIP online via NJ Wealth"
+              >
+                <SvgIcon name="i-rocket" className="w-4 h-4 text-emerald-400" />
+                <span>Invest Online (e-KYC)</span>
+              </a>
               <Link
                 :href="calculatorLink.url"
                 class="w-full sm:w-auto min-h-[44px] justify-center px-4 py-2 rounded-xl font-semibold text-xs border border-kb-border text-kb-accent hover:bg-kb-surface-2 transition flex items-center gap-1.5"
@@ -171,6 +183,80 @@ const calculatorLink = computed(() => {
                 <span>{{ step }}</span>
               </li>
             </ol>
+          </div>
+        </div>
+
+        <!-- DEDICATED NJ WEALTH DIGITAL ONBOARDING DESK CARD -->
+        <div
+          v-if="activeTab === 'mf' && onboarding.url"
+          v-reveal
+          class="card-prestige p-6 sm:p-10 border-2 border-emerald-500/35 bg-gradient-to-br from-emerald-950/25 via-kb-surface-2 to-kb-surface-3/90 shadow-2xl relative overflow-hidden rounded-3xl"
+        >
+          <!-- Background ambient glow -->
+          <div class="absolute -top-24 -right-24 w-88 h-88 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <!-- Top Badge & Identity Header -->
+          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-kb-line/60 relative z-10">
+            <div class="space-y-2">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                <SvgIcon name="i-rocket" className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{{ onboarding.badge }}</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold font-display text-kb-text tracking-tight">
+                {{ onboarding.title }}
+              </h3>
+              <p class="text-xs sm:text-sm text-kb-muted max-w-2xl leading-relaxed">
+                {{ onboarding.subtitle }}
+              </p>
+            </div>
+
+            <!-- Partner Trust Pill -->
+            <div class="p-3.5 rounded-2xl bg-kb-surface/90 border border-kb-border/60 text-left lg:text-right shrink-0 shadow-sm">
+              <div class="text-[10px] uppercase font-bold tracking-wider text-kb-accent">Official Distributor Desk</div>
+              <div class="text-sm font-bold text-kb-text">Kulwinder Singh</div>
+              <div class="text-[11px] text-kb-muted font-mono mt-0.5">AMFI ARN-286477 · Partner: {{ onboarding.partnerCode }}</div>
+            </div>
+          </div>
+
+          <!-- 4 Features Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-8 relative z-10">
+            <div
+              v-for="(f, idx) in onboarding.features"
+              :key="idx"
+              class="p-4 rounded-2xl bg-kb-surface-2/80 border border-kb-line hover:border-emerald-500/40 transition-all space-y-2.5 shadow-sm"
+            >
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <SvgIcon :name="f.ic" className="w-4 h-4" />
+              </div>
+              <h4 class="font-bold text-xs text-kb-text">{{ f.t }}</h4>
+              <p class="text-[11px] text-kb-muted leading-relaxed">{{ f.d }}</p>
+            </div>
+          </div>
+
+          <!-- Action CTA Bar -->
+          <div class="pt-6 border-t border-kb-line/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 relative z-10">
+            <div class="text-xs text-kb-muted flex items-center gap-2">
+              <SvgIcon name="i-lock" className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>100% Regulated & Secure. Money moves directly between your bank and SEBI-registered AMCs.</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+              <Link
+                href="/book?topic=Mutual%20Funds%20%26%20SIPs"
+                class="px-5 py-3 rounded-xl border border-kb-line hover:border-kb-accent text-xs font-bold text-kb-text text-center transition min-h-[44px] flex items-center justify-center"
+              >
+                <span>Prefer In-Person? Book Desk Meeting</span>
+              </Link>
+              <a
+                :href="onboarding.url"
+                target="_blank"
+                rel="noopener"
+                class="btn-shimmer px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:brightness-105 transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 min-h-[44px]"
+              >
+                <span>Start Paperless Onboarding (5 mins)</span>
+                <SvgIcon name="i-arr" className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
 

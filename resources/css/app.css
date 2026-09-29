@@ -439,4 +439,42 @@ input[type="number"].no-spin {
   #kb-print-report .border-b { border-bottom: 1px solid #e2e8f0 !important; }
 }
 
+/* ── Scroll Reveal Animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-delay-75  { transition-delay: 75ms;  animation-delay: 75ms; }
+.reveal-delay-100 { transition-delay: 100ms; animation-delay: 100ms; }
+.reveal-delay-150 { transition-delay: 150ms; animation-delay: 150ms; }
+.reveal-delay-200 { transition-delay: 200ms; animation-delay: 200ms; }
+.reveal-delay-250 { transition-delay: 250ms; animation-delay: 250ms; }
+.reveal-delay-300 { transition-delay: 300ms; animation-delay: 300ms; }
+.reveal-delay-350 { transition-delay: 350ms; animation-delay: 350ms; }
+.reveal-delay-400 { transition-delay: 400ms; animation-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (scripting: none) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
 

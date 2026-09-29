@@ -747,7 +747,17 @@ function scrollToTop() {
               business loan facilitation from an office you can walk into on Central Town, Ludhiana.
             </p>
             <div class="text-xs text-kb-muted space-y-1">
-              <div>📍 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142021</div>
+              <div>
+                <a
+                  href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
+                  target="_blank"
+                  rel="noopener"
+                  class="hover:text-kb-accent transition inline-flex items-center gap-1 text-kb-muted"
+                  title="Open in Google Maps"
+                >
+                  <span>📍 179-A, St. No. 1, Central Town, Near Hotel Keys, Ludhiana, 142021</span>
+                </a>
+              </div>
               <div>📞 +91 79734 61669</div>
               <div>✉️ ks_sandhu07@yahoo.co.in</div>
               <div class="pt-1.5">
@@ -769,6 +779,18 @@ function scrollToTop() {
             <h4 class="text-xs font-bold uppercase tracking-wider text-kb-text mb-4">Core Services</h4>
             <ul class="space-y-2.5 text-xs text-kb-body">
               <li><Link href="/investments" class="hover:text-kb-accent transition">Mutual Funds (SIP & Lump)</Link></li>
+              <li>
+                <a
+                  href="https://p.njw.bz/11786"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-emerald-400 hover:text-emerald-300 transition inline-flex items-center gap-1 font-semibold"
+                  title="NJ Wealth Partner Onboarding Desk (ARN-286477)"
+                >
+                  <span>Start SIP Online (e-KYC)</span>
+                  <SvgIcon name="i-arr" className="w-2.5 h-2.5 -rotate-45" />
+                </a>
+              </li>
               <li><Link href="/investments?tab=pms" class="hover:text-kb-accent transition">PMS Introductions (₹50L+)</Link></li>
               <li><Link href="/insurance" class="hover:text-kb-accent transition">Health, Life & Motor Insurance</Link></li>
               <li><Link href="/loans?tab=cgtmse" class="hover:text-kb-accent transition">CGTMSE Collateral-Free Loans</Link></li>
