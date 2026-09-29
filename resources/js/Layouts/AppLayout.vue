@@ -734,7 +734,7 @@ function scrollToTop() {
     </aside>
 
     <!-- Site Footer -->
-    <footer class="bg-kb-surface-2/60 border-t border-kb-line mt-12 sm:mt-20 pt-12 sm:pt-16 pb-12 text-sm text-kb-muted">
+    <footer class="bg-kb-surface-2/60 border-t border-kb-line mt-12 sm:mt-20 pt-12 sm:pt-16 pb-24 lg:pb-12 text-sm text-kb-muted">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-kb-line/60">
           <!-- Col 1: About & Founder -->

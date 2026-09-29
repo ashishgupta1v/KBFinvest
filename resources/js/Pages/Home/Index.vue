@@ -616,6 +616,61 @@ function fmtInr(n) {
       </div>
     </section>
 
+    <!-- 14 FINANCIAL CALCULATORS SUITE SHOWCASE -->
+    <section class="py-16 border-b border-kb-line bg-gradient-to-r from-kb-surface-2/40 via-kb-surface/60 to-kb-surface-2/40 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card-prestige p-6 sm:p-10 border border-kb-border/50 shadow-2xl relative overflow-hidden">
+          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-kb-line/60">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-gold text-xs font-semibold uppercase tracking-wider mb-2">
+                <SvgIcon name="i-calc" className="w-3.5 h-3.5" />
+                <span>Financial Tool Suite</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold font-display text-kb-text">
+                14 Interactive <span class="italic text-gold-gradient font-serif">Financial Calculators</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-kb-muted mt-1 max-w-2xl">
+                Client-side mathematics for SIP wealth compounding, loan EMIs, prepayment interest savings, SWP pension cashflow, HLV term cover, and CGTMSE guarantee fees. 100% private — zero data stored on our servers.
+              </p>
+            </div>
+            <Link
+              href="/calculators"
+              class="btn-shimmer shrink-0 min-h-[44px] px-6 py-3 rounded-xl bg-gold-gradient text-black font-bold text-xs uppercase tracking-wider hover:brightness-105 transition flex items-center gap-2 shadow-lg shadow-amber-500/15"
+            >
+              <span>Explore All 14 Calculators</span>
+              <SvgIcon name="i-arr" className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <!-- Quick Calculator Pills Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-6">
+            <Link
+              v-for="c in [
+                { id: 'sip', t: 'SIP & Step-Up', sub: 'Wealth Compounding', ic: 'i-growth' },
+                { id: 'emi', t: 'Loan EMI', sub: 'Amortization', ic: 'i-tax' },
+                { id: 'prepay', t: 'EMI Prepayment', sub: 'Interest Savings', ic: 'i-coin' },
+                { id: 'retire', t: 'Retirement Corpus', sub: 'Inflation-Adjusted', ic: 'i-shield' },
+                { id: 'hlv', t: 'Human Life Value', sub: 'Term Cover Gap', ic: 'i-heart' },
+                { id: 'cgtmse', t: 'CGTMSE Slabs', sub: 'Collateral-Free Fee', ic: 'i-scale' },
+              ]"
+              :key="c.id"
+              :href="`/calculators?calc=${c.id}`"
+              class="p-3.5 rounded-xl bg-kb-surface-3/50 hover:bg-kb-surface-2 border border-kb-line/60 hover:border-kb-accent/60 transition group block text-left"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-8 h-8 rounded-lg bg-kb-surface-2 flex items-center justify-center text-kb-accent group-hover:scale-110 transition">
+                  <SvgIcon :name="c.ic" className="w-4 h-4" />
+                </div>
+                <SvgIcon name="i-arr" className="w-3.5 h-3.5 text-kb-muted group-hover:text-kb-accent group-hover:translate-x-0.5 transition" />
+              </div>
+              <div class="font-bold text-xs text-kb-text group-hover:text-kb-accent transition truncate">{{ c.t }}</div>
+              <div class="text-[10px] text-kb-muted truncate mt-0.5">{{ c.sub }}</div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- MEET KULWINDER SINGH — FOUNDER & INVESTMENT ADVISOR SPOTLIGHT -->
     <section class="py-20 lg:py-28 border-b border-kb-line relative overflow-hidden bg-gradient-to-b from-kb-surface/60 via-kb-surface-2/30 to-kb-bg">
       <!-- Ambient light gradients -->

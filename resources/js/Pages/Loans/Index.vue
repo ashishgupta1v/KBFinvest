@@ -18,6 +18,16 @@ const props = defineProps({
 const activeTab = ref(props.initialTab);
 const services = computed(() => props.data.services || []);
 const currentService = computed(() => services.value.find((s) => s.id === activeTab.value) || services.value[0]);
+
+const calculatorLink = computed(() => {
+  if (activeTab.value === 'cgtmse') {
+    return { url: '/calculators?calc=cgtmse', label: 'CGTMSE Fee Checker' };
+  }
+  if (activeTab.value === 'lamf') {
+    return { url: '/calculators?calc=lamf', label: 'Check LAMF Limit' };
+  }
+  return { url: '/calculators?calc=emi', label: 'Calculate EMI' };
+});
 </script>
 
 <template>
@@ -70,11 +80,11 @@ const currentService = computed(() => services.value.find((s) => s.id === active
             </span>
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center w-full sm:w-auto gap-2.5">
               <Link
-                href="/calculators?calc=emi"
+                :href="calculatorLink.url"
                 class="w-full sm:w-auto min-h-[44px] justify-center px-4 py-2.5 rounded-xl font-semibold text-xs border border-kb-border text-kb-accent hover:bg-kb-surface-2 transition flex items-center gap-1.5"
               >
                 <SvgIcon name="i-calc" className="w-4 h-4" />
-                <span>Calculate EMI</span>
+                <span>{{ calculatorLink.label }}</span>
               </Link>
               <Link
                 :href="`/book?topic=${encodeURIComponent(currentService.title)}`"

@@ -61,6 +61,12 @@ const filteredGlossary = computed(() => {
 function toggleFaq(idx) {
   openFaqIndex.value = openFaqIndex.value === idx ? null : idx;
 }
+
+function printChecklist() {
+  if (typeof window !== 'undefined') {
+    window.print();
+  }
+}
 </script>
 
 <template>
@@ -336,7 +342,7 @@ function toggleFaq(idx) {
             Book a slot with these documents
           </Link>
           <button
-            @click="window.print()"
+            @click="printChecklist"
             class="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border border-kb-line text-kb-muted hover:text-kb-text hover:bg-kb-surface-2 cursor-pointer"
             title="Print checklist"
           >
