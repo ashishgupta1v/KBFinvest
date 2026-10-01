@@ -129,4 +129,26 @@ class LeadWebhookTest extends TestCase
             'phone' => '9814199999',
         ]);
     }
+
+    public function test_lead_webhook_does_not_fall_back_to_booking_webhook_url(): void
+    {
+        Http::fake();
+
+        // Booking webhook is set, but lead webhook is NULL
+        Config::set('services.zapier.booking_webhook_url', 'https://hooks.make.com/bookings/calendar-only');
+        Config::set('services.zapier.lead_webhook_url', null);
+
+        $lead = LeadInquiry::create([
+            'name' => 'General Inquiry',
+            'phone' => '9814112345',
+            'city' => 'Ludhiana',
+            'service_type' => 'insurance',
+        ]);
+
+        $listener = new SendLeadWebhook;
+        $listener->handle(new LeadCaptured($lead));
+
+        // Must NOT send to booking webhook URL
+        Http::assertNothingSent();
+    }
 }

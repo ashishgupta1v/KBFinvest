@@ -50,10 +50,42 @@ class ZapierWebhookTest extends TestCase
                 && $data['time'] === '11:00 AM - 11:30 AM'
                 && isset($data['start_time'])
                 && isset($data['end_time'])
+                && isset($data['start'])
+                && isset($data['end'])
+                && isset($data['summary'])
+                && isset($data['description'])
                 && isset($data['calendar_summary'])
                 && isset($data['calendar_description'])
+                && $data['summary'] === $data['calendar_summary']
+                && $data['start'] === $data['start_time']
                 && str_contains($data['location'], 'Central Town');
         });
+    }
+
+    public function test_webhook_retries_when_queue_is_full_and_succeeds(): void
+    {
+        Http::fake([
+            'https://hooks.zapier.com/*' => Http::sequence()
+                ->push('Queue is full.', 400)
+                ->push(['status' => 'success'], 200),
+        ]);
+
+        Config::set('services.zapier.booking_webhook_url', 'https://hooks.zapier.com/hooks/catch/123/456/');
+
+        $appointment = Appointment::create([
+            'name' => 'Retry Client',
+            'phone' => '9814012345',
+            'mode' => 'Office visit',
+            'topic' => 'Mutual Funds & SIPs',
+            'date' => '2026-10-05',
+            'time' => '11:00 AM - 11:30 AM',
+            'status' => 'confirmed',
+        ]);
+
+        $listener = new SendAppointmentWebhook;
+        $listener->handle(new AppointmentScheduled($appointment));
+
+        Http::assertSentCount(2);
     }
 
     public function test_webhook_skips_silently_when_url_is_not_configured(): void
