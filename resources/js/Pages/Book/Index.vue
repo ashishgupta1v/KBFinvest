@@ -326,13 +326,18 @@ function downloadIcs() {
                 </p>
               </div>
 
+              <!-- Calendar instruction callout -->
+              <div class="mx-auto max-w-xs px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-[11px] text-amber-200 leading-relaxed">
+                📅 <strong>Add the event to your calendar</strong> so you don't miss it — click the button below.
+              </div>
+
               <!-- Quick Action Calendar Links -->
-              <div class="pt-4 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+              <div class="pt-2 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
                 <a
                   :href="googleCalendarUrl"
                   target="_blank"
                   rel="noopener"
-                  class="btn-shimmer w-full sm:w-auto min-h-[44px] px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition"
+                  class="btn-shimmer w-full sm:w-auto min-h-[44px] px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/30 ring-2 ring-emerald-400/40 transition animate-pulse hover:animate-none"
                 >
                   <SvgIcon name="i-cal" className="w-4 h-4" />
                   <span>Add to Google Calendar</span>
@@ -355,6 +360,7 @@ function downloadIcs() {
                 </a>
               </div>
             </div>
+
 
             <!-- INTERACTIVE 3-STEP WIZARD FORM -->
             <form v-else @submit.prevent="submitBooking" class="space-y-6">

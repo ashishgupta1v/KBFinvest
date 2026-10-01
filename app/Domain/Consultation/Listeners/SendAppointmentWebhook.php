@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class SendAppointmentWebhook
 {
+    /** Maximum retry attempts for rate-limited / queue-full responses. */
+    private const MAX_RETRIES = 3;
+
     /**
      * Handle the event.
      */
@@ -19,13 +22,38 @@ class SendAppointmentWebhook
         $url = config('services.zapier.booking_webhook_url');
 
         if (empty($url)) {
+            Log::warning('zapier.booking_webhook.skipped', [
+                'reason' => 'MAKE_BOOKING_WEBHOOK_URL is not configured',
+                'appointment_id' => $appointment->id,
+            ]);
+
             return;
         }
 
         try {
             $payload = $this->buildPayload($appointment);
+            $this->dispatchWithRetry($url, $payload, $appointment);
+        } catch (\Throwable $e) {
+            Log::error('zapier.booking_webhook.failed', [
+                'appointment_id' => $appointment->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
 
-            $response = Http::timeout(5)
+    /**
+     * POST the payload to the webhook URL, retrying on 400/429 queue-full responses.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    private function dispatchWithRetry(string $url, array $payload, Appointment $appointment): void
+    {
+        $attempt = 0;
+
+        do {
+            $attempt++;
+
+            $response = Http::timeout(8)
                 ->withHeaders([
                     'User-Agent' => 'KBFinvest-Webhook/1.0',
                     'Content-Type' => 'application/json',
@@ -36,20 +64,50 @@ class SendAppointmentWebhook
                 Log::info('zapier.booking_webhook.sent', [
                     'appointment_id' => $appointment->id,
                     'status' => $response->status(),
+                    'attempt' => $attempt,
                 ]);
-            } else {
-                Log::warning('zapier.booking_webhook.http_error', [
+
+                return;
+            }
+
+            // 400 "Queue is full" or 429 rate-limit — retry with backoff
+            $isRetryable = in_array($response->status(), [400, 429, 503])
+                && str_contains(strtolower($response->body()), 'queue');
+
+            if ($isRetryable && $attempt < self::MAX_RETRIES) {
+                $backoffSeconds = 2 ** ($attempt - 1); // 1s, 2s, 4s
+                Log::info('zapier.booking_webhook.retrying', [
                     'appointment_id' => $appointment->id,
+                    'attempt' => $attempt,
                     'status' => $response->status(),
                     'body' => $response->body(),
+                    'backoff_seconds' => $backoffSeconds,
                 ]);
+                sleep($backoffSeconds);
+
+                continue;
             }
-        } catch (\Throwable $e) {
-            Log::error('zapier.booking_webhook.failed', [
+
+            // Final failure after retries or a non-retryable error
+            $context = [
                 'appointment_id' => $appointment->id,
-                'error' => $e->getMessage(),
-            ]);
-        }
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'attempts' => $attempt,
+                'url' => $url,
+            ];
+
+            if ($response->status() === 400 && str_contains(strtolower($response->body()), 'queue')) {
+                Log::error('zapier.booking_webhook.queue_full', array_merge($context, [
+                    'action_required' => 'Make.com scenario queue is full. Go to make.com, open the KB Finvest scenario, and clear the queue or upgrade the plan.',
+                    'calendar_fallback' => 'Client can still use the Add to Google Calendar button on the confirmation screen.',
+                ]));
+            } else {
+                Log::warning('zapier.booking_webhook.http_error', $context);
+            }
+
+            return;
+        } while ($attempt < self::MAX_RETRIES);
     }
 
     /**
