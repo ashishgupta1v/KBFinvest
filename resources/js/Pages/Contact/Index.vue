@@ -93,10 +93,13 @@ function submitInquiry() {
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1.5">
-                  <label class="text-xs font-medium text-kb-body">Your Full Name *</label>
+                  <label for="contact-name" class="text-xs font-medium text-kb-body">Your Full Name *</label>
                   <input
+                    id="contact-name"
+                    name="name"
                     type="text"
                     v-model="form.name"
+                    autocomplete="name"
                     required
                     placeholder="e.g. Gurpreet Singh"
                     class="w-full bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"
@@ -105,10 +108,13 @@ function submitInquiry() {
                 </div>
 
                 <div class="space-y-1.5">
-                  <label class="text-xs font-medium text-kb-body">Phone / WhatsApp Number *</label>
+                  <label for="contact-phone" class="text-xs font-medium text-kb-body">Phone / WhatsApp Number *</label>
                   <input
+                    id="contact-phone"
+                    name="phone"
                     type="tel"
                     v-model="form.phone"
+                    autocomplete="tel"
                     required
                     placeholder="+91 98765 43210"
                     class="w-full bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"
@@ -119,20 +125,26 @@ function submitInquiry() {
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1.5">
-                  <label class="text-xs font-medium text-kb-body">Email Address (Optional)</label>
+                  <label for="contact-email" class="text-xs font-medium text-kb-body">Email Address (Optional)</label>
                   <input
+                    id="contact-email"
+                    name="email"
                     type="email"
                     v-model="form.email"
+                    autocomplete="email"
                     placeholder="name@example.com"
                     class="w-full bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"
                   />
                 </div>
 
                 <div class="space-y-1.5">
-                  <label class="text-xs font-medium text-kb-body">City / Location *</label>
+                  <label for="contact-city" class="text-xs font-medium text-kb-body">City / Location *</label>
                   <input
+                    id="contact-city"
+                    name="city"
                     type="text"
                     v-model="form.city"
+                    autocomplete="address-level2"
                     required
                     placeholder="e.g. Ludhiana, Jalandhar, Khanna"
                     class="w-full bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"

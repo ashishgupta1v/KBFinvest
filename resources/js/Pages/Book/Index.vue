@@ -816,10 +816,13 @@ function downloadIcs() {
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <!-- Name -->
                   <div class="space-y-1.5">
-                    <label class="text-xs font-medium text-kb-body">Your Full Name *</label>
+                    <label for="book-name" class="text-xs font-medium text-kb-body">Your Full Name *</label>
                     <input
+                      id="book-name"
+                      name="name"
                       type="text"
                       v-model="form.name"
+                      autocomplete="name"
                       required
                       placeholder="e.g. Jaspreet Singh"
                       :class="[
@@ -834,10 +837,13 @@ function downloadIcs() {
 
                   <!-- Phone -->
                   <div class="space-y-1.5">
-                    <label class="text-xs font-medium text-kb-body">WhatsApp / Mobile Number *</label>
+                    <label for="book-phone" class="text-xs font-medium text-kb-body">WhatsApp / Mobile Number *</label>
                     <input
+                      id="book-phone"
+                      name="phone"
                       type="tel"
                       v-model="form.phone"
+                      autocomplete="tel"
                       required
                       placeholder="+91 98765 43210"
                       :class="[
@@ -857,10 +863,13 @@ function downloadIcs() {
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <!-- Email -->
                   <div class="space-y-1.5">
-                    <label class="text-xs font-medium text-kb-body">Email Address (Optional)</label>
+                    <label for="book-email" class="text-xs font-medium text-kb-body">Email Address (Optional)</label>
                     <input
+                      id="book-email"
+                      name="email"
                       type="email"
                       v-model="form.email"
+                      autocomplete="email"
                       placeholder="name@example.com"
                       class="w-full bg-kb-surface-2/60 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-amber-400 focus:bg-kb-surface-2 transition"
                     />
@@ -868,8 +877,10 @@ function downloadIcs() {
 
                   <!-- Notes -->
                   <div class="space-y-1.5">
-                    <label class="text-xs font-medium text-kb-body">Specific Queries / Notes (Optional)</label>
+                    <label for="book-notes" class="text-xs font-medium text-kb-body">Specific Queries / Notes (Optional)</label>
                     <input
+                      id="book-notes"
+                      name="notes"
                       type="text"
                       v-model="form.notes"
                       placeholder="e.g. Need review of existing 5 SIPs"

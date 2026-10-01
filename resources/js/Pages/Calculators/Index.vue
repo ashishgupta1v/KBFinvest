@@ -123,12 +123,6 @@ function animateBig(newBig) {
   _counterRaf = requestAnimationFrame(step);
 }
 
-// Watch result.big and trigger counter animation
-watchEffect(() => {
-  const newBig = result.value?.big;
-  if (newBig !== undefined) animateBig(newBig);
-});
-
 // ─── Year-by-Year Schedule / Amortization Table Builder ─────────────────────
 const scheduleExpanded = ref(false);
 
@@ -1046,6 +1040,12 @@ const result = computed(() => {
     chartType: 'none',
     wa: `Hello KB Finvest, I used your calculators on the site.`,
   };
+});
+
+// Watch result.big and trigger counter animation
+watchEffect(() => {
+  const newBig = result.value?.big;
+  if (newBig !== undefined) animateBig(newBig);
 });
 
 // Deep-linked URL passing calculator context to Booking
