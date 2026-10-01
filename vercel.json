@@ -39,7 +39,9 @@
     "SESSION_COOKIE": "kb_finvest_session",
     "SESSION_LIFETIME": "120",
     "APP_NAME": "KB Finvest",
-    "LOG_CHANNEL": "stderr"
+    "LOG_CHANNEL": "stderr",
+    "MAKE_BOOKING_WEBHOOK_URL": "https://hook.eu1.make.com/899tbmofa1ts5nqdenlq16t5abhtgd1b",
+    "ZAPIER_BOOKING_WEBHOOK_URL": "https://hook.eu1.make.com/899tbmofa1ts5nqdenlq16t5abhtgd1b"
   },
   "outputDirectory": "public"
 }

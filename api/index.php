@@ -76,6 +76,16 @@ if (! getenv('CACHE_STORE') || getenv('CACHE_STORE') === 'file') {
     $_SERVER['CACHE_STORE'] = 'array';
 }
 
+if (! getenv('MAKE_BOOKING_WEBHOOK_URL')) {
+    $makeWebhookUrl = 'https://hook.eu1.make.com/899tbmofa1ts5nqdenlq16t5abhtgd1b';
+    putenv("MAKE_BOOKING_WEBHOOK_URL={$makeWebhookUrl}");
+    $_ENV['MAKE_BOOKING_WEBHOOK_URL'] = $makeWebhookUrl;
+    $_SERVER['MAKE_BOOKING_WEBHOOK_URL'] = $makeWebhookUrl;
+    putenv("ZAPIER_BOOKING_WEBHOOK_URL={$makeWebhookUrl}");
+    $_ENV['ZAPIER_BOOKING_WEBHOOK_URL'] = $makeWebhookUrl;
+    $_SERVER['ZAPIER_BOOKING_WEBHOOK_URL'] = $makeWebhookUrl;
+}
+
 // Handle SQLite database in /tmp if external database is not configured
 $dbConnection = getenv('DB_CONNECTION') ?: ($_ENV['DB_CONNECTION'] ?? 'sqlite');
 if ($dbConnection === 'sqlite') {

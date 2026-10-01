@@ -36,7 +36,15 @@ return [
     ],
 
     'zapier' => [
-        'booking_webhook_url' => env('MAKE_BOOKING_WEBHOOK_URL', env('ZAPIER_BOOKING_WEBHOOK_URL', env('BOOKING_WEBHOOK_URL'))),
-        'lead_webhook_url' => env('MAKE_LEAD_WEBHOOK_URL', env('ZAPIER_LEAD_WEBHOOK_URL', env('LEAD_WEBHOOK_URL'))),
+        'booking_webhook_url' => (! empty(env('MAKE_BOOKING_WEBHOOK_URL')))
+            ? env('MAKE_BOOKING_WEBHOOK_URL')
+            : ((! empty(env('ZAPIER_BOOKING_WEBHOOK_URL')))
+                ? env('ZAPIER_BOOKING_WEBHOOK_URL')
+                : ((! empty(env('BOOKING_WEBHOOK_URL')))
+                    ? env('BOOKING_WEBHOOK_URL')
+                    : 'https://hook.eu1.make.com/899tbmofa1ts5nqdenlq16t5abhtgd1b')),
+        'lead_webhook_url' => (! empty(env('MAKE_LEAD_WEBHOOK_URL')))
+            ? env('MAKE_LEAD_WEBHOOK_URL')
+            : env('ZAPIER_LEAD_WEBHOOK_URL'),
     ],
 ];
