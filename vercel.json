@@ -35,7 +35,10 @@
     "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
     "CACHE_STORE": "array",
     "CACHE_DRIVER": "array",
-    "SESSION_DRIVER": "cookie",
+    "SESSION_DRIVER": "database",
+    "SESSION_COOKIE": "kb_finvest_session",
+    "SESSION_LIFETIME": "120",
+    "APP_NAME": "KB Finvest",
     "LOG_CHANNEL": "stderr"
   },
   "outputDirectory": "public"

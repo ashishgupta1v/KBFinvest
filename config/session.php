@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
 
     /*
@@ -18,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    'driver' => (! empty(env('SESSION_DRIVER'))) ? env('SESSION_DRIVER') : 'database',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +30,7 @@ return [
     |
     */
 
-    'lifetime' => (int) env('SESSION_LIFETIME', 120),
+    'lifetime' => (! empty(env('SESSION_LIFETIME'))) ? (int) env('SESSION_LIFETIME') : 120,
 
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 
@@ -127,10 +125,7 @@ return [
     |
     */
 
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug((string) env('APP_NAME', 'laravel')).'-session'
-    ),
+    'cookie' => (! empty(env('SESSION_COOKIE'))) ? env('SESSION_COOKIE') : 'kb_finvest_session',
 
     /*
     |--------------------------------------------------------------------------
@@ -143,7 +138,7 @@ return [
     |
     */
 
-    'path' => env('SESSION_PATH', '/'),
+    'path' => (! empty(env('SESSION_PATH'))) ? env('SESSION_PATH') : '/',
 
     /*
     |--------------------------------------------------------------------------
@@ -156,7 +151,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN'),
+    'domain' => (! empty(env('SESSION_DOMAIN'))) ? env('SESSION_DOMAIN') : null,
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +164,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    'secure' => env('SESSION_SECURE_COOKIE', true),
 
     /*
     |--------------------------------------------------------------------------

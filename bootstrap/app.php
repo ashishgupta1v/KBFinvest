@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CleanStaleCookies;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,6 +16,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
         $middleware->web(append: [
+            CleanStaleCookies::class,
             HandleInertiaRequests::class,
         ]);
     })
