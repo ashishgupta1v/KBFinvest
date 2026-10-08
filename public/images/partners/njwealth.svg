@@ -1,13 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
-  <!-- NJ Wealth Mutual Fund Emblem -->
-  <rect width="100" height="100" rx="14" fill="#0A2540" />
-  <circle cx="50" cy="50" r="44" fill="none" stroke="#E31837" stroke-width="1.5" stroke-opacity="0.4" />
-  <!-- Monogram NJ -->
-  <g transform="translate(0, -3)">
-    <text x="36" y="50" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="900" fill="#FFFFFF" text-anchor="middle">N</text>
-    <text x="64" y="50" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="900" fill="#E31837" text-anchor="middle">J</text>
-    <path d="M22 56 C 36 63, 64 63, 78 56 C 68 60, 32 60, 22 56 Z" fill="#E31837" />
-    <text x="50" y="69" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="2.5">WEALTH</text>
-    <text x="50" y="80" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="6.5" font-weight="700" fill="#D4A537" text-anchor="middle" letter-spacing="1">MUTUAL FUND</text>
-  </g>
+  <!-- NJ Wealth Official Brand Identity Emblem -->
+  <!-- Official Crimson Red Plaque -->
+  <rect width="100" height="100" rx="14" fill="#ED1C24" />
+
+  <!-- "BUILT ON TRUST" Tagline -->
+  <text
+    x="50"
+    y="16"
+    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    font-size="7.5"
+    font-weight="800"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    letter-spacing="0.8">BUILT ON TRUST</text>
+
+  <!-- Crisp White Center Frame for the Official "Nj" Mark -->
+  <rect x="14" y="21" width="72" height="49" rx="3" fill="#FFFFFF" />
+
+  <!-- 1. Stylized Letter 'N' - Left Wing (Vivid Azure Blue) -->
+  <path
+    d="M 17 24.5 L 30 24.5 L 56 66.5 L 17 66.5 Z"
+    fill="#017BC9" />
+
+  <!-- 2. Stylized Letter 'N' - Right Wing (Solid Black) -->
+  <path
+    d="M 39 24.5 L 57.5 24.5 L 57.5 61.5 Z"
+    fill="#111111" />
+
+  <!-- 3. Red Field for Lowercase 'j' -->
+  <rect x="61" y="24.5" width="22" height="42" rx="2" fill="#ED1C24" />
+
+  <!-- 4. Lowercase 'j' - White Circular Dot -->
+  <circle cx="72" cy="31" r="3.4" fill="#FFFFFF" />
+
+  <!-- 5. Lowercase 'j' - White Curved Stem -->
+  <path
+    d="M 69.5 37 L 74.5 37 L 74.5 54.5 C 74.5 59 72 62.5 67 62.5 C 64.8 62.5 63.2 61.5 62.5 60.5 C 64 59.8 65.5 58.5 66.2 56.8 C 67.2 54.5 67.5 52 67.5 49 L 69.5 49 Z"
+    fill="#FFFFFF" />
+
+  <!-- "WEALTH" Brand Wordmark -->
+  <text
+    x="50"
+    y="89"
+    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    font-size="14.5"
+    font-weight="900"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    letter-spacing="2.5">WEALTH</text>
 </svg>
