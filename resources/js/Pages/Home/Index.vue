@@ -24,7 +24,7 @@ const flowNote = computed(() => props.data.flowNote || {});
 const partnerInstitutions = [
   { id: 'hdfc', name: 'HDFC Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
   { id: 'sbi', name: 'SBI Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
-  { id: 'icici', name: 'ICICI Prudential MF', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
+  { id: 'njwealth', name: 'NJ Wealth MF', type: 'Asset Management', badge: 'AMFI Regulated AMC', url: 'https://www.njwealth.in/' },
   { id: 'nippon', name: 'Nippon India MF', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
   { id: 'kotak', name: 'Kotak Mahindra MF', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
   { id: 'axis', name: 'Axis Mutual Fund', type: 'Asset Management', badge: 'AMFI Regulated AMC' },
@@ -34,7 +34,7 @@ const partnerInstitutions = [
 
 // Interactive Mini SIP Compounding Widget for Main Screen
 const homeSipMonthly = ref(10000);
-const homeSipYears = ref(15);
+const homeSipYears = ref(10);
 const homeSipRate = ref(12);
 
 function formatShortInr(n) {
@@ -131,7 +131,7 @@ const clientVignettes = [
 
 // Interactive Hero Teaser Calculator State
 const heroCalcTab = ref('sip'); // 'sip' | 'emi'
-const heroSipMonthly = ref(15000);
+const heroSipMonthly = ref(10000);
 const heroSipYears = ref(10);
 const heroSipRate = ref(12);
 
@@ -530,16 +530,20 @@ function fmtInr(n) {
             <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded badge-gold text-[10px] font-bold uppercase tracking-wider mb-1">
               <span>Ecosystem Access</span>
             </div>
-            <h3 class="text-base sm:text-lg font-bold text-kb-text">Regulated Distribution with India's Leading Asset Management Companies</h3>
+            <h3 class="text-base sm:text-lg font-bold text-kb-text">Deals in All Leading Asset Management Companies (AMCs)</h3>
           </div>
           <span class="text-xs text-kb-muted">Direct folio investments via NJ Wealth Partner Network · AMFI ARN-178400</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-          <div
+          <component
+            :is="inst.url ? 'a' : 'div'"
             v-for="(inst, idx) in partnerInstitutions"
             :key="inst.name"
+            :href="inst.url || undefined"
+            :target="inst.url ? '_blank' : undefined"
+            :rel="inst.url ? 'noopener noreferrer' : undefined"
             v-reveal="{ delay: (idx % 8) * 50 }"
-            class="p-3 rounded-2xl bg-kb-surface/80 border border-kb-line/80 flex flex-col items-center justify-center text-center gap-1.5 hover:border-kb-accent/50 hover:bg-kb-surface-2/60 transition-all duration-300 shadow-sm group"
+            class="p-3 rounded-2xl bg-kb-surface/80 border border-kb-line/80 flex flex-col items-center justify-center text-center gap-1.5 hover:border-kb-accent/50 hover:bg-kb-surface-2/60 transition-all duration-300 shadow-sm group cursor-pointer block"
           >
             <!-- Authentic Institutional Brand Emblem -->
             <div class="w-12 h-12 rounded-xl bg-gradient-to-b from-white to-slate-100 p-2 shadow-sm border border-white/20 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
@@ -551,9 +555,51 @@ function fmtInr(n) {
               />
             </div>
 
-            <div class="text-xs font-bold text-kb-text group-hover:text-kb-accent transition truncate w-full">{{ inst.name }}</div>
+            <div class="text-xs font-bold text-kb-text group-hover:text-kb-accent transition truncate w-full flex items-center justify-center gap-1">
+              <span>{{ inst.name }}</span>
+              <SvgIcon v-if="inst.url" name="i-arr" className="w-2.5 h-2.5 text-kb-accent shrink-0 inline-block -rotate-45" />
+            </div>
             <div class="text-[10px] text-kb-muted">{{ inst.type }}</div>
             <span class="text-[9px] font-semibold px-1.5 py-0.2 rounded bg-kb-surface-2 text-kb-accent mt-0.5 border border-kb-border/20">{{ inst.badge }}</span>
+          </component>
+        </div>
+
+        <!-- Deals in All AMCs Reassurance Banner -->
+        <div
+          v-reveal
+          class="mt-6 p-4 rounded-2xl bg-kb-surface/70 border border-kb-line flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-kb-body shadow-sm"
+        >
+          <div class="flex items-center gap-3 text-left">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <SvgIcon name="i-shield" className="w-4 h-4" />
+            </div>
+            <div>
+              <div class="font-bold text-kb-text text-sm">Deals in All 40+ AMCs in India</div>
+              <p class="text-xs text-kb-muted mt-0.5">
+                In addition to the premier fund houses highlighted above, KB Finvest deals in mutual fund schemes across every SEBI-registered Asset Management Company (AMC) via the NJ Wealth Partner Network with 100% unbiased portfolio allocation.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2.5 shrink-0 w-full sm:w-auto justify-end">
+            <a
+              href="https://www.njwealth.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 rounded-xl bg-kb-surface-2 hover:bg-kb-surface-3 text-kb-accent border border-kb-border/50 hover:border-kb-accent font-semibold text-xs transition flex items-center gap-1.5"
+            >
+              <span>Visit NJ Wealth</span>
+              <SvgIcon name="i-arr" className="w-3.5 h-3.5 -rotate-45" />
+            </a>
+            <a
+              href="https://p.njw.bz/11786"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-shimmer px-4 py-2 rounded-xl bg-gold-gradient text-black font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-md shadow-amber-500/15"
+            >
+              <span>Invest Online (5 mins)</span>
+              <SvgIcon name="i-arr" className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       </div>
@@ -757,7 +803,8 @@ function fmtInr(n) {
                   />
                   <div class="flex justify-between text-[10px] text-kb-muted font-mono">
                     <span>1 yr</span>
-                    <span>15 yrs</span>
+                    <span>10 yrs</span>
+                    <span>20 yrs</span>
                     <span>30 yrs</span>
                   </div>
                 </div>

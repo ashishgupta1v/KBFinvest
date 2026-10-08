@@ -177,9 +177,8 @@ class InvestmentCatalogService
                 ['nm' => 'Ultra-short and low-duration debt', 'hz' => '6 months to 2 years · emergency fund, near-term goals', 'risk' => 25],
                 ['nm' => 'Short and medium duration debt & Bonds', 'hz' => '2 to 4 years · goals with a fixed date', 'risk' => 40],
                 ['nm' => 'Hybrid and balanced advantage', 'hz' => '3 to 5 years · a smoother ride into equity', 'risk' => 55],
-                ['nm' => 'Large-cap and index equity', 'hz' => '5 years and beyond · core long-term growth', 'risk' => 72],
-                ['nm' => 'Mid, small-cap and sectoral equity', 'hz' => '7 years and beyond · satellite, high volatility', 'risk' => 88],
-                ['nm' => 'Unlisted, pre-IPO and private equity', 'hz' => 'Undefined · illiquid, may lose everything', 'risk' => 100],
+                ['nm' => 'Large-cap and index equity', 'hz' => '5 years and beyond · core long-term growth', 'risk' => 75],
+                ['nm' => 'Mid, small-cap and sectoral equity', 'hz' => '7 years and beyond · satellite, high volatility', 'risk' => 95],
             ],
             'onboarding' => [
                 'url' => 'https://p.njw.bz/11786',
@@ -196,7 +195,7 @@ class InvestmentCatalogService
                     ],
                     [
                         't' => 'Direct Access to 40+ AMCs',
-                        'd' => 'Invest across HDFC, SBI, ICICI Prudential, Nippon, Kotak, Axis, Tata, DSP, and all major Indian fund houses.',
+                        'd' => 'Invest across HDFC, SBI, NJ Wealth, Nippon, Kotak, Axis, Tata, DSP, and all major Indian fund houses.',
                         'ic' => 'i-bank',
                     ],
                     [

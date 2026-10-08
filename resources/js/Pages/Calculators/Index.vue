@@ -132,8 +132,9 @@ const scheduleTable = computed(() => {
 
   if (id === 'sip' || id === 'stepup') {
     const p = Math.max(0, Number(v.p) || 0);
-    const r = Math.max(0, Number(v.r) || 12) / 1200;
-    const totalY = Math.max(1, Number(v.y) || 10);
+    const rVal = v.r !== undefined && v.r !== null && v.r !== '' ? Number(v.r) : 12;
+    const r = Math.max(0, rVal) / 1200;
+    const totalY = Math.max(1, Number(v.y || 10));
     const s = id === 'stepup' ? (Math.max(0, Number(v.s) || 0)) : 0;
     const rows = [];
     let bal = 0; let inv = 0; let currentP = p;
@@ -149,13 +150,14 @@ const scheduleTable = computed(() => {
       rows.push({ yr, open: openBal, invested: yearInv, growth, close: bal });
       currentP *= 1 + s / 100;
     }
-    return { type: 'growth', rows, headers: ['Yr', 'Opening', 'Invested', 'Growth', 'Closing'] };
+    return { type: 'growth', rows, headers: ['Year', 'Opening Bal', 'Annual Deposit', 'Growth Earned', 'Closing Bal'] };
   }
 
   if (id === 'lump') {
     const p = Math.max(0, Number(v.p) || 0);
-    const r = Math.max(0, Number(v.r) || 0) / 100;
-    const totalY = Math.max(1, Number(v.y) || 10);
+    const rVal = v.r !== undefined && v.r !== null && v.r !== '' ? Number(v.r) : 12;
+    const r = Math.max(0, rVal) / 100;
+    const totalY = Math.max(1, Number(v.y || 10));
     const rows = [];
     let bal = p;
     for (let yr = 1; yr <= totalY; yr++) {
@@ -164,7 +166,7 @@ const scheduleTable = computed(() => {
       bal = bal + growth;
       rows.push({ yr, open: openBal, invested: 0, growth, close: bal });
     }
-    return { type: 'growth', rows, headers: ['Yr', 'Opening', 'Principal', 'Growth', 'Closing'] };
+    return { type: 'growth', rows, headers: ['Year', 'Opening Bal', 'Deposit', 'Growth Earned', 'Closing Bal'] };
   }
 
   if (id === 'emi') {
@@ -311,17 +313,17 @@ const presets = {
 // State for inputs across all calculators
 const formState = reactive({
   // SIP
-  sip: { p: 10000, y: 15, r: 11 },
+  sip: { p: 10000, y: 10, r: 12 },
   // Lump sum
-  lump: { p: 500000, y: 10, r: 11 },
+  lump: { p: 500000, y: 10, r: 12 },
   // Step-up SIP
-  stepup: { p: 10000, s: 10, y: 15, r: 11 },
+  stepup: { p: 10000, s: 10, y: 10, r: 12 },
   // SWP
   swp: { c: 5000000, w: 30000, r: 8, y: 25 },
   // Goal
-  goal: { g: 2500000, y: 12, f: 6, r: 11, e: 0 },
+  goal: { g: 2500000, y: 12, f: 6, r: 12, e: 0 },
   // Retirement
-  retire: { a: 35, ra: 60, le: 85, e: 50000, f: 6, r1: 11, r2: 7, s: 500000 },
+  retire: { a: 35, ra: 60, le: 85, e: 50000, f: 6, r1: 12, r2: 7, s: 500000 },
   // EMI
   emi: { p: 3000000, r: 9, y: 20, x: 0 },
   // Eligibility
@@ -389,6 +391,26 @@ const result = computed(() => {
     const inv = p * n;
     const returns = Math.max(0, fv - inv);
     const returnPct = inv > 0 ? ((returns / inv) * 100).toFixed(1) : 0;
+
+    const chartValsFv = [];
+    const chartValsInv = [];
+    const hoverLabels = [];
+
+    if (y <= 2) {
+      const totalMonths = y * 12;
+      for (let m = 0; m <= totalMonths; m++) {
+        chartValsFv.push(fvSip(p, i, m));
+        chartValsInv.push(p * m);
+        hoverLabels.push(m === 0 ? 'Start (Now)' : (m === totalMonths ? `Month ${m} (Yr ${y} End)` : `Month ${m}`));
+      }
+    } else {
+      for (let yr = 0; yr <= y; yr++) {
+        chartValsFv.push(fvSip(p, i, yr * 12));
+        chartValsInv.push(p * yr * 12);
+        hoverLabels.push(yr === 0 ? 'Start (Now)' : (yr === y ? `Year ${y} (Maturity)` : `Year ${yr}`));
+      }
+    }
+
     return {
       cap: `Estimated Maturity Value After ${y} Years`,
       big: shortInr(fv),
@@ -409,9 +431,10 @@ const result = computed(() => {
       chartType: 'line',
       chartTitle: 'Projected SIP Growth (Gold) vs Amount Invested (Blue)',
       xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
+      hoverLabels,
       series: [
-        { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => fvSip(p, i, (n * k) / 24)) },
-        { cls: 'ln-b', vals: Array.from({ length: 25 }, (_, k) => p * ((n * k) / 24)) },
+        { cls: 'ln-a', label: 'Total Value', vals: chartValsFv },
+        { cls: 'ln-b', label: 'Invested', vals: chartValsInv },
       ],
       wa: `I used the KB Finvest SIP calculator: ${inr(p)} a month for ${y} years at ${r}%. Estimated returns: ${inr(returns)} (Total Value: ${shortInr(fv)}). Can we discuss this?`,
     };
@@ -424,6 +447,26 @@ const result = computed(() => {
     const fv = p * Math.pow(1 + r / 100, y);
     const returns = Math.max(0, fv - p);
     const returnPct = p > 0 ? ((returns / p) * 100).toFixed(1) : 0;
+
+    const chartValsFv = [];
+    const chartValsInv = [];
+    const hoverLabels = [];
+
+    if (y <= 2) {
+      const totalMonths = y * 12;
+      for (let m = 0; m <= totalMonths; m++) {
+        chartValsFv.push(p * Math.pow(1 + r / 100, m / 12));
+        chartValsInv.push(p);
+        hoverLabels.push(m === 0 ? 'Start (Now)' : (m === totalMonths ? `Month ${m} (Yr ${y} End)` : `Month ${m}`));
+      }
+    } else {
+      for (let yr = 0; yr <= y; yr++) {
+        chartValsFv.push(p * Math.pow(1 + r / 100, yr));
+        chartValsInv.push(p);
+        hoverLabels.push(yr === 0 ? 'Start (Now)' : (yr === y ? `Year ${y} (Maturity)` : `Year ${yr}`));
+      }
+    }
+
     return {
       cap: `Estimated Maturity Value After ${y} Years`,
       big: shortInr(fv),
@@ -443,9 +486,10 @@ const result = computed(() => {
       chartType: 'line',
       chartTitle: 'Lump Sum Growth (Gold) vs Principal (Blue)',
       xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
+      hoverLabels,
       series: [
-        { cls: 'ln-a', vals: Array.from({ length: 25 }, (_, k) => p * Math.pow(1 + r / 100, (y * k) / 24)) },
-        { cls: 'ln-b', vals: Array.from({ length: 25 }, () => p) },
+        { cls: 'ln-a', label: 'Total Value', vals: chartValsFv },
+        { cls: 'ln-b', label: 'Principal', vals: chartValsInv },
       ],
       wa: `I used the lump sum calculator: ${inr(p)} for ${y} years at ${r}%. Estimated returns: ${inr(returns)}.`,
     };
@@ -462,13 +506,15 @@ const result = computed(() => {
     let currentP = p;
     const B = [0];
     const I = [0];
-    for (let yr = 0; yr < y; yr++) {
+    const hoverLabels = ['Start (Now)'];
+    for (let yr = 1; yr <= y; yr++) {
       for (let m = 0; m < 12; m++) {
         bal = (bal + currentP) * (1 + i);
         inv += currentP;
       }
       B.push(bal);
       I.push(inv);
+      hoverLabels.push(yr === y ? `Year ${y} (Maturity)` : `Year ${yr}`);
       currentP *= 1 + s / 100;
     }
     const returns = Math.max(0, bal - inv);
@@ -494,9 +540,10 @@ const result = computed(() => {
       chartType: 'line',
       chartTitle: 'Step-up SIP Corpus (Gold) vs Total Invested (Blue)',
       xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
+      hoverLabels,
       series: [
-        { cls: 'ln-a', vals: B },
-        { cls: 'ln-b', vals: I },
+        { cls: 'ln-a', label: 'Total Value', vals: B },
+        { cls: 'ln-b', label: 'Invested', vals: I },
       ],
       wa: `I used the step-up SIP calculator: starting ${inr(p)}/mo rising ${s}% yearly. Estimated value: ${shortInr(bal)}.`,
     };
@@ -510,21 +557,26 @@ const result = computed(() => {
 
     const i = r / 1200;
     let bal = c;
-    const months = y * 12;
     let drawn = 0;
     let out = -1;
     const A = [bal];
-    for (let k = 0; k < months; k++) {
-      bal = bal * (1 + i) - w;
-      if (bal <= 0 && out === -1) {
-        out = k + 1;
-        drawn += w + bal;
-        bal = 0;
-      } else if (bal > 0) {
-        drawn += w;
+    const hoverLabels = ['Start (Now)'];
+
+    for (let yr = 1; yr <= y; yr++) {
+      for (let m = 0; m < 12; m++) {
+        bal = bal * (1 + i) - w;
+        if (bal <= 0 && out === -1) {
+          out = (yr - 1) * 12 + m + 1;
+          drawn += w + bal;
+          bal = 0;
+        } else if (bal > 0) {
+          drawn += w;
+        }
       }
-      if (k % Math.max(1, Math.ceil(months / 24)) === 0) A.push(Math.max(0, bal));
+      A.push(Math.max(0, bal));
+      hoverLabels.push(yr === y ? `Year ${y} End` : `Year ${yr}`);
     }
+
     const lasts = out === -1 ? `Beyond ${y} years` : `${Math.floor(out / 12)} yrs ${out % 12} mo`;
     return {
       cap: 'Your corpus lasts',
@@ -539,7 +591,8 @@ const result = computed(() => {
       chartType: 'line',
       chartTitle: 'Corpus Balance Trajectory Over Time',
       xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
-      series: [{ cls: 'ln-a', vals: A }],
+      hoverLabels,
+      series: [{ cls: 'ln-a', label: 'Remaining Corpus', vals: A }],
       wa: `I used the SWP calculator: corpus ${shortInr(c)}, drawing ${inr(w)} monthly.`,
     };
   }
@@ -665,21 +718,24 @@ const result = computed(() => {
     const monthlyPay = emi + x;
     const B = [p];
     const C = [0];
+    const hoverLabels = ['Start (Now)'];
 
-    for (let k = 0; k < n; k++) {
-      if (bal <= 0) {
-        if (payoffMonths === n) payoffMonths = k;
-        bal = 0;
-      } else {
-        const int = bal * i;
-        cumInt += int;
-        bal = Math.max(0, bal + int - monthlyPay);
-        if (bal === 0 && payoffMonths === n) payoffMonths = k + 1;
+    for (let yr = 1; yr <= y; yr++) {
+      for (let m = 0; m < 12; m++) {
+        const k = (yr - 1) * 12 + m;
+        if (bal <= 0) {
+          if (payoffMonths === n) payoffMonths = k;
+          bal = 0;
+        } else {
+          const int = bal * i;
+          cumInt += int;
+          bal = Math.max(0, bal + int - monthlyPay);
+          if (bal === 0 && payoffMonths === n) payoffMonths = k + 1;
+        }
       }
-      if (k % Math.max(1, Math.ceil(n / 24)) === 0) {
-        B.push(bal);
-        C.push(cumInt);
-      }
+      B.push(bal);
+      C.push(cumInt);
+      hoverLabels.push(yr === y ? `Year ${y} (Maturity)` : `Year ${yr}`);
     }
 
     const interestSaved = Math.max(0, regularInterest - cumInt);
@@ -705,9 +761,10 @@ const result = computed(() => {
       chartType: 'line',
       chartTitle: 'Outstanding Principal (Gold) vs Cumulative Interest Paid (Blue)',
       xLabels: ['Now', `Yr ${Math.round(y / 2)}`, `Yr ${y}`],
+      hoverLabels,
       series: [
-        { cls: 'ln-a', vals: B },
-        { cls: 'ln-b', vals: C },
+        { cls: 'ln-a', label: 'Principal Left', vals: B },
+        { cls: 'ln-b', label: 'Interest Paid', vals: C },
       ],
       wa: `I used the EMI calculator: loan ${shortInr(p)} at ${r}% for ${y} years. Base EMI is ${inr(emi)}${x > 0 ? ` (+ ${inr(x)} extra monthly)` : ''}.`,
     };
@@ -1085,8 +1142,9 @@ const sipMilestones = computed(() => {
   const v = formState[activeId.value];
   if (!v) return null;
   const p = Number(v.p) || 10000;
-  const r = (Number(v.r) || 12) / 1200;
-  const totalY = Number(v.y) || 10;
+  const rVal = v.r !== undefined && v.r !== null && v.r !== '' ? Number(v.r) : 12;
+  const r = Math.max(0, rVal) / 1200;
+  const totalY = Number(v.y || 10);
   const s = activeId.value === 'stepup' ? (Number(v.s) || 0) : 0;
   
   const years = [3, 5, 10, totalY].filter((y, idx, arr) => arr.indexOf(y) === idx && y > 0 && y <= totalY).sort((a, b) => a - b);
@@ -1330,6 +1388,7 @@ const sipMilestones = computed(() => {
               v-if="result.chartType === 'line'"
               :series="result.series"
               :xLabels="result.xLabels"
+              :hoverLabels="result.hoverLabels"
               :title="result.chartTitle"
             />
 
@@ -1345,7 +1404,7 @@ const sipMilestones = computed(() => {
               <div class="flex items-center justify-between text-xs font-bold text-kb-text">
                 <span class="flex items-center gap-1.5">
                   <SvgIcon name="i-growth" className="w-4 h-4 text-kb-accent" />
-                  <span>Year-by-Year Growth Milestones</span>
+                  <span>Growth Milestones at Tenure Points</span>
                 </span>
                 <span class="text-[10px] text-kb-muted uppercase font-mono">Compounding</span>
               </div>

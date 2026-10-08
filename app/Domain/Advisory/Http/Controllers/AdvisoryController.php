@@ -14,7 +14,7 @@ class AdvisoryController extends Controller
     {
         return Inertia::render('Advisory/Index', [
             'data' => AdvisoryCatalogService::getData(),
-            'initialTab' => $request->query('tab', 'pe'),
+            'initialTab' => $request->query('tab', 'stress'),
         ]);
     }
 }

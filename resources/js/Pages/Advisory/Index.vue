@@ -11,7 +11,7 @@ const props = defineProps({
   },
   initialTab: {
     type: String,
-    default: 'pe',
+    default: 'stress',
   },
 });
 
@@ -22,7 +22,7 @@ const currentService = computed(() => services.value.find((s) => s.id === active
 
 <template>
   <AppLayout>
-    <Head title="Specialist Advisory — Pre-IPO Equities & Stressed Accounts in Ludhiana" />
+    <Head title="Specialist Advisory — Stressed Accounts & Debt Resolution in Ludhiana" />
 
     <!-- Hero Header -->
     <section class="py-12 border-b border-kb-line bg-kb-surface/30">
@@ -32,15 +32,15 @@ const currentService = computed(() => services.value.find((s) => s.id === active
             Specialist Situations
           </div>
           <h1 class="text-3xl sm:text-5xl font-bold font-display">
-            Two situations most desks <span class="italic text-gold-gradient font-serif">avoid</span>
+            Confidential guidance when accounts <span class="italic text-gold-gradient font-serif">face distress</span>
           </h1>
           <p class="text-base text-kb-body leading-relaxed">
-            Unlisted and pre-IPO opportunities for investors who understand the high risk, and calm, confidential help for borrowers whose accounts have slipped into distress.
+            Calm, confidential advisory and representation support for borrowers whose accounts have slipped into SMA or NPA.
           </p>
         </div>
 
         <!-- Service Tabs -->
-        <div class="flex items-center gap-2 mt-8 overflow-x-auto no-scrollbar pb-2 pt-1">
+        <div v-if="services.length > 1" class="flex items-center gap-2 mt-8 overflow-x-auto no-scrollbar pb-2 pt-1">
           <button
             v-for="svc in services"
             :key="svc.id"

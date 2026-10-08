@@ -126,7 +126,7 @@ class ResourceCatalogService
                 ['c' => 'ins', 'q' => 'Do you help when I actually have to claim?', 'a' => 'Yes, and that is most of the job. Cashless pre-authorisation, document assembly for reimbursement, and follow-up with the hospital desk.'],
                 ['c' => 'loan', 'q' => 'Does KB Finvest lend money?', 'a' => 'No. We are a facilitator. Sanctions and terms are decided entirely by regulated lenders. We never collect loan repayments.'],
                 ['c' => 'loan', 'q' => 'Can I really get a business loan with no collateral?', 'a' => 'For micro and small enterprises, often yes via CGTMSE guarantee cover up to ₹10 crore, and RBI rules bar banks from demanding collateral for MSE loans up to ₹20 lakh.'],
-                ['c' => 'adv', 'q' => 'Are pre-IPO shares safe?', 'a' => 'No. They are illiquid, unlisted, and carry high risk. Treat them only as a small satellite allocation you can afford to lose.'],
+                ['c' => 'adv', 'q' => 'How does stressed account and NPA advisory work?', 'a' => 'We review your loan files, notices, and cash flows confidentially to help formulate a realistic restructuring or one-time settlement (OTS) proposal with your lender. We do not provide legal representation.'],
                 ['c' => 'priv', 'q' => 'What happens to details submitted on this site?', 'a' => 'They are used solely to answer your enquiry. We never sell, rent, or spam your data, and we comply with the DPDP framework.'],
             ],
             'glossary' => [

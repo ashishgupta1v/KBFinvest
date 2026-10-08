@@ -4,11 +4,15 @@ import { computed, ref } from 'vue';
 const props = defineProps({
   series: {
     type: Array,
-    required: true, // [{ cls: 'ln-a', vals: [...] }, { cls: 'ln-b', vals: [...], fill: false }]
+    required: true, // [{ cls: 'ln-a', label?: 'Total Value', vals: [...] }, { cls: 'ln-b', label?: 'Invested', vals: [...], fill: false }]
   },
   xLabels: {
     type: Array,
     default: () => ['Start', 'Mid', 'End'],
+  },
+  hoverLabels: {
+    type: Array,
+    default: () => null,
   },
   title: {
     type: String,
@@ -83,6 +87,7 @@ const paths = computed(() => {
       gradId: s.cls === 'ln-a' ? 'cgA' : 'cgB',
       lastX,
       lastY,
+      label: s.label || (s.cls === 'ln-a' ? 'Total Value' : 'Invested'),
       vals: s.vals,
       X,
       Y,
@@ -130,15 +135,26 @@ function handleMouseMove(event) {
   const n = props.series[0].vals.length;
   const snapX = L + (n < 2 ? pw / 2 : (idx / (n - 1)) * pw);
 
-  // Interpolate year label
-  const totalYears = props.xLabels.length >= 2 ? props.xLabels : ['Now', 'End'];
-  const progress = idx / Math.max(1, n - 1);
+  // Exact hover label for the current point
+  let xLabel = '';
+  if (props.hoverLabels && props.hoverLabels[idx] !== undefined) {
+    xLabel = props.hoverLabels[idx];
+  } else if (props.xLabels.length === n) {
+    xLabel = props.xLabels[idx];
+  } else {
+    const progress = idx / Math.max(1, n - 1);
+    xLabel = idx === 0
+      ? (props.xLabels[0] || 'Start')
+      : (idx === n - 1
+        ? (props.xLabels[props.xLabels.length - 1] || 'End')
+        : (props.xLabels[Math.round(progress * (props.xLabels.length - 1))] || ''));
+  }
 
   // Build tooltip items for each series
   const items = paths.value.map((p) => ({
     color: p.color,
     val: shortInr(p.vals[idx] || 0),
-    label: p.color === '#D4A537' ? (props.series.find(s => s.cls === 'ln-a') ? 'Growth' : '') : 'Invested',
+    label: p.label,
   }));
 
   tooltip.value = {
@@ -146,7 +162,7 @@ function handleMouseMove(event) {
     crosshairY1: T,
     crosshairY2: T + ph,
     items,
-    xLabel: props.xLabels[Math.round(progress * (props.xLabels.length - 1))] || '',
+    xLabel,
     clientX,
     clientY,
   };
@@ -265,10 +281,10 @@ function handleLeave() {
       >
         <div
           v-if="tooltip"
-          class="pointer-events-none absolute z-30 min-w-[110px] rounded-xl border border-amber-500/40 bg-kb-bg/90 backdrop-blur-md px-3 py-2 shadow-xl shadow-black/40"
+          class="pointer-events-none absolute z-30 min-w-[130px] rounded-xl border border-amber-500/40 bg-kb-bg/95 backdrop-blur-md px-3 py-2 shadow-xl shadow-black/50"
           :style="{
             top: '4px',
-            left: `clamp(4px, ${((tooltip.svgX - L) / (W - L - R)) * 100}%, calc(100% - 120px))`,
+            left: `clamp(68px, ${((tooltip.svgX - L) / (W - L - R)) * 100}%, calc(100% - 75px))`,
             transform: 'translateX(-50%)',
           }"
         >
@@ -276,9 +292,12 @@ function handleLeave() {
           <div
             v-for="(item, j) in tooltip.items"
             :key="j"
-            class="flex items-center gap-1.5 text-[11px] font-mono font-semibold"
+            class="flex items-center justify-between gap-3 text-[11px] font-mono font-semibold py-0.5"
           >
-            <span class="w-2 h-2 rounded-full shrink-0" :style="{ background: item.color }" />
+            <span class="flex items-center gap-1.5 text-kb-muted text-[10px] font-sans">
+              <span class="w-2 h-2 rounded-full shrink-0" :style="{ background: item.color }" />
+              <span>{{ item.label }}</span>
+            </span>
             <span class="text-kb-text">{{ item.val }}</span>
           </div>
         </div>

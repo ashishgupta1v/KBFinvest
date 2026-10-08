@@ -9,47 +9,6 @@ class AdvisoryCatalogService
         return [
             'services' => [
                 [
-                    'id' => 'pe',
-                    'ic' => 'i-rocket',
-                    'title' => 'Private Equity, Pre-IPO and IPO',
-                    'tag' => 'High risk · Illiquid',
-                    'lead' => 'Access to unlisted and pre-IPO shares, and help navigating the IPO process. This is the highest-risk corner of the practice and we treat it that way.',
-                    'who' => [
-                        'Investors who already hold a complete, diversified core portfolio',
-                        'People who can leave this money untouched for years',
-                        'Business owners familiar with private company risk',
-                    ],
-                    'what' => [
-                        'Unlisted and pre-IPO shares: How they are bought and transferred, how price discovery works without an exchange, and why the spread is wide.',
-                        'Valuation without a market price: What you can and cannot verify from the information a private company actually discloses.',
-                        'The listing question: An IPO may be delayed indefinitely or never happen. Your exit may be a secondary sale at a price you do not control.',
-                        'Lock-ins and restrictions: Pre-IPO holdings frequently carry a post-listing lock-in. Plan your liquidity around that, not around the listing date.',
-                        'IPO applications: ASBA, UPI mandates, category selection, and the plain reality that allotment in a popular issue is a lottery.',
-                        'Position sizing: Our standing view is that this is a small satellite allocation you could afford to lose entirely.',
-                    ],
-                    'docs' => [
-                        'PAN, Aadhaar and full KYC',
-                        'Demat account for off-market transfer',
-                        'Proof of source of funds',
-                        'Signed risk acknowledgement',
-                    ],
-                    'steps' => [
-                        'Suitability and risk-tolerance conversation',
-                        'Written risk disclosure, acknowledged by you',
-                        'Opportunity and documentation reviewed together',
-                        'Transaction executed directly with the counterparty',
-                        'Holdings tracked; exit options reviewed periodically',
-                    ],
-                    'facts' => [
-                        ['Liquidity', 'Low to none until listing'],
-                        ['Price discovery', 'Negotiated, not exchange-traded'],
-                        ['Lock-in', 'Often applies after listing'],
-                        ['Suggested allocation', 'A small satellite, not a core holding'],
-                    ],
-                    'note' => 'There is no assurance of listing, of allotment, of a listing gain, or of any exit at all. Anyone promising you those things about an unlisted share is not someone you should transact with.',
-                    'disc' => 'Investments in unlisted and pre-IPO securities are speculative, illiquid and may result in total loss of capital. No return, listing or exit is assured. This section is educational and is not a recommendation or an offer to buy or sell any security.',
-                ],
-                [
                     'id' => 'stress',
                     'ic' => 'i-scale',
                     'title' => 'Stressed Account Handling',

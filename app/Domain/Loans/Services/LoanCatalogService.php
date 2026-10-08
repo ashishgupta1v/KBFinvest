@@ -160,7 +160,7 @@ class LoanCatalogService
                         'Overdraft structure: A limit is set; interest applies only on what you actually draw, for the days you draw it.',
                         'Regulatory ceilings apply from 1 July 2026 under RBI capital-market-exposure amendment directions of 13 February 2026.',
                         'Margin calls: If the market falls, the lender can ask you to pledge more or repay part of the drawing. Borrow with a safety buffer.',
-                        'IPO, FPO and ESOP finance is capped at ₹25 lakh per individual with a 25 per cent cash margin.',
+                        'ESOP and capital market finance is capped at ₹25 lakh per individual with a 25 per cent cash margin.',
                     ],
                     'table' => [
                         'cap' => 'RBI ceilings applicable to banks, effective 1 July 2026',
@@ -169,7 +169,7 @@ class LoanCatalogService
                             ['Listed shares and listed convertible debt', '60%', '₹1 crore per individual, across banking system'],
                             ['Mutual funds other than debt funds, ETFs, REITs', '75%', '₹1 crore per individual, across banking system'],
                             ['Debt mutual funds', '85%', '₹1 crore per individual, across banking system'],
-                            ['IPO / FPO / ESOP finance', '—', '₹25 lakh per individual, 25% cash margin'],
+                            ['ESOP and capital market finance', '—', '₹25 lakh per individual, 25% cash margin'],
                         ],
                     ],
                     'docs' => [
