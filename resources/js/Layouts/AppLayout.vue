@@ -255,10 +255,10 @@ function scrollToTop() {
                     @click="closeDropdownNow"
                   >
                     <div class="font-semibold text-xs text-kb-text group-hover:text-kb-accent flex items-center justify-between">
-                      <span>Mutual Funds & SIPs</span>
+                      <span>Mutual Funds (SIP & SWP)</span>
                       <SvgIcon name="i-arr" className="w-3 h-3 opacity-0 group-hover:opacity-100 transition text-kb-accent" />
                     </div>
-                    <p class="text-[11px] text-kb-muted mt-0.5 leading-snug">Goal-linked portfolios, ELSS tax savings & regular reviews</p>
+                    <p class="text-[11px] text-kb-muted mt-0.5 leading-snug">Goal-linked portfolios, SWP monthly cashflow & regular reviews</p>
                   </Link>
 
                   <Link
@@ -372,8 +372,8 @@ function scrollToTop() {
                     class="group block p-2 rounded-xl hover:bg-kb-surface-2 transition"
                     @click="closeDropdownNow"
                   >
-                    <div class="font-semibold text-xs text-kb-text group-hover:text-kb-accent">SIP & Step-Up Calculator</div>
-                    <p class="text-[11px] text-kb-muted">Model monthly wealth compounding</p>
+                    <div class="font-semibold text-xs text-kb-text group-hover:text-kb-accent">SIP & SWP Calculators</div>
+                    <p class="text-[11px] text-kb-muted">Wealth compounding & monthly cashflow</p>
                   </Link>
                   <Link
                     href="/calculators?calc=emi"
@@ -787,7 +787,7 @@ function scrollToTop() {
                   class="text-emerald-400 hover:text-emerald-300 transition inline-flex items-center gap-1 font-semibold"
                   title="NJ Wealth Partner Onboarding Desk (ARN-178400)"
                 >
-                  <span>Start SIP Online (e-KYC)</span>
+                  <span>Start SIP / SWP Online (e-KYC)</span>
                   <SvgIcon name="i-arr" className="w-2.5 h-2.5 -rotate-45" />
                 </a>
               </li>
@@ -805,6 +805,7 @@ function scrollToTop() {
             <h4 class="text-xs font-bold uppercase tracking-wider text-kb-text mb-4">Tools & Guides</h4>
             <ul class="space-y-2.5 text-xs text-kb-body">
               <li><Link href="/calculators?calc=sip" class="hover:text-kb-accent transition">SIP Calculator</Link></li>
+              <li><Link href="/calculators?calc=swp" class="hover:text-kb-accent transition">SWP Pension Calculator</Link></li>
               <li><Link href="/calculators?calc=emi" class="hover:text-kb-accent transition">Loan EMI Calculator</Link></li>
               <li><Link href="/calculators?calc=cgtmse" class="hover:text-kb-accent transition">CGTMSE Fee Checker</Link></li>
               <li><Link href="/resources" class="hover:text-kb-accent transition">Document Checklists</Link></li>

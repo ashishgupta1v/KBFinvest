@@ -147,7 +147,7 @@ class CalculatorCatalogService
                         ['k' => 'eq', 'l' => 'Equity funds, ETFs, REITs', 't' => 'range', 'min' => 0, 'max' => 50000000, 'step' => 50000, 'def' => 2000000, 'fmt' => 'inr'],
                         ['k' => 'db', 'l' => 'Debt mutual funds', 't' => 'range', 'min' => 0, 'max' => 50000000, 'step' => 50000, 'def' => 500000, 'fmt' => 'inr'],
                     ],
-                    'assume' => 'Applies RBI ceilings: 60% on listed shares, 75% on equity funds/ETFs, 85% on debt funds, capped at ₹1 crore per individual across banks.',
+                    'assume' => 'Applies RBI ceilings: 50% on listed shares, 75% on equity funds/ETFs, 80% on debt funds, capped at ₹1 crore per individual across banks.',
                     'disc' => 'Indicative only. The lender decides the eligible securities and final limit.',
                 ],
                 [

@@ -31,7 +31,7 @@ const calculatorLink = computed(() => {
   if (activeTab.value === 'mkt') {
     return { url: '/calculators?calc=goal', label: 'Model Target Goal' };
   }
-  return { url: '/calculators?calc=sip', label: 'Calculate SIP Returns' };
+  return { url: '/calculators?calc=sip', label: 'Calculate SIP / SWP Returns' };
 });
 </script>
 
@@ -90,7 +90,7 @@ const calculatorLink = computed(() => {
                 target="_blank"
                 rel="noopener"
                 class="w-full sm:w-auto min-h-[44px] justify-center px-4 py-2 rounded-xl font-bold text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 transition flex items-center gap-1.5 active:scale-95 shadow-sm"
-                title="Open paperless account & start SIP online via NJ Wealth"
+                title="Open paperless account & start SIP / SWP online via NJ Wealth"
               >
                 <SvgIcon name="i-rocket" className="w-4 h-4 text-emerald-400" />
                 <span>Invest Online (e-KYC)</span>
@@ -245,7 +245,7 @@ const calculatorLink = computed(() => {
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
               <Link
-                href="/book?topic=Mutual%20Funds%20%26%20SIPs"
+                href="/book?topic=Mutual%20Funds%20(SIP%20%26%20SWP)"
                 class="px-5 py-3 rounded-xl border border-kb-line hover:border-kb-accent text-xs font-bold text-kb-text text-center transition min-h-[44px] flex items-center justify-center"
               >
                 <span>Prefer In-Person? Book Desk Meeting</span>

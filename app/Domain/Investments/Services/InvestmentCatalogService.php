@@ -13,9 +13,9 @@ class InvestmentCatalogService
                 [
                     'id' => 'mf',
                     'ic' => 'i-growth',
-                    'title' => 'Mutual Funds',
-                    'tag' => 'SIP · Lump sum · Reviews',
-                    'lead' => 'A disciplined way to put monthly savings to work across equity, debt and hybrid schemes — with the goal written down before the first instalment leaves your account.',
+                    'title' => 'Mutual Funds (SIP & SWP)',
+                    'tag' => 'SIP · SWP · Lump sum · Reviews',
+                    'lead' => 'A disciplined way to put monthly savings to work or generate predictable monthly cashflows across equity, debt and hybrid schemes — with the goal written down before the first transaction.',
                     'who' => [
                         'First-time investors who want to start small and automate it',
                         'Salaried families saving for a house, education or retirement',
@@ -42,7 +42,7 @@ class InvestmentCatalogService
                         'Written plan with amounts and dates',
                         'KYC completion with the RTA / AMC',
                         'Folio creation and mandate registration',
-                        'First SIP or lump sum invested',
+                        'First SIP, SWP or lump sum invested',
                         'Statements to your email; annual review scheduled',
                     ],
                     'facts' => [

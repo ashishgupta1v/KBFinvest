@@ -147,7 +147,7 @@ class ResourceCatalogService
             ],
             'areas' => [
                 'ludhiana' => ['Central Town', 'Model Town', 'Sarabha Nagar', 'Civil Lines', 'BRS Nagar', 'Dugri', 'Pakhowal Road', 'Ferozepur Road', 'Gill Road', 'Jamalpur', 'Shimlapuri', 'Haibowal', 'Kitchlu Nagar', 'Rajguru Nagar', 'Sahnewal', 'Khanna', 'Doraha', 'Samrala', 'Machhiwara', 'Jagraon', 'Raikot', 'Mullanpur Dakha'],
-                'punjab' => ['Jalandhar', 'Moga', 'Barnala', 'Sangrur', 'Patiala', 'Nawanshahr', 'Rupnagar', 'Fatehgarh Sahib', 'Bathinda', 'Ferozepur', 'Amritsar', 'Chandigarh & Mohali'],
+                'regional' => ['Jalandhar', 'Moga', 'Barnala', 'Sangrur', 'Patiala', 'Nawanshahr', 'Rupnagar', 'Fatehgarh Sahib', 'Bathinda', 'Ferozepur', 'Amritsar', 'Chandigarh & Mohali'],
             ],
         ];
     }

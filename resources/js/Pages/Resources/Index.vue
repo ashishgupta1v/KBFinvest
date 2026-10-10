@@ -226,7 +226,7 @@ function printChecklist() {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div>
           <h2 class="text-2xl sm:text-3xl font-bold font-display text-kb-text">
-            Ludhiana first, <span class="italic text-gold-gradient font-serif">Punjab</span> next door
+            Ludhiana & <span class="italic text-gold-gradient font-serif">Regional Coverage</span>
           </h2>
           <p class="text-xs text-kb-muted mt-1">
             Most clients meet us at our Central Town office. For everywhere else, we run the same process over phone, video, and WhatsApp.
@@ -253,11 +253,11 @@ function printChecklist() {
           <div class="card-luxury p-6 space-y-3">
             <h3 class="text-sm font-bold uppercase tracking-wider text-kb-accent flex items-center gap-2">
               <SvgIcon name="i-shield" className="w-4 h-4" />
-              <span>Rest of Punjab & Nearby</span>
+              <span>Neighboring Cities & Beyond</span>
             </h3>
             <div class="flex flex-wrap gap-2 pt-2">
               <span
-                v-for="a in areas.punjab"
+                v-for="a in areas.regional"
                 :key="a"
                 class="px-2.5 py-1 rounded-lg bg-kb-surface-3 border border-kb-line text-xs text-kb-body"
               >

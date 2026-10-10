@@ -363,7 +363,7 @@ function fmtInr(n) {
                     :href="`/calculators?calc=sip`"
                     class="font-bold text-kb-accent hover:underline flex items-center gap-1 text-[11px]"
                   >
-                    <span>Full SIP & Step-Up Suite</span>
+                    <span>Explore SIP & SWP Suite</span>
                     <SvgIcon name="i-arr" className="w-3 h-3" />
                   </Link>
                   <a
@@ -731,7 +731,7 @@ function fmtInr(n) {
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-6">
             <Link
               v-for="c in [
-                { id: 'sip', t: 'SIP & Step-Up', sub: 'Wealth Compounding', ic: 'i-growth' },
+                { id: 'sip', t: 'SIP & SWP', sub: 'Wealth & Cashflow', ic: 'i-growth' },
                 { id: 'emi', t: 'Loan EMI', sub: 'Amortization', ic: 'i-tax' },
                 { id: 'prepay', t: 'EMI Prepayment', sub: 'Interest Savings', ic: 'i-coin' },
                 { id: 'retire', t: 'Retirement Corpus', sub: 'Inflation-Adjusted', ic: 'i-shield' },
@@ -882,7 +882,7 @@ function fmtInr(n) {
                       class="btn-shimmer flex-1 py-3 px-4 rounded-xl bg-gold-gradient text-black font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow-md shadow-amber-500/15 min-h-[44px]"
                     >
                       <SvgIcon name="i-rocket" className="w-3.5 h-3.5" />
-                      <span>Start SIP Online (e-KYC)</span>
+                      <span>Start SIP / SWP Online</span>
                     </a>
                     <Link
                       href="/calculators?calc=sip"
@@ -1217,7 +1217,7 @@ function fmtInr(n) {
             Proven Outcomes
           </div>
           <h2 class="text-3xl sm:text-4xl font-bold font-display">
-            Real financial solutions for <span class="italic text-gold-gradient font-serif">Punjab businesses & families</span>
+            Real financial solutions for <span class="italic text-gold-gradient font-serif">growing businesses & families</span>
           </h2>
           <p class="text-sm text-kb-body leading-relaxed">
             Representative case scenarios showing how regulatory mastery and personalized guidance deliver measurable results.

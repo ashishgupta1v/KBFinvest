@@ -82,7 +82,7 @@ const topicGroups = [
     category: 'Investments & Wealth',
     icon: 'i-coin',
     topics: [
-      { id: 'Mutual Funds & SIPs', title: 'Mutual Funds Portfolio & SIP Review', desc: 'Asset allocation & fund performance' },
+      { id: 'Mutual Funds (SIP & SWP)', title: 'Mutual Funds Portfolio, SIP & SWP Review', desc: 'Asset allocation, wealth compounding & cashflow' },
       { id: 'PMS Introductions', title: 'PMS Portfolio Service (₹50L+)', desc: 'High-net-worth discretionary strategies' },
     ],
   },
@@ -164,7 +164,7 @@ const timeBuckets = [
 // Contextual 'What to Bring' Checklist
 const contextualChecklist = computed(() => {
   const t = form.topic;
-  if (t === 'Mutual Funds & SIPs' || t === 'PMS Introductions') {
+  if (t === 'Mutual Funds (SIP & SWP)' || t === 'Mutual Funds & SIPs' || t === 'PMS Introductions') {
     return [
       { doc: 'PAN Card & Aadhaar Card', reason: 'Mandatory for SEBI KYC verification.' },
       { doc: 'Consolidated Account Statement (CAS)', reason: 'Latest CAMS/KFintech or Demat statement to audit current holdings.' },
@@ -889,7 +889,7 @@ function downloadIcs() {
                       name="notes"
                       type="text"
                       v-model="form.notes"
-                      placeholder="e.g. Need review of existing 5 SIPs"
+                      placeholder="e.g. Need review of existing SIPs or planning monthly SWP"
                       class="w-full bg-kb-surface-2/60 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-amber-400 focus:bg-kb-surface-2 transition"
                     />
                   </div>

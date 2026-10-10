@@ -158,7 +158,7 @@ function submitInquiry() {
                 <div class="flex items-center gap-1.5 flex-wrap pb-1">
                   <button
                     v-for="qp in [
-                      { k: 'mutual_funds', l: 'Mutual Funds & SIP' },
+                      { k: 'mutual_funds', l: 'Mutual Funds (SIP & SWP)' },
                       { k: 'health_insurance', l: 'Health Insurance' },
                       { k: 'cgtmse_loan', l: 'CGTMSE Business Loan' },
                       { k: 'loan_against_property', l: 'Loan Against Property' },
@@ -181,7 +181,7 @@ function submitInquiry() {
                   v-model="form.service_type"
                   class="w-full min-h-[44px] bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"
                 >
-                  <option value="mutual_funds">Mutual Funds (SIP / Lump sum)</option>
+                  <option value="mutual_funds">Mutual Funds (SIP & SWP)</option>
                   <option value="pms">PMS Introductions (₹50 lakh+)</option>
                   <option value="health_insurance">Health Insurance Review / Portability</option>
                   <option value="life_insurance">Life & Term Cover</option>

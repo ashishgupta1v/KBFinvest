@@ -13,7 +13,7 @@ const inputRef = ref(null);
 
 const searchIndex = [
   // Services
-  { k: 'Investments', t: 'Mutual Funds', d: 'SIP, lump sums, STP and portfolio rebalancing', url: '/investments?tab=mf' },
+  { k: 'Investments', t: 'Mutual Funds (SIP & SWP)', d: 'SIP, SWP monthly pension, lump sums and portfolio rebalancing', url: '/investments?tab=mf' },
   { k: 'Investments', t: 'PMS Introductions', d: 'Discretionary portfolios above ₹50 lakh regulatory floor', url: '/investments?tab=pms' },
   { k: 'Investments', t: 'Shares & Bonds', d: 'Direct equity, index ETFs, Sovereign Gold Bonds', url: '/investments?tab=mkt' },
   { k: 'Insurance', t: 'Health Insurance', d: 'Room rent, PED waiting, top-ups and claim assistance', url: '/insurance?tab=health' },

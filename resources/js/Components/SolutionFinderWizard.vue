@@ -79,14 +79,14 @@ const recommendation = computed(() => {
     return {
       title: 'Goal-Linked Equity & Hybrid Mutual Fund Portfolio',
       category: 'Investments & Wealth',
-      topic: 'Mutual Funds & SIPs',
+      topic: 'Mutual Funds (SIP & SWP)',
       lead: `By investing ${fmtInr(wealthMonthly.value)}/month for ${wealthHorizon.value} years, your projected portfolio reaches ~${fmtInr(wealthProjection.value.fv)} (at an indicative 12% CAGR) against ${fmtInr(wealthProjection.value.invested)} invested.`,
       highlights: [
         'Diversified asset allocation between Large, Mid & Flexi-cap schemes',
         'Direct AMFI ARN distribution — no advisory or account maintenance fee',
         'Annual portfolio rebalancing and tax-loss harvesting review in Central Town',
       ],
-      bookUrl: `/book?topic=Mutual%20Funds%20%26%20SIPs&amount=${wealthMonthly.value}&duration=${wealthHorizon.value}y`,
+      bookUrl: `/book?topic=Mutual%20Funds%20(SIP%20%26%20SWP)&amount=${wealthMonthly.value}&duration=${wealthHorizon.value}y`,
       waText: `Hello Kulwinder, I ran the Solution Finder for an SIP of ${fmtInr(wealthMonthly.value)}/mo over ${wealthHorizon.value} years (target ~${fmtInr(wealthProjection.value.fv)}). Let us discuss suitability.`,
     };
   }
@@ -117,7 +117,7 @@ const recommendation = computed(() => {
       highlights: [
         loanType.value === 'cgtmse' ? 'No third-party guarantee or immovable property collateral required' : 'Low interest rates with tenures extending up to 15 years',
         'Full document preparation & project report financial modeling',
-        'Direct coordination with scheduled commercial banks in Punjab',
+        'Direct coordination with scheduled commercial banks',
       ],
       bookUrl: `/book?topic=${loanType.value === 'cgtmse' ? 'CGTMSE%20Loan' : 'Loan%20Against%20Property'}&amount=${loanAmount.value}`,
       waText: `Hello Kulwinder, I am seeking a loan of ${fmtInr(loanAmount.value)} for ${loanType.value === 'cgtmse' ? 'CGTMSE collateral-free MSME credit' : 'Loan Against Property'}. Can we discuss eligibility?`,

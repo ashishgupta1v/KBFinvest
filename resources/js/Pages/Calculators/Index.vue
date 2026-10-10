@@ -809,9 +809,9 @@ const result = computed(() => {
     const eq = Math.max(0, Number(v.eq) || 0);
     const db = Math.max(0, Number(v.db) || 0);
 
-    const a = sh * 0.6;
+    const a = sh * 0.5;
     const b = eq * 0.75;
-    const c = db * 0.85;
+    const c = db * 0.8;
     const raw = a + b + c;
     const capped = Math.min(raw, 10000000);
     return {
@@ -819,18 +819,18 @@ const result = computed(() => {
       big: shortInr(capped),
       sub: raw > 10000000 ? 'Capped at ₹1 crore per individual across banks' : inr(capped),
       rows: [
-        ['Listed shares at 60%', inr(a)],
+        ['Listed shares at 50%', inr(a)],
         ['Equity funds & ETFs at 75%', inr(b)],
-        ['Debt mutual funds at 85%', inr(c)],
+        ['Debt mutual funds at 80%', inr(c)],
         ['Portfolio pledged', inr(sh + eq + db)],
       ],
       chartType: 'donut',
       mid: shortInr(capped),
       donutSub: 'Limit',
       donutParts: [
-        { l: 'Shares (60%)', v: a, c: '#3B7BD0', t: inr(a) },
+        { l: 'Shares (50%)', v: a, c: '#3B7BD0', t: inr(a) },
         { l: 'Equity MF (75%)', v: b, c: '#D4A537', t: inr(b) },
-        { l: 'Debt MF (85%)', v: c, c: '#34B07F', t: inr(c) },
+        { l: 'Debt MF (80%)', v: c, c: '#34B07F', t: inr(c) },
       ],
       wa: `I checked loan against securities: indicative limit ${shortInr(capped)}.`,
     };

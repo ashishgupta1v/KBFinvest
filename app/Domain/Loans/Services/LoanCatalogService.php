@@ -63,7 +63,7 @@ class LoanCatalogService
                         'First-time buyers of a flat or plot',
                         'Families constructing or extending on an owned plot',
                         'Borrowers stuck on an old, higher rate who should transfer',
-                        'NRIs buying in Punjab, where documentation differs',
+                        'NRIs buying property, where documentation differs',
                     ],
                     'what' => [
                         'Purchase, construction, extension and plot-plus-construction: Each has a different disbursement pattern and a different document set.',
@@ -166,9 +166,9 @@ class LoanCatalogService
                         'cap' => 'RBI ceilings applicable to banks, effective 1 July 2026',
                         'head' => ['Security pledged', 'Maximum loan-to-value', 'Overall cap'],
                         'rows' => [
-                            ['Listed shares and listed convertible debt', '60%', '₹1 crore per individual, across banking system'],
+                            ['Listed shares and listed convertible debt', '50%', '₹1 crore per individual, across banking system'],
                             ['Mutual funds other than debt funds, ETFs, REITs', '75%', '₹1 crore per individual, across banking system'],
-                            ['Debt mutual funds', '85%', '₹1 crore per individual, across banking system'],
+                            ['Debt mutual funds', '80%', '₹1 crore per individual, across banking system'],
                             ['ESOP and capital market finance', '—', '₹25 lakh per individual, 25% cash margin'],
                         ],
                     ],
@@ -188,9 +188,9 @@ class LoanCatalogService
                     ],
                     'facts' => [
                         ['Per-individual cap', '₹1 crore across banks'],
-                        ['Listed shares LTV', 'Up to 60%'],
+                        ['Listed shares LTV', 'Up to 50%'],
                         ['Equity MF / ETF LTV', 'Up to 75%'],
-                        ['Debt MF LTV', 'Up to 85%'],
+                        ['Debt MF LTV', 'Up to 80%'],
                     ],
                     'note' => 'A falling market reduces the value of your pledged security. The lender can then demand additional security or partial repayment at short notice. Borrow well inside the limit, not at it.',
                     'disc' => $loanLine,
