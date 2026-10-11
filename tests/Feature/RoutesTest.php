@@ -90,6 +90,6 @@ class RoutesTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertStringContainsString('urlset', $response->getContent());
-        $this->assertStringContainsString('https://kb-finvest-two.vercel.app/', $response->getContent());
+        $this->assertStringContainsString('https://kb-finvest.com/', $response->getContent());
     }
 }
