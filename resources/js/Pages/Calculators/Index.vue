@@ -417,8 +417,8 @@ const result = computed(() => {
       sub: inr(fv),
       highlightCards: [
         { label: 'Total Invested', val: inr(inv), short: shortInr(inv), sub: `${n} monthly SIPs`, cls: 'text-kb-text', bg: 'bg-kb-surface-3/70' },
-        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-400', bg: 'bg-emerald-950/30 border-emerald-500/40' },
-        { label: 'Total Maturity Value', val: inr(fv), short: shortInr(fv), sub: `@ ${r}% expected return`, cls: 'text-amber-400', bg: 'bg-amber-950/30 border-amber-500/40' },
+        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40' },
+        { label: 'Total Maturity Value', val: inr(fv), short: shortInr(fv), sub: `@ ${r}% expected return`, cls: 'text-amber-800 dark:text-amber-400', bg: 'bg-amber-500/10 border-amber-500/30 dark:bg-amber-950/30 dark:border-amber-500/40' },
       ],
       rows: [
         ['Total Invested Amount', inr(inv)],
@@ -473,8 +473,8 @@ const result = computed(() => {
       sub: inr(fv),
       highlightCards: [
         { label: 'Principal Invested', val: inr(p), short: shortInr(p), sub: 'One-time lump sum', cls: 'text-kb-text', bg: 'bg-kb-surface-3/70' },
-        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-400', bg: 'bg-emerald-950/30 border-emerald-500/40' },
-        { label: 'Total Maturity Value', val: inr(fv), short: shortInr(fv), sub: `${p > 0 ? (fv / p).toFixed(2) : 0}x capital multiplier`, cls: 'text-amber-400', bg: 'bg-amber-950/30 border-amber-500/40' },
+        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40' },
+        { label: 'Total Maturity Value', val: inr(fv), short: shortInr(fv), sub: `${p > 0 ? (fv / p).toFixed(2) : 0}x capital multiplier`, cls: 'text-amber-800 dark:text-amber-400', bg: 'bg-amber-500/10 border-amber-500/30 dark:bg-amber-950/30 dark:border-amber-500/40' },
       ],
       rows: [
         ['Principal Invested', inr(p)],
@@ -525,8 +525,8 @@ const result = computed(() => {
       sub: inr(bal),
       highlightCards: [
         { label: 'Total Invested', val: inr(inv), short: shortInr(inv), sub: `Stepping up ${s}%/yr`, cls: 'text-kb-text', bg: 'bg-kb-surface-3/70' },
-        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-400', bg: 'bg-emerald-950/30 border-emerald-500/40' },
-        { label: 'Total Maturity Value', val: inr(bal), short: shortInr(bal), sub: `@ ${r}% expected return`, cls: 'text-amber-400', bg: 'bg-amber-950/30 border-amber-500/40' },
+        { label: 'Estimated Returns', val: inr(returns), short: shortInr(returns), badge: `+${returnPct}%`, cls: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40' },
+        { label: 'Total Maturity Value', val: inr(bal), short: shortInr(bal), sub: `@ ${r}% expected return`, cls: 'text-amber-800 dark:text-amber-400', bg: 'bg-amber-500/10 border-amber-500/30 dark:bg-amber-950/30 dark:border-amber-500/40' },
       ],
       rows: [
         ['Total Invested Amount', inr(inv)],
@@ -1198,7 +1198,7 @@ const sipMilestones = computed(() => {
             :class="[
               'px-3.5 py-1.5 rounded-full text-xs font-semibold transition shrink-0 border min-h-[36px]',
               activeCategory === cat.id
-                ? 'bg-kb-accent text-black border-kb-accent shadow-sm'
+                ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-md shadow-amber-500/20'
                 : 'bg-kb-surface-2/60 text-kb-muted border-kb-line hover:text-kb-text hover:border-kb-border',
             ]"
           >
@@ -1215,7 +1215,7 @@ const sipMilestones = computed(() => {
             :class="[
               'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border min-h-[40px]',
               activeId === calc.id
-                ? 'bg-kb-accent text-black border-kb-accent shadow-md shadow-amber-500/10'
+                ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-md shadow-amber-500/20'
                 : 'bg-kb-surface text-kb-body border-kb-line hover:border-kb-border hover:text-kb-text',
             ]"
           >
@@ -1362,7 +1362,7 @@ const sipMilestones = computed(() => {
                 >
                   <div class="flex items-center justify-between gap-1">
                     <span class="text-[10px] uppercase font-bold text-kb-muted tracking-wider">{{ card.label }}</span>
-                    <span v-if="card.badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 font-mono">{{ card.badge }}</span>
+                    <span v-if="card.badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-mono">{{ card.badge }}</span>
                   </div>
                   <div :class="['text-base sm:text-lg font-bold font-mono mt-1', card.cls]">{{ card.short }}</div>
                   <div class="text-[10px] text-kb-muted font-mono truncate">{{ card.val }}</div>
@@ -1461,7 +1461,7 @@ const sipMilestones = computed(() => {
                         <td class="px-3 py-2 text-kb-accent font-bold">{{ row.yr }}</td>
                         <td class="px-3 py-2 text-kb-body">{{ shortInr(row.open) }}</td>
                         <td class="px-3 py-2 text-kb-primary">{{ shortInr(row.invested) }}</td>
-                        <td class="px-3 py-2" :class="scheduleTable.type === 'amort' ? 'text-red-400' : 'text-emerald-400'">{{ shortInr(row.growth) }}</td>
+                        <td class="px-3 py-2" :class="scheduleTable.type === 'amort' ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-700 dark:text-emerald-400'">{{ shortInr(row.growth) }}</td>
                         <td class="px-3 py-2 font-bold text-kb-text">{{ shortInr(row.close) }}</td>
                       </tr>
                     </tbody>
@@ -1485,9 +1485,9 @@ const sipMilestones = computed(() => {
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <Link
                   :href="bookConsultationUrl"
-                  class="py-2.5 px-3 rounded-xl border border-amber-400/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-200 transition flex items-center justify-center gap-1.5 text-xs font-semibold min-h-[44px] shadow-sm active:scale-95"
+                  class="py-2.5 px-3 rounded-xl border border-amber-400/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200 transition flex items-center justify-center gap-1.5 text-xs font-semibold min-h-[44px] shadow-sm active:scale-95"
                 >
-                  <SvgIcon name="i-cal" className="w-3.5 h-3.5 text-kb-accent shrink-0" />
+                  <SvgIcon name="i-cal" className="w-3.5 h-3.5 text-amber-600 dark:text-kb-accent shrink-0" />
                   <span>Book Consultation on this Plan</span>
                 </Link>
 
@@ -1496,7 +1496,7 @@ const sipMilestones = computed(() => {
                   @click="copyCalculationSummary"
                   class="py-2.5 px-3 rounded-xl border border-kb-line text-kb-body hover:text-kb-text hover:bg-kb-surface-2 transition flex items-center justify-center gap-1.5 text-xs font-semibold min-h-[44px]"
                 >
-                  <SvgIcon :name="copied ? 'i-check' : 'i-doc'" className="w-3.5 h-3.5 shrink-0" :class="copied ? 'text-emerald-400' : 'text-kb-muted'" />
+                  <SvgIcon :name="copied ? 'i-check' : 'i-doc'" className="w-3.5 h-3.5 shrink-0" :class="copied ? 'text-emerald-600 dark:text-emerald-400' : 'text-kb-muted'" />
                   <span>{{ copied ? 'Copied!' : 'Copy Summary' }}</span>
                 </button>
 
@@ -1629,7 +1629,7 @@ const sipMilestones = computed(() => {
               <button
                 type="button"
                 @click="triggerPrint"
-                class="flex-1 py-2.5 rounded-xl bg-kb-accent text-black hover:bg-kb-accent-hi transition text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-amber-900/20"
+                class="flex-1 py-2.5 rounded-xl bg-gold-gradient text-slate-950 font-bold hover:brightness-105 transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-900/20"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
                 Print / Save PDF
