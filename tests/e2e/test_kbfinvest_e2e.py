@@ -13,7 +13,7 @@ if sys.stdout.encoding != 'utf-8':
     except Exception:
         pass
 
-BASE_URL = "http://127.0.0.1:8003"
+BASE_URL = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8003"
 
 def run_e2e_tests():
     print(f"\n=======================================================")
