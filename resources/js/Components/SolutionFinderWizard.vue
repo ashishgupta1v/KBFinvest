@@ -199,8 +199,8 @@ const recommendation = computed(() => {
           :class="[
             'w-8 h-8 rounded-full font-bold text-xs flex items-center justify-center transition-all',
             step === s
-              ? 'bg-kb-accent text-black shadow-md shadow-amber-500/20 scale-105'
-              : (step > s ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 cursor-pointer' : 'bg-kb-surface-3 text-kb-muted border border-kb-line cursor-default')
+              ? 'bg-gold-gradient text-slate-950 font-bold shadow-md shadow-amber-500/20 scale-105'
+              : (step > s ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/40 cursor-pointer font-bold' : 'bg-kb-surface-3 text-kb-muted border border-kb-line cursor-default')
           ]"
         >
           <span v-if="step > s">✓</span>
@@ -301,7 +301,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 rounded-xl text-xs font-bold transition border min-h-[44px] cursor-pointer',
                 wealthHorizon === y
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -328,7 +328,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 protectType === t.id
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -352,7 +352,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 protectCover === cov.id
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -373,7 +373,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 loanType === 'cgtmse'
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -385,7 +385,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 loanType === 'lap'
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -428,7 +428,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 bondType === 'rbi'
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -440,7 +440,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 bondType === '54ec'
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -452,7 +452,7 @@ const recommendation = computed(() => {
               :class="[
                 'py-2.5 px-3 rounded-xl text-xs font-bold transition border text-center min-h-[44px] cursor-pointer flex items-center justify-center',
                 bondType === 'lamf'
-                  ? 'bg-kb-accent text-black border-kb-accent'
+                  ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                   : 'bg-kb-surface text-kb-body border-kb-line hover:text-kb-text'
               ]"
             >
@@ -466,7 +466,7 @@ const recommendation = computed(() => {
         <button
           type="button"
           @click="step = 3"
-          class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-6 py-3 rounded-xl bg-gold-gradient text-black font-bold text-xs uppercase tracking-wider hover:brightness-105 transition flex items-center gap-2 shadow-lg shadow-amber-500/15 active:scale-95 cursor-pointer"
+          class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-6 py-3 rounded-xl bg-gold-gradient text-slate-950 font-bold text-xs uppercase tracking-wider hover:brightness-105 transition flex items-center gap-2 shadow-lg shadow-amber-500/15 active:scale-95 cursor-pointer"
         >
           <span>Generate Roadmap</span>
           <SvgIcon name="i-arr" className="w-4 h-4" />
@@ -478,7 +478,7 @@ const recommendation = computed(() => {
     <div v-else-if="step === 3" class="py-8 space-y-6 relative z-10 animate-in fade-in">
       <div class="flex items-center justify-between">
         <span class="text-xs font-bold uppercase tracking-wider text-kb-accent flex items-center gap-1.5">
-          <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400" />
+          <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>Recommended Strategy for You</span>
         </span>
         <button
@@ -510,7 +510,7 @@ const recommendation = computed(() => {
             :key="idx"
             class="p-3.5 rounded-xl bg-kb-surface-3/50 border border-kb-line/60 text-xs text-kb-body flex items-start gap-2.5"
           >
-            <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+            <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             <span>{{ hl }}</span>
           </div>
         </div>
@@ -519,7 +519,7 @@ const recommendation = computed(() => {
         <div class="pt-4 border-t border-kb-line flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <Link
             :href="recommendation.bookUrl"
-            class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-6 py-3.5 rounded-xl bg-gold-gradient text-black font-bold text-xs uppercase tracking-wider hover:brightness-105 transition flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 text-center"
+            class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-6 py-3.5 rounded-xl bg-gold-gradient text-slate-950 font-bold text-xs uppercase tracking-wider hover:brightness-105 transition flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 text-center"
           >
             <SvgIcon name="i-cal" className="w-4 h-4" />
             <span>Book Consultation on this Plan</span>
@@ -528,7 +528,7 @@ const recommendation = computed(() => {
             :href="`https://wa.me/917973461669?text=${encodeURIComponent(recommendation.waText)}`"
             target="_blank"
             rel="noopener"
-            class="w-full sm:w-auto min-h-[44px] justify-center px-6 py-3.5 rounded-xl border border-emerald-500/40 text-emerald-400 bg-emerald-950/30 hover:bg-emerald-950/50 transition flex items-center gap-2 text-xs font-bold active:scale-95 text-center"
+            class="w-full sm:w-auto min-h-[44px] justify-center px-6 py-3.5 rounded-xl border border-emerald-500/30 text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:text-emerald-400 dark:bg-emerald-950/30 dark:hover:bg-emerald-950/50 transition flex items-center gap-2 text-xs font-bold active:scale-95 text-center"
           >
             <SvgIcon name="i-wa" className="w-4 h-4" />
             <span>Discuss on WhatsApp</span>

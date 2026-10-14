@@ -250,7 +250,7 @@ function handleLeave() {
             :cy="paths[j]?.Y(paths[j]?.vals[getNearestIndex(tooltip.svgX)] || 0)"
             r="5"
             :fill="item.color"
-            stroke="#070E1C"
+            class="stroke-kb-bg"
             stroke-width="2"
           />
         </g>
@@ -281,7 +281,7 @@ function handleLeave() {
       >
         <div
           v-if="tooltip"
-          class="pointer-events-none absolute z-30 min-w-[130px] rounded-xl border border-amber-500/40 bg-kb-bg/95 backdrop-blur-md px-3 py-2 shadow-xl shadow-black/50"
+          class="pointer-events-none absolute z-30 min-w-[130px] rounded-xl border border-amber-500/40 bg-kb-surface/95 dark:bg-kb-bg/95 backdrop-blur-md px-3 py-2 shadow-xl shadow-black/10 dark:shadow-black/50"
           :style="{
             top: '4px',
             left: `clamp(68px, ${((tooltip.svgX - L) / (W - L - R)) * 100}%, calc(100% - 75px))`,

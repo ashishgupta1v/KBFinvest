@@ -28,13 +28,13 @@ defineProps({
     role="img"
     :aria-label="alt"
   >
-    <!-- Dark Luxury Brand Logo -->
+    <!-- Official Brand Logo (Both Light & Dark) -->
     <img
       src="/images/kb-finvest-logo-transparent.png"
       :alt="alt"
       class="w-auto h-full object-contain pointer-events-none select-none"
-      width="368"
-      height="129"
+      width="1014"
+      height="378"
       loading="eager"
       decoding="async"
     />

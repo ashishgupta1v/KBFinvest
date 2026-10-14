@@ -63,7 +63,7 @@ const calculatorLink = computed(() => {
             :class="[
               'px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 border min-h-[44px] cursor-pointer',
               activeTab === svc.id
-                ? 'bg-kb-accent text-black border-kb-accent shadow-md shadow-amber-500/15'
+                ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-md shadow-amber-500/20'
                 : 'bg-kb-surface text-kb-body border-kb-line hover:border-kb-border hover:text-kb-text',
             ]"
           >
@@ -89,10 +89,10 @@ const calculatorLink = computed(() => {
                 :href="onboarding.url"
                 target="_blank"
                 rel="noopener"
-                class="w-full sm:w-auto min-h-[44px] justify-center px-4 py-2 rounded-xl font-bold text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 transition flex items-center gap-1.5 active:scale-95 shadow-sm"
+                class="w-full sm:w-auto min-h-[44px] justify-center px-4 py-2 rounded-xl font-bold text-xs bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/25 transition flex items-center gap-1.5 active:scale-95 shadow-sm"
                 title="Open paperless account & start SIP / SWP online via NJ Wealth"
               >
-                <SvgIcon name="i-rocket" className="w-4 h-4 text-emerald-400" />
+                <SvgIcon name="i-rocket" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>Invest Online (e-KYC)</span>
               </a>
               <Link
@@ -104,7 +104,7 @@ const calculatorLink = computed(() => {
               </Link>
               <Link
                 :href="`/book?topic=${encodeURIComponent(currentService.title)}`"
-                class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:opacity-95 transition flex items-center gap-2 active:scale-95 shadow-lg shadow-amber-500/15"
+                class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 hover:opacity-95 transition flex items-center gap-2 active:scale-95 shadow-lg shadow-amber-500/15"
               >
                 <SvgIcon name="i-cal" className="w-4 h-4" />
                 <span>Book consultation</span>
@@ -126,7 +126,7 @@ const calculatorLink = computed(() => {
             </h3>
             <ul class="space-y-2.5 text-xs text-kb-body">
               <li v-for="(w, idx) in currentService.who" :key="idx" class="flex items-start gap-2.5">
-                <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <span>{{ w }}</span>
               </li>
             </ul>
@@ -193,7 +193,7 @@ const calculatorLink = computed(() => {
         <div
           v-if="activeTab === 'mf' && onboarding.url"
           v-reveal
-          class="card-prestige p-6 sm:p-10 border-2 border-emerald-500/35 bg-gradient-to-br from-emerald-950/25 via-kb-surface-2 to-kb-surface-3/90 shadow-2xl relative overflow-hidden rounded-3xl"
+          class="card-prestige p-6 sm:p-10 border-2 border-emerald-500/35 bg-gradient-to-br from-emerald-500/5 via-kb-surface to-kb-surface-2 dark:from-emerald-950/25 dark:via-kb-surface-2 dark:to-kb-surface-3/90 shadow-2xl relative overflow-hidden rounded-3xl"
         >
           <!-- Background ambient glow -->
           <div class="absolute -top-24 -right-24 w-88 h-88 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -201,8 +201,8 @@ const calculatorLink = computed(() => {
           <!-- Top Badge & Identity Header -->
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-kb-line/60 relative z-10">
             <div class="space-y-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                <SvgIcon name="i-rocket" className="w-3.5 h-3.5 text-emerald-400" />
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
+                <SvgIcon name="i-rocket" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>{{ onboarding.badge }}</span>
               </div>
               <h3 class="text-2xl sm:text-3xl font-bold font-display text-kb-text tracking-tight">
@@ -228,7 +228,7 @@ const calculatorLink = computed(() => {
               :key="idx"
               class="p-4 rounded-2xl bg-kb-surface-2/80 border border-kb-line hover:border-emerald-500/40 transition-all space-y-2.5 shadow-sm"
             >
-              <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <SvgIcon :name="f.ic" className="w-4 h-4" />
               </div>
               <h4 class="font-bold text-xs text-kb-text">{{ f.t }}</h4>
@@ -239,7 +239,7 @@ const calculatorLink = computed(() => {
           <!-- Action CTA Bar -->
           <div class="pt-6 border-t border-kb-line/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 relative z-10">
             <div class="text-xs text-kb-muted flex items-center gap-2">
-              <SvgIcon name="i-lock" className="w-4 h-4 text-emerald-400 shrink-0" />
+              <SvgIcon name="i-lock" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>100% Regulated & Secure. Money moves directly between your bank and SEBI-registered AMCs.</span>
             </div>
 
@@ -254,7 +254,7 @@ const calculatorLink = computed(() => {
                 :href="onboarding.url"
                 target="_blank"
                 rel="noopener"
-                class="btn-shimmer px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:brightness-105 transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 min-h-[44px]"
+                class="btn-shimmer px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 hover:brightness-105 transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 min-h-[44px]"
               >
                 <span>Start Paperless Onboarding (5 mins)</span>
                 <SvgIcon name="i-arr" className="w-4 h-4" />
@@ -266,7 +266,7 @@ const calculatorLink = computed(() => {
         <!-- LOAN AGAINST MUTUAL FUNDS (LAMF) PROMINENT FEATURE CARD -->
         <div
           v-reveal
-          class="card-prestige p-6 sm:p-8 border border-amber-500/35 bg-gradient-to-r from-amber-950/20 via-kb-surface-2 to-kb-surface-3/80 shadow-xl rounded-3xl relative overflow-hidden"
+          class="card-prestige p-6 sm:p-8 border border-amber-500/35 bg-gradient-to-r from-amber-500/5 via-kb-surface to-kb-surface-2 dark:from-amber-950/20 dark:via-kb-surface-2 dark:to-kb-surface-3/80 shadow-xl rounded-3xl relative overflow-hidden"
         >
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="space-y-2 max-w-2xl">
@@ -285,7 +285,7 @@ const calculatorLink = computed(() => {
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
               <Link
                 href="/loans?tab=lamf"
-                class="btn-shimmer px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:brightness-105 transition flex items-center justify-center gap-2 shadow-md shadow-amber-500/15 min-h-[44px]"
+                class="btn-shimmer px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 hover:brightness-105 transition flex items-center justify-center gap-2 shadow-md shadow-amber-500/15 min-h-[44px]"
               >
                 <span>Explore Loan Against MF</span>
                 <SvgIcon name="i-arr" className="w-4 h-4" />

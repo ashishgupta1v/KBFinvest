@@ -231,7 +231,7 @@ function fmtInr(n) {
                 href="https://wa.me/917973461669?text=Hello%20KB%20Finvest,%20I%20would%20like%20to%20consult%20you."
                 target="_blank"
                 rel="noopener"
-                class="w-full sm:w-auto min-h-[44px] justify-center px-6 py-3.5 rounded-xl font-semibold text-sm border border-emerald-500/40 text-emerald-400 bg-emerald-950/30 hover:bg-emerald-950/50 transition flex items-center gap-2 active:scale-95"
+                class="w-full sm:w-auto min-h-[44px] justify-center px-6 py-3.5 rounded-xl font-semibold text-sm border border-emerald-500/30 text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:text-emerald-400 dark:bg-emerald-950/30 dark:hover:bg-emerald-950/50 transition flex items-center gap-2 active:scale-95"
               >
                 <SvgIcon name="i-wa" className="w-4 h-4" />
                 <span>WhatsApp us</span>
@@ -351,7 +351,7 @@ function fmtInr(n) {
                       <span class="text-kb-muted">Invested:</span>
                       <span class="font-medium font-mono">{{ fmtInr(heroSipResults.invested) }}</span>
                     </div>
-                    <div class="text-[11px] text-emerald-400 font-semibold flex justify-between">
+                    <div class="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold flex justify-between">
                       <span>Gain:</span>
                       <span class="font-mono">+{{ fmtInr(heroSipResults.gain) }}</span>
                     </div>
@@ -369,7 +369,7 @@ function fmtInr(n) {
                   <a
                     :href="`https://wa.me/917973461669?text=Hello%20Kulwinder,%20I%20am%20planning%20an%20SIP%20of%20${fmtInr(heroSipMonthly)}/month%20for%20${heroSipYears}%20years.%20Can%20we%20discuss%20portfolio%20recommendations?`"
                     target="_blank"
-                    class="text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 text-[11px]"
+                    class="text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300 font-semibold flex items-center gap-1 text-[11px]"
                   >
                     <SvgIcon name="i-wa" className="w-3.5 h-3.5" />
                     <span>Discuss on WhatsApp</span>
@@ -436,7 +436,7 @@ function fmtInr(n) {
                       <span class="text-kb-muted">Interest:</span>
                       <span class="font-medium font-mono">{{ fmtInr(heroEmiResults.interest) }}</span>
                     </div>
-                    <div class="text-[11px] text-emerald-400 font-semibold flex justify-between">
+                    <div class="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold flex justify-between">
                       <span>Rate:</span>
                       <span class="font-mono">8.75% p.a.</span>
                     </div>
@@ -449,12 +449,12 @@ function fmtInr(n) {
                     class="font-bold text-kb-accent hover:underline flex items-center gap-1 text-[11px]"
                   >
                     <span>Full Loan & CGTMSE Suite</span>
-                    <SvgIcon name="i-arr" className="w-3 h-3" />
+                    <SvgIcon name="i-arr" className="w-3 mx-0.5" />
                   </Link>
                   <a
                     :href="`https://wa.me/917973461669?text=Hello%20Kulwinder,%20I%20am%20inquiring%20about%20a%20loan%20of%20${fmtInr(heroEmiAmount)}%20for%20${heroEmiYears}%20years.%20Can%20we%20check%20bank%20eligibility?`"
                     target="_blank"
-                    class="text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 text-[11px]"
+                    class="text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300 font-semibold flex items-center gap-1 text-[11px]"
                   >
                     <SvgIcon name="i-wa" className="w-3.5 h-3.5" />
                     <span>Check Eligibility</span>
@@ -477,7 +477,7 @@ function fmtInr(n) {
                 <div>
                   <div class="flex items-center gap-1.5">
                     <h4 class="font-bold text-sm text-kb-text">Kulwinder Singh</h4>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Founder & Advisor</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">Founder & Advisor</span>
                   </div>
                   <p class="text-[11px] text-kb-muted">Central Town, Ludhiana · AMFI Registered</p>
                 </div>
@@ -485,7 +485,7 @@ function fmtInr(n) {
               <a
                 href="https://wa.me/917973461669?text=Hello%20Kulwinder%20ji,%20I%20would%20like%20to%20review%20my%20portfolio%20with%20you."
                 target="_blank"
-                class="shrink-0 text-xs px-3 py-1.5 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-950/40 transition flex items-center gap-1.5"
+                class="shrink-0 text-xs px-3 py-1.5 rounded-lg border border-emerald-500/30 text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 dark:text-emerald-400 dark:hover:bg-emerald-950/40 dark:bg-transparent transition flex items-center gap-1.5"
                 title="Send existing portfolio for free review"
               >
                 <SvgIcon name="i-wa" className="w-3.5 h-3.5" />
@@ -570,7 +570,7 @@ function fmtInr(n) {
           class="mt-6 p-4 rounded-2xl bg-kb-surface/70 border border-kb-line flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-kb-body shadow-sm"
         >
           <div class="flex items-center gap-3 text-left">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 shrink-0">
               <SvgIcon name="i-shield" className="w-4 h-4" />
             </div>
             <div>
@@ -760,8 +760,8 @@ function fmtInr(n) {
               <div class="lg:col-span-6 space-y-5 bg-kb-surface-2/60 p-5 sm:p-7 rounded-2xl border border-kb-line/70">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Live SIP Compounding</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Live SIP Compounding</span>
                   </div>
                   <span class="text-[11px] text-kb-muted font-mono">Instant Result</span>
                 </div>
@@ -778,7 +778,7 @@ function fmtInr(n) {
                     max="100000"
                     step="500"
                     v-model.number="homeSipMonthly"
-                    class="w-full accent-amber-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
+                    class="w-full accent-amber-500 dark:accent-amber-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
                   />
                   <div class="flex justify-between text-[10px] text-kb-muted font-mono">
                     <span>₹500</span>
@@ -799,7 +799,7 @@ function fmtInr(n) {
                     max="30"
                     step="1"
                     v-model.number="homeSipYears"
-                    class="w-full accent-amber-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
+                    class="w-full accent-amber-500 dark:accent-amber-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
                   />
                   <div class="flex justify-between text-[10px] text-kb-muted font-mono">
                     <span>1 yr</span>
@@ -813,7 +813,7 @@ function fmtInr(n) {
                 <div class="space-y-1.5">
                   <div class="flex justify-between text-xs">
                     <span class="text-kb-muted font-medium">Expected Return Rate (p.a.)</span>
-                    <span class="font-bold font-mono text-emerald-400 text-sm">{{ homeSipRate }}%</span>
+                    <span class="font-bold font-mono text-emerald-700 dark:text-emerald-400 text-sm">{{ homeSipRate }}%</span>
                   </div>
                   <input
                     type="range"
@@ -821,7 +821,7 @@ function fmtInr(n) {
                     max="18"
                     step="0.5"
                     v-model.number="homeSipRate"
-                    class="w-full accent-emerald-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
+                    class="w-full accent-emerald-600 dark:accent-emerald-400 bg-kb-surface-3 rounded-lg h-2 cursor-pointer"
                   />
                   <div class="flex justify-between text-[10px] text-kb-muted font-mono">
                     <span>8% (Conservative)</span>
@@ -856,19 +856,19 @@ function fmtInr(n) {
                     </div>
 
                     <!-- Estimated Returns (Front & Center!) -->
-                    <div class="p-3 rounded-xl bg-emerald-950/25 border border-emerald-500/40">
+                    <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/25 dark:border-emerald-500/40">
                       <div class="flex items-center justify-between">
-                        <span class="text-[10px] uppercase font-bold text-emerald-300 tracking-wider">Est. Returns</span>
-                        <span class="text-[9px] font-bold text-emerald-400 font-mono">+{{ homeSipResult.returnPct }}%</span>
+                        <span class="text-[10px] uppercase font-bold text-emerald-800 dark:text-emerald-300 tracking-wider">Est. Returns</span>
+                        <span class="text-[9px] font-bold text-emerald-700 dark:text-emerald-400 font-mono">+{{ homeSipResult.returnPct }}%</span>
                       </div>
-                      <div class="text-base font-bold text-emerald-400 font-mono mt-1">{{ homeSipResult.returnsShort }}</div>
-                      <div class="text-[10px] text-emerald-300/80 font-mono truncate">{{ homeSipResult.returnsFmt }}</div>
+                      <div class="text-base font-bold text-emerald-700 dark:text-emerald-400 font-mono mt-1">{{ homeSipResult.returnsShort }}</div>
+                      <div class="text-[10px] text-emerald-800/80 dark:text-emerald-300/80 font-mono truncate">{{ homeSipResult.returnsFmt }}</div>
                     </div>
 
                     <!-- Net Wealth Gain Multiplier -->
-                    <div class="p-3 rounded-xl bg-amber-950/20 border border-amber-500/30">
-                      <div class="text-[10px] uppercase font-bold text-amber-300 tracking-wider">Maturity Value</div>
-                      <div class="text-base font-bold text-amber-400 font-mono mt-1">{{ homeSipResult.totalShort }}</div>
+                    <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 dark:bg-amber-950/20">
+                      <div class="text-[10px] uppercase font-bold text-amber-800 dark:text-amber-300 tracking-wider">Maturity Value</div>
+                      <div class="text-base font-bold text-amber-800 dark:text-amber-400 font-mono mt-1">{{ homeSipResult.totalShort }}</div>
                       <div class="text-[9px] text-kb-muted mt-0.5">Wealth gain: {{ homeSipResult.returnsShort }}</div>
                     </div>
                   </div>
@@ -944,7 +944,7 @@ function fmtInr(n) {
                     <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-wide">
                       Kulwinder Singh
                     </h3>
-                    <p class="text-xs sm:text-sm text-kb-accent font-medium mt-0.5 font-serif italic">
+                    <p class="text-xs sm:text-sm text-amber-300 font-medium mt-0.5 font-serif italic">
                       Founder & Investment Advisor
                     </p>
                     <div class="flex items-center justify-center gap-2 mt-2">
@@ -967,11 +967,11 @@ function fmtInr(n) {
             <div class="lg:col-span-7 space-y-6">
               <!-- Banner Quote matching flyer -->
               <div class="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-kb-text space-y-1.5 relative">
-                <div class="text-[11px] font-bold uppercase tracking-widest text-kb-accent flex items-center gap-1.5">
-                  <SvgIcon name="i-star" className="w-3.5 h-3.5 text-amber-400" />
+                <div class="text-[11px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                  <SvgIcon name="i-star" className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>The KB Finvest Commitment</span>
                 </div>
-                <div class="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+                <div class="text-xl sm:text-2xl font-display font-bold text-kb-text tracking-tight">
                   "Smart Investments. Secure Future."
                 </div>
                 <p class="text-xs sm:text-sm text-kb-body leading-relaxed italic">
@@ -987,13 +987,13 @@ function fmtInr(n) {
               <!-- The 4 Core Pillars from the Poster -->
               <div class="space-y-2.5">
                 <div class="text-xs font-bold uppercase tracking-wider text-kb-accent flex items-center gap-1.5">
-                  <SvgIcon name="i-check" className="w-3.5 h-3.5 text-emerald-400" />
+                  <SvgIcon name="i-check" className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>Why Choose KB Finvest?</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <div class="p-3.5 rounded-xl bg-kb-surface-2/80 border border-kb-border/50 hover:border-amber-400/50 transition shadow-sm">
                     <div class="font-bold text-xs text-kb-text flex items-center gap-1.5">
-                      <span class="text-emerald-400 text-sm font-black">✓</span>
+                      <span class="text-emerald-600 dark:text-emerald-400 text-sm font-black">✓</span>
                       <span>Personalized Financial Solutions</span>
                     </div>
                     <p class="text-[11px] text-kb-muted mt-1 leading-snug">
@@ -1002,7 +1002,7 @@ function fmtInr(n) {
                   </div>
                   <div class="p-3.5 rounded-xl bg-kb-surface-2/80 border border-kb-border/50 hover:border-amber-400/50 transition shadow-sm">
                     <div class="font-bold text-xs text-kb-text flex items-center gap-1.5">
-                      <span class="text-emerald-400 text-sm font-black">✓</span>
+                      <span class="text-emerald-600 dark:text-emerald-400 text-sm font-black">✓</span>
                       <span>Expert Guidance & Market Insights</span>
                     </div>
                     <p class="text-[11px] text-kb-muted mt-1 leading-snug">
@@ -1011,7 +1011,7 @@ function fmtInr(n) {
                   </div>
                   <div class="p-3.5 rounded-xl bg-kb-surface-2/80 border border-kb-border/50 hover:border-amber-400/50 transition shadow-sm">
                     <div class="font-bold text-xs text-kb-text flex items-center gap-1.5">
-                      <span class="text-emerald-400 text-sm font-black">✓</span>
+                      <span class="text-emerald-600 dark:text-emerald-400 text-sm font-black">✓</span>
                       <span>Transparent & Trustworthy Service</span>
                     </div>
                     <p class="text-[11px] text-kb-muted mt-1 leading-snug">
@@ -1020,7 +1020,7 @@ function fmtInr(n) {
                   </div>
                   <div class="p-3.5 rounded-xl bg-kb-surface-2/80 border border-kb-border/50 hover:border-amber-400/50 transition shadow-sm">
                     <div class="font-bold text-xs text-kb-text flex items-center gap-1.5">
-                      <span class="text-emerald-400 text-sm font-black">✓</span>
+                      <span class="text-emerald-600 dark:text-emerald-400 text-sm font-black">✓</span>
                       <span>Client-Centric Approach</span>
                     </div>
                     <p class="text-[11px] text-kb-muted mt-1 leading-snug">
@@ -1076,7 +1076,7 @@ function fmtInr(n) {
                     href="https://wa.me/917973461669?text=Hello%20Kulwinder%20ji,%20I%20saw%20your%20profile%20on%20KB%20Finvest%20and%20would%20like%20to%20consult%20you."
                     target="_blank"
                     rel="noopener"
-                    class="px-4 py-2.5 rounded-xl border border-emerald-500/40 text-emerald-400 bg-emerald-950/40 hover:bg-emerald-950/60 transition flex items-center justify-center gap-1.5 text-xs font-semibold"
+                    class="px-4 py-2.5 rounded-xl border border-emerald-500/30 text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:text-emerald-400 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/60 transition flex items-center justify-center gap-1.5 text-xs font-semibold"
                   >
                     <SvgIcon name="i-wa" className="w-4 h-4" />
                     <span>WhatsApp</span>
@@ -1134,15 +1134,15 @@ function fmtInr(n) {
                 </div>
                 <div class="space-y-3 text-xs text-kb-body">
                   <div class="flex items-start gap-2.5">
-                    <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span><strong>100% Retained Advisor:</strong> Deal directly with Kulwinder Singh — no rotating staff or junior hand-offs.</span>
                   </div>
                   <div class="flex items-start gap-2.5">
-                    <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span><strong>Walk-in Office:</strong> 179-A, Central Town, Ludhiana. Always accessible for meetings.</span>
                   </div>
                   <div class="flex items-start gap-2.5">
-                    <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span><strong>Active Crisis Advocacy:</strong> Claim processing assistance and confidential loan debt resolution.</span>
                   </div>
                 </div>
@@ -1164,15 +1164,15 @@ function fmtInr(n) {
                 </div>
                 <div class="space-y-3 text-xs text-kb-muted">
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
+                    <span class="text-rose-600 dark:text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
                     <span>Frequent RM turnover — new managers every 12 to 18 months reset your history.</span>
                   </div>
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
+                    <span class="text-rose-600 dark:text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
                     <span>Driven by internal quarterly revenue targets, pushing high-commission ULIPs.</span>
                   </div>
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
+                    <span class="text-rose-600 dark:text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
                     <span>Branch queues; claims are directed to distant call centers.</span>
                   </div>
                 </div>
@@ -1189,15 +1189,15 @@ function fmtInr(n) {
                 </div>
                 <div class="space-y-3 text-xs text-kb-muted">
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
+                    <span class="text-rose-600 dark:text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
                     <span>Zero behavioral coaching when market volatility or panic strikes.</span>
                   </div>
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
+                    <span class="text-rose-600 dark:text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
                     <span>No local human presence or walk-in desk in Ludhiana.</span>
                   </div>
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
+                    <span class="text-rose-600 dark:text-rose-400 text-sm leading-none shrink-0 mt-0.5">✕</span>
                     <span>Zero assistance during complex medical claims or bank loan restructuring.</span>
                   </div>
                 </div>
@@ -1236,7 +1236,7 @@ function fmtInr(n) {
                 <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded badge-gold">
                   {{ vig.badge }}
                 </span>
-                <span class="text-[11px] font-mono font-bold text-emerald-400">{{ vig.metric }}</span>
+                <span class="text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-400">{{ vig.metric }}</span>
               </div>
               <div class="text-[11px] text-kb-muted font-medium">{{ vig.tag }}</div>
               <h3 class="text-base font-bold text-kb-text group-hover:text-kb-accent transition">{{ vig.title }}</h3>
@@ -1293,10 +1293,11 @@ function fmtInr(n) {
         </div>
 
         <!-- Warning Callout -->
-        <div v-reveal class="mt-8 p-4 rounded-xl bg-amber-950/30 border border-amber-500/40 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3 backdrop-blur-md">
-          <SvgIcon name="i-alert" className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-          <div>
-            <strong>{{ flowNote.t }}</strong> {{ flowNote.d }}
+        <div v-reveal class="mt-8 p-4 sm:p-5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-950 dark:bg-amber-950/30 dark:border-amber-500/40 dark:text-amber-200/90 leading-relaxed flex items-start gap-3.5 backdrop-blur-md shadow-xs">
+          <SvgIcon name="i-alert" className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
+          <div class="space-y-0.5">
+            <strong class="font-bold text-amber-950 dark:text-amber-100 block sm:inline">{{ flowNote.t }}</strong>
+            <span class="text-amber-900 dark:text-amber-200/90"> {{ flowNote.d }}</span>
           </div>
         </div>
 

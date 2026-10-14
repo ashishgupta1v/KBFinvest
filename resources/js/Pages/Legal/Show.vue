@@ -27,8 +27,8 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl space-y-4">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider text-amber-300">
-            <SvgIcon name="shield-check" class="w-3.5 h-3.5 text-amber-400" />
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+            <SvgIcon name="shield-check" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span>Governance, DPDP & Disclosures</span>
           </div>
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-kb-text">
@@ -59,7 +59,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
                   class="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all"
                   :class="[
                     activeSlug === item.slug
-                      ? 'bg-amber-500/15 text-amber-300 font-semibold border border-amber-500/30 shadow-sm'
+                      ? 'bg-amber-500/15 text-amber-800 dark:text-amber-300 font-semibold border border-amber-500/30 shadow-sm'
                       : 'text-kb-body hover:text-kb-text hover:bg-kb-surface-2/60 border border-transparent'
                   ]"
                 >
@@ -67,7 +67,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
                   <SvgIcon
                     v-if="activeSlug === item.slug"
                     name="arrow-right"
-                    class="w-4 h-4 text-amber-400"
+                    class="w-4 h-4 text-amber-600 dark:text-amber-400"
                   />
                 </Link>
               </nav>
@@ -80,7 +80,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-kb-muted">ARN Number:</span>
-                  <span class="font-bold text-amber-300 font-mono">ARN-178400</span>
+                  <span class="font-bold text-amber-800 dark:text-amber-300 font-mono">ARN-178400</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-kb-muted">Jurisdiction:</span>
@@ -105,7 +105,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
                 class="px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap border min-h-[38px] flex items-center transition-all"
                 :class="[
                   activeSlug === item.slug
-                    ? 'bg-amber-500/15 text-amber-300 border-amber-500/30 font-bold shadow-sm'
+                    ? 'bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30 font-bold shadow-sm'
                     : 'bg-kb-surface-2/60 text-kb-body border-kb-line hover:text-kb-text'
                 ]"
               >
@@ -115,7 +115,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
 
             <article class="card-luxury p-6 sm:p-10 space-y-8">
               <div class="border-b border-kb-line pb-6">
-                <span class="text-xs uppercase tracking-wider text-amber-400 font-bold">Official Document</span>
+                <span class="text-xs uppercase tracking-wider text-amber-700 dark:text-amber-400 font-bold">Official Document</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-kb-text mt-1">
                   {{ currentDoc.title }}
                 </h2>
@@ -132,7 +132,7 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
                   class="p-5 sm:p-6 rounded-2xl border border-kb-border/40 bg-kb-surface-2/40 hover:border-kb-border/80 transition-colors space-y-3"
                 >
                   <div class="flex items-center gap-3">
-                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-amber-500/15 text-amber-300 text-xs font-bold font-mono border border-amber-500/20 shrink-0">
+                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-amber-500/15 text-amber-800 dark:text-amber-300 text-xs font-bold font-mono border border-amber-500/20 shrink-0">
                       {{ idx + 1 }}
                     </span>
                     <h3 class="text-base sm:text-lg font-bold font-display text-kb-text">
@@ -146,8 +146,8 @@ const activeSlug = computed(() => props.data.slug || 'disclosures');
               </div>
 
               <!-- Statutory Disclaimer Banner -->
-              <div class="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/10 text-xs sm:text-sm text-amber-200/90 leading-relaxed flex gap-3.5 items-start">
-                <SvgIcon name="shield-alert" class="w-5 h-5 flex-shrink-0 text-amber-400 mt-0.5" />
+              <div class="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/10 text-xs sm:text-sm text-amber-950 dark:text-amber-200/90 leading-relaxed flex gap-3.5 items-start">
+                <SvgIcon name="shield-alert" class="w-5 h-5 flex-shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />
                 <div>
                   <strong>Statutory Notice:</strong> Mutual fund investments are subject to market risks, read all scheme related documents carefully. KB Finvest does not provide portfolio management or stock advisory under SEBI RIA regulations. All financial figures shown on this site are indicative illustrations.
                 </div>

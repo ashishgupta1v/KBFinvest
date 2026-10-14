@@ -60,12 +60,12 @@ function submitInquiry() {
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <!-- Left: Contact / Lead Form -->
           <div class="lg:col-span-7 card-luxury p-6 sm:p-8 space-y-6">
-            <div v-if="submitted" class="p-8 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-center space-y-4 backdrop-blur-md">
-              <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-900/30">
+            <div v-if="submitted" class="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/40 dark:border-emerald-500/40 text-center space-y-4 backdrop-blur-md">
+              <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-900/30">
                 <SvgIcon name="i-check" className="w-8 h-8" />
               </div>
-              <h3 class="text-2xl font-bold text-emerald-300 font-display">Enquiry Submitted!</h3>
-              <p class="text-xs text-emerald-200/90 max-w-md mx-auto leading-relaxed">
+              <h3 class="text-2xl font-bold text-emerald-800 dark:text-emerald-300 font-display">Enquiry Submitted!</h3>
+              <p class="text-xs text-emerald-700/90 dark:text-emerald-200/90 max-w-md mx-auto leading-relaxed">
                 Thank you, <strong>{{ form.name }}</strong>. Kulwinder Singh will review your query and respond via phone or WhatsApp.
               </p>
               <div class="pt-2">
@@ -104,7 +104,7 @@ function submitInquiry() {
                     placeholder="e.g. Gurpreet Singh"
                     class="w-full bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"
                   />
-                  <div v-if="form.errors.name" class="text-xs text-rose-400">{{ form.errors.name }}</div>
+                  <div v-if="form.errors.name" class="text-xs text-rose-600 dark:text-rose-400 font-medium">{{ form.errors.name }}</div>
                 </div>
 
                 <div class="space-y-1.5">
@@ -119,7 +119,7 @@ function submitInquiry() {
                     placeholder="+91 98765 43210"
                     class="w-full bg-kb-surface-3 border border-kb-line rounded-xl px-4 py-3 text-sm text-kb-text outline-none focus:border-kb-accent focus:bg-kb-surface-2 transition"
                   />
-                  <div v-if="form.errors.phone" class="text-xs text-rose-400">{{ form.errors.phone }}</div>
+                  <div v-if="form.errors.phone" class="text-xs text-rose-600 dark:text-rose-400 font-medium">{{ form.errors.phone }}</div>
                 </div>
               </div>
 
@@ -170,7 +170,7 @@ function submitInquiry() {
                     :class="[
                       'px-3 py-1.5 rounded-lg text-xs transition border min-h-[36px] flex items-center cursor-pointer',
                       form.service_type === qp.k
-                        ? 'bg-kb-accent text-black font-bold border-kb-accent'
+                        ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-sm'
                         : 'bg-kb-surface-3/60 text-kb-muted border-kb-hair hover:border-kb-border hover:text-kb-text',
                     ]"
                   >
@@ -222,7 +222,7 @@ function submitInquiry() {
               <button
                 type="submit"
                 :disabled="form.processing"
-                class="w-full min-h-[48px] py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-gold-gradient text-black hover:opacity-95 transition shadow-lg shadow-amber-500/15 disabled:opacity-50 flex items-center justify-center gap-2 active:scale-95 btn-shimmer cursor-pointer"
+                class="w-full min-h-[48px] py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-gold-gradient text-slate-950 hover:opacity-95 transition shadow-lg shadow-amber-500/15 disabled:opacity-50 flex items-center justify-center gap-2 active:scale-95 btn-shimmer cursor-pointer"
               >
                 <span>{{ form.processing ? 'Submitting...' : 'Send Confidential Enquiry' }}</span>
                 <SvgIcon name="i-arr" className="w-4 h-4" />
@@ -272,9 +272,9 @@ function submitInquiry() {
                 <a
                   href="https://wa.me/917973461669"
                   target="_blank"
-                  class="p-3 min-h-[44px] rounded-xl bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/30 transition flex items-center gap-3 text-xs text-emerald-300 font-semibold"
+                  class="p-3 min-h-[44px] rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 dark:text-emerald-300 font-semibold transition flex items-center gap-3 text-xs"
                 >
-                  <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-400" />
+                  <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>WhatsApp: 917973461669</span>
                 </a>
                 <a
@@ -288,9 +288,9 @@ function submitInquiry() {
                   href="https://www.instagram.com/kb_finvest_"
                   target="_blank"
                   rel="noopener"
-                  class="p-3 min-h-[44px] rounded-xl bg-pink-950/20 hover:bg-pink-950/40 border border-pink-500/30 transition flex items-center gap-3 text-xs text-pink-300 font-semibold"
+                  class="p-3 min-h-[44px] rounded-xl bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-700 dark:bg-pink-950/20 dark:hover:bg-pink-950/40 dark:text-pink-300 font-semibold transition flex items-center gap-3 text-xs"
                 >
-                  <SvgIcon name="instagram" className="w-4 h-4 text-pink-400" />
+                  <SvgIcon name="instagram" className="w-4 h-4 text-pink-600 dark:text-pink-400" />
                   <span>Instagram: @kb_finvest_</span>
                 </a>
               </div>

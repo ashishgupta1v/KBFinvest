@@ -149,7 +149,7 @@ function printChecklist() {
             :class="[
               'px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap border min-h-[44px] cursor-pointer',
               activeFaqCat === cat.id
-                ? 'bg-kb-accent text-black border-kb-accent shadow-md shadow-amber-500/10'
+                ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-md shadow-amber-500/20'
                 : 'bg-kb-surface text-kb-body border-kb-line hover:border-kb-border hover:text-kb-text',
             ]"
           >
@@ -315,7 +315,7 @@ function printChecklist() {
             :class="[
               'flex items-start gap-3 text-xs p-3 rounded-xl border transition cursor-pointer select-none',
               isChecked(item)
-                ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-200'
+                ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-800 dark:bg-emerald-950/30 dark:border-emerald-500/40 dark:text-emerald-200'
                 : 'bg-kb-surface-2/60 border-kb-line/60 text-kb-body hover:border-kb-border hover:text-kb-text',
             ]"
           >
@@ -328,8 +328,8 @@ function printChecklist() {
           </li>
         </ul>
 
-        <div class="p-3 rounded-xl bg-amber-950/20 border border-amber-500/30 text-[11px] text-amber-200/90 flex items-start gap-2">
-          <SvgIcon name="i-info" className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-900 dark:bg-amber-950/20 dark:border-amber-500/30 dark:text-amber-200/90 flex items-start gap-2">
+          <SvgIcon name="i-info" className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <span>Bring original documents where possible. We sight them, take copies, and return the originals immediately.</span>
         </div>
 
@@ -337,7 +337,7 @@ function printChecklist() {
           <Link
             :href="`/book?topic=${encodeURIComponent(activeChecklistModal.t)}`"
             @click="activeChecklistModal = null"
-            class="flex-1 min-h-[44px] flex items-center justify-center text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black btn-shimmer active:scale-95 shadow-lg shadow-amber-500/15"
+            class="flex-1 min-h-[44px] flex items-center justify-center text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 btn-shimmer active:scale-95 shadow-lg shadow-amber-500/15"
           >
             Book a slot with these documents
           </Link>

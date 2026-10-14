@@ -59,7 +59,7 @@ const calculatorLink = computed(() => {
             :class="[
               'px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 border min-h-[44px] cursor-pointer',
               activeTab === svc.id
-                ? 'bg-kb-accent text-black border-kb-accent shadow-md shadow-amber-500/15'
+                ? 'bg-gold-gradient text-slate-950 font-bold border-amber-400/80 shadow-md shadow-amber-500/20'
                 : 'bg-kb-surface text-kb-body border-kb-line hover:border-kb-border hover:text-kb-text',
             ]"
           >
@@ -89,7 +89,7 @@ const calculatorLink = computed(() => {
               </Link>
               <Link
                 :href="`/book?topic=${encodeURIComponent(currentService.title)}`"
-                class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:opacity-95 transition flex items-center gap-2 active:scale-95 shadow-lg shadow-amber-500/15"
+                class="btn-shimmer w-full sm:w-auto min-h-[44px] justify-center px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 hover:opacity-95 transition flex items-center gap-2 active:scale-95 shadow-lg shadow-amber-500/15"
               >
                 <SvgIcon name="i-cal" className="w-4 h-4" />
                 <span>Book policy review</span>
@@ -110,7 +110,7 @@ const calculatorLink = computed(() => {
             </h3>
             <ul class="space-y-2.5 text-xs text-kb-body">
               <li v-for="(w, idx) in currentService.who" :key="idx" class="flex items-start gap-2.5">
-                <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <span>{{ w }}</span>
               </li>
             </ul>
@@ -172,7 +172,7 @@ const calculatorLink = computed(() => {
         <!-- Regulatory note & disclaimer -->
         <div class="p-4 rounded-xl bg-kb-surface-2 border border-kb-border/50 text-xs leading-relaxed space-y-2">
           <div class="flex items-start gap-2 text-kb-text font-medium">
-            <SvgIcon name="i-alert" className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <SvgIcon name="i-alert" className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             <span>{{ currentService.note }}</span>
           </div>
           <div class="text-[11px] text-kb-muted pl-6">

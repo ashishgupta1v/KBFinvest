@@ -294,8 +294,8 @@ function downloadIcs() {
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl space-y-4">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider text-amber-300">
-            <SvgIcon name="shield-check" class="w-3.5 h-3.5 text-amber-400" />
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+            <SvgIcon name="shield-check" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span>Private Wealth Concierge · Zero Obligation</span>
           </div>
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-kb-text">
@@ -315,19 +315,19 @@ function downloadIcs() {
           <!-- Left: Booking Form -->
           <div class="lg:col-span-7 card-luxury p-6 sm:p-10 space-y-8">
             <!-- SUCCESS STATE -->
-            <div v-if="submitted" class="p-8 sm:p-10 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-center space-y-5 backdrop-blur-md">
-              <div class="w-20 h-20 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-xl shadow-emerald-950/50 border border-emerald-500/30">
+            <div v-if="submitted" class="p-8 sm:p-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/40 dark:border-emerald-500/40 text-center space-y-5 backdrop-blur-md">
+              <div class="w-20 h-20 rounded-2xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-xl shadow-emerald-950/30 border border-emerald-500/30">
                 <SvgIcon name="i-check" className="w-10 h-10" />
               </div>
               <div class="space-y-2">
-                <h3 class="text-2xl sm:text-3xl font-bold text-emerald-300 font-display">Consultation Requested!</h3>
-                <p class="text-xs sm:text-sm text-emerald-200/90 max-w-md mx-auto leading-relaxed">
+                <h3 class="text-2xl sm:text-3xl font-bold text-emerald-800 dark:text-emerald-300 font-display">Consultation Requested!</h3>
+                <p class="text-xs sm:text-sm text-emerald-700/90 dark:text-emerald-200/90 max-w-md mx-auto leading-relaxed">
                   Thank you, <strong>{{ form.name }}</strong>. We have logged your request for <strong>{{ form.date }} at {{ form.time }}</strong> via {{ form.mode }}. Kulwinder Singh will confirm with you on WhatsApp within 2 hours.
                 </p>
               </div>
 
               <!-- Calendar instruction callout -->
-              <div class="mx-auto max-w-xs px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-[11px] text-amber-200 leading-relaxed">
+              <div class="mx-auto max-w-xs px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-800 dark:text-amber-200 leading-relaxed">
                 📅 <strong>Add the event to your calendar</strong> so you don't miss it — click the button below.
               </div>
 
@@ -344,7 +344,7 @@ function downloadIcs() {
                 </a>
                 <button
                   @click="downloadIcs"
-                  class="w-full sm:w-auto min-h-[44px] px-5 py-3 rounded-xl border border-emerald-400/50 text-emerald-300 hover:bg-emerald-900/40 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+                  class="w-full sm:w-auto min-h-[44px] px-5 py-3 rounded-xl border border-emerald-500/40 text-emerald-700 hover:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-900/40 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
                 >
                   <SvgIcon name="i-doc" className="w-4 h-4" />
                   <span>Download .ics (Apple/Outlook)</span>
@@ -353,7 +353,7 @@ function downloadIcs() {
                   :href="`https://wa.me/917973461669?text=${encodeURIComponent('Hello Kulwinder, I just requested a consultation for ' + form.date + ' at ' + form.time + ' regarding ' + form.topic)}`"
                   target="_blank"
                   rel="noopener"
-                  class="w-full sm:w-auto min-h-[44px] px-5 py-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition"
+                  class="w-full sm:w-auto min-h-[44px] px-5 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-700 hover:bg-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition"
                 >
                   <SvgIcon name="i-wa" className="w-4 h-4" />
                   <span>Notify Kulwinder on WhatsApp</span>
@@ -392,7 +392,7 @@ function downloadIcs() {
                       <p class="text-kb-muted mt-0.5 leading-snug">
                         <span v-if="preloadedContext.amount">Target: ₹{{ Number(preloadedContext.amount).toLocaleString('en-IN') }} · </span>
                         <span v-if="preloadedContext.years">Horizon: {{ preloadedContext.years }} yrs · </span>
-                        <span v-if="preloadedContext.result" class="text-emerald-400 font-semibold">Outcome: {{ preloadedContext.result }}</span>
+                        <span v-if="preloadedContext.result" class="text-emerald-700 dark:text-emerald-400 font-semibold">Outcome: {{ preloadedContext.result }}</span>
                       </p>
                     </div>
                   </div>
@@ -495,7 +495,7 @@ function downloadIcs() {
                 <!-- Mode Selector -->
                 <div class="space-y-3">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-2">
                       <span>1. Choose Meeting Mode *</span>
                     </label>
                     <span class="text-[11px] text-kb-muted">In-person or remote</span>
@@ -514,9 +514,9 @@ function downloadIcs() {
                     >
                       <div class="flex items-center justify-between w-full">
                         <div class="w-8 h-8 rounded-lg bg-kb-surface-3 flex items-center justify-center">
-                          <SvgIcon name="i-pin" :className="form.mode === 'Office visit' ? 'w-4 h-4 text-amber-400' : 'w-4 h-4 text-kb-muted'" />
+                          <SvgIcon name="i-pin" :className="form.mode === 'Office visit' ? 'w-4 h-4 text-amber-600 dark:text-amber-400' : 'w-4 h-4 text-kb-muted'" />
                         </div>
-                        <span v-if="form.mode === 'Office visit'" class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm"></span>
+                        <span v-if="form.mode === 'Office visit'" class="w-2.5 h-2.5 rounded-full bg-amber-500 dark:bg-amber-400 shadow-sm"></span>
                       </div>
                       <div>
                         <div class="text-xs font-bold font-display text-kb-text">Office Visit</div>
@@ -536,9 +536,9 @@ function downloadIcs() {
                     >
                       <div class="flex items-center justify-between w-full">
                         <div class="w-8 h-8 rounded-lg bg-kb-surface-3 flex items-center justify-center">
-                          <SvgIcon name="i-phone" :className="form.mode === 'Phone call' ? 'w-4 h-4 text-amber-400' : 'w-4 h-4 text-kb-muted'" />
+                          <SvgIcon name="i-phone" :className="form.mode === 'Phone call' ? 'w-4 h-4 text-amber-600 dark:text-amber-400' : 'w-4 h-4 text-kb-muted'" />
                         </div>
-                        <span v-if="form.mode === 'Phone call'" class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm"></span>
+                        <span v-if="form.mode === 'Phone call'" class="w-2.5 h-2.5 rounded-full bg-amber-500 dark:bg-amber-400 shadow-sm"></span>
                       </div>
                       <div>
                         <div class="text-xs font-bold font-display text-kb-text">Phone Call</div>
@@ -558,9 +558,9 @@ function downloadIcs() {
                     >
                       <div class="flex items-center justify-between w-full">
                         <div class="w-8 h-8 rounded-lg bg-kb-surface-3 flex items-center justify-center">
-                          <SvgIcon name="i-shield" :className="form.mode === 'Video call' ? 'w-4 h-4 text-amber-400' : 'w-4 h-4 text-kb-muted'" />
+                          <SvgIcon name="i-shield" :className="form.mode === 'Video call' ? 'w-4 h-4 text-amber-600 dark:text-amber-400' : 'w-4 h-4 text-kb-muted'" />
                         </div>
-                        <span v-if="form.mode === 'Video call'" class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm"></span>
+                        <span v-if="form.mode === 'Video call'" class="w-2.5 h-2.5 rounded-full bg-amber-500 dark:bg-amber-400 shadow-sm"></span>
                       </div>
                       <div>
                         <div class="text-xs font-bold font-display text-kb-text">Video Call</div>
@@ -573,7 +573,7 @@ function downloadIcs() {
                 <!-- Discussion Topic Selection -->
                 <div class="space-y-3 pt-2">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs font-bold uppercase tracking-wider text-amber-300">
+                    <label class="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
                       2. Select Discussion Priority *
                     </label>
                     <span class="text-[11px] text-kb-muted font-mono">{{ form.topic }}</span>
@@ -586,7 +586,7 @@ function downloadIcs() {
                       class="space-y-1.5"
                     >
                       <div class="text-[10px] font-bold uppercase tracking-wider text-kb-muted flex items-center gap-1.5">
-                        <SvgIcon :name="group.icon" className="w-3 h-3 text-amber-400" />
+                        <SvgIcon :name="group.icon" className="w-3 h-3 text-amber-600 dark:text-amber-400" />
                         <span>{{ group.category }}</span>
                       </div>
                       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -636,13 +636,13 @@ function downloadIcs() {
                 <!-- Conflict Notification on Step 2 -->
                 <div
                   v-if="conflictError"
-                  class="p-4 rounded-xl bg-rose-950/70 border border-rose-500/80 text-rose-100 text-xs flex items-start justify-between gap-3 shadow-lg shadow-rose-950/40"
+                  class="p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-900 dark:bg-rose-950/70 dark:border-rose-500/80 dark:text-rose-100 text-xs flex items-start justify-between gap-3 shadow-lg shadow-rose-950/20"
                 >
                   <div class="flex items-start gap-2.5">
-                    <span class="text-rose-400 font-bold text-sm shrink-0 mt-0.5">⚠️</span>
+                    <span class="text-rose-600 dark:text-rose-400 font-bold text-sm shrink-0 mt-0.5">⚠️</span>
                     <div class="space-y-0.5">
-                      <div class="font-bold text-rose-300">Slot Already Scheduled</div>
-                      <p class="text-rose-200/90 leading-relaxed">
+                      <div class="font-bold text-rose-800 dark:text-rose-300">Slot Already Scheduled</div>
+                      <p class="text-rose-700 dark:text-rose-200/90 leading-relaxed">
                         The slot <strong>{{ form.date }} at {{ form.time }}</strong> is already reserved for this phone number. Please choose an alternate date or time slot below:
                       </p>
                     </div>
@@ -652,7 +652,7 @@ function downloadIcs() {
                 <!-- Date Shortcuts & Picker -->
                 <div class="space-y-3">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs font-bold uppercase tracking-wider text-amber-300">
+                    <label class="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
                       Pick Date *
                     </label>
                     <span class="text-[11px] text-kb-muted font-mono">{{ form.date }}</span>
@@ -688,13 +688,13 @@ function downloadIcs() {
                       />
                     </div>
                   </div>
-                  <div v-if="form.errors.date" class="text-xs text-rose-400">{{ form.errors.date }}</div>
+                  <div v-if="form.errors.date" class="text-xs text-rose-600 dark:text-rose-400 font-medium">{{ form.errors.date }}</div>
                 </div>
 
                 <!-- Time Slot Buckets -->
                 <div class="space-y-3 pt-2">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs font-bold uppercase tracking-wider text-amber-300">
+                    <label class="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
                       Pick Time Slot *
                     </label>
                     <span class="text-[11px] text-kb-muted font-mono">{{ form.time }}</span>
@@ -719,7 +719,7 @@ function downloadIcs() {
                           :class="[
                             'py-2 px-1 rounded-lg text-xs font-mono text-center transition-all duration-150 border cursor-pointer min-h-[44px] flex flex-col items-center justify-center',
                             conflictError && form.time === slot.t
-                              ? 'bg-rose-950/70 text-rose-300 font-bold border-2 border-rose-500 shadow-md shadow-rose-950/50'
+                              ? 'bg-rose-100 text-rose-900 font-bold border-2 border-rose-500 shadow-md dark:bg-rose-950/70 dark:text-rose-300'
                               : form.time === slot.t
                                 ? 'bg-amber-400 text-slate-950 font-bold border-amber-400 shadow-sm'
                                 : 'bg-kb-surface-3/60 text-kb-body border-kb-line hover:border-kb-border hover:text-kb-text',
@@ -728,7 +728,7 @@ function downloadIcs() {
                           <span>{{ slot.l }}</span>
                           <span
                             v-if="conflictError && form.time === slot.t"
-                            class="text-[9px] text-rose-400 font-sans uppercase font-bold tracking-tight"
+                            class="text-[9px] text-rose-600 dark:text-rose-400 font-sans uppercase font-bold tracking-tight"
                           >
                             Booked
                           </span>
@@ -736,7 +736,7 @@ function downloadIcs() {
                       </div>
                     </div>
                   </div>
-                  <div v-if="form.errors.time && !conflictError" class="text-xs text-rose-400">{{ form.errors.time }}</div>
+                  <div v-if="form.errors.time && !conflictError" class="text-xs text-rose-600 dark:text-rose-400 font-medium">{{ form.errors.time }}</div>
                 </div>
 
                 <!-- Step 2 Navigation -->
@@ -766,20 +766,20 @@ function downloadIcs() {
                   v-if="conflictError"
                   id="slot-conflict-alert"
                   role="alert"
-                  class="p-4 sm:p-5 rounded-2xl bg-rose-950/80 border-2 border-rose-500 text-rose-100 shadow-2xl shadow-rose-950/60 space-y-3 animate-in fade-in ring-4 ring-rose-500/20"
+                  class="p-4 sm:p-5 rounded-2xl bg-rose-50 border-2 border-rose-400 text-rose-900 dark:bg-rose-950/80 dark:border-rose-500 dark:text-rose-100 shadow-xl shadow-rose-950/20 space-y-3 animate-in fade-in ring-4 ring-rose-500/20"
                 >
                   <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/40 flex items-center justify-center shrink-0">
                       <span class="text-xl">⚠️</span>
                     </div>
                     <div class="space-y-1">
                       <div class="flex flex-wrap items-center gap-2">
-                        <h4 class="text-sm font-bold text-rose-300 font-display">Appointment Slot Conflict</h4>
-                        <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-rose-500/25 border border-rose-500/40 font-mono font-bold text-rose-200">
+                        <h4 class="text-sm font-bold text-rose-800 dark:text-rose-300 font-display">Appointment Slot Conflict</h4>
+                        <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 dark:bg-rose-500/25 dark:border-rose-500/40 font-mono font-bold dark:text-rose-200">
                           Already Booked
                         </span>
                       </div>
-                      <p class="text-xs text-rose-100 font-medium leading-relaxed">
+                      <p class="text-xs text-rose-800 dark:text-rose-100 font-medium leading-relaxed">
                         {{ conflictError }}
                       </p>
                     </div>
@@ -798,9 +798,9 @@ function downloadIcs() {
                       :href="`https://wa.me/917973461669?text=${encodeURIComponent('Hello Kulwinder, my number ' + form.phone + ' already has a consultation scheduled for ' + form.date + ' at ' + form.time + '. Can you check my existing booking or reschedule?')}`"
                       target="_blank"
                       rel="noopener"
-                      class="min-h-[40px] px-3.5 py-2 rounded-xl border border-rose-400/40 hover:bg-rose-900/40 text-rose-200 text-xs font-semibold flex items-center gap-1.5 transition"
+                      class="min-h-[40px] px-3.5 py-2 rounded-xl border border-rose-300 dark:border-rose-400/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-800 dark:text-rose-200 text-xs font-semibold flex items-center gap-1.5 transition"
                     >
-                      <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-400" />
+                      <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                       <span>WhatsApp Kulwinder Directly</span>
                     </a>
                   </div>
@@ -834,11 +834,11 @@ function downloadIcs() {
                       :class="[
                         'w-full rounded-xl px-4 py-3 text-sm text-kb-text outline-none transition',
                         form.errors.name
-                          ? 'border-2 border-rose-500 bg-rose-950/20 focus:border-rose-400'
+                          ? 'border-2 border-rose-500 bg-rose-500/10 dark:bg-rose-950/20 text-rose-900 dark:text-rose-100 focus:border-rose-400'
                           : 'bg-kb-surface-2/60 border border-kb-line focus:border-amber-400 focus:bg-kb-surface-2'
                       ]"
                     />
-                    <div v-if="form.errors.name" class="text-xs text-rose-400">{{ form.errors.name }}</div>
+                    <div v-if="form.errors.name" class="text-xs text-rose-600 dark:text-rose-400 font-medium">{{ form.errors.name }}</div>
                   </div>
 
                   <!-- Phone -->
@@ -855,11 +855,11 @@ function downloadIcs() {
                       :class="[
                         'w-full rounded-xl px-4 py-3 text-sm text-kb-text outline-none transition',
                         form.errors.phone
-                          ? 'border-2 border-rose-500 bg-rose-950/20 text-rose-100 focus:border-rose-400'
+                          ? 'border-2 border-rose-500 bg-rose-500/10 dark:bg-rose-950/20 text-rose-900 dark:text-rose-100 focus:border-rose-400'
                           : 'bg-kb-surface-2/60 border border-kb-line focus:border-amber-400 focus:bg-kb-surface-2'
                       ]"
                     />
-                    <div v-if="form.errors.phone" class="text-xs text-rose-400 font-medium flex items-start gap-1 mt-1">
+                    <div v-if="form.errors.phone" class="text-xs text-rose-600 dark:text-rose-400 font-medium flex items-start gap-1 mt-1">
                       <span class="text-sm shrink-0">⚠️</span>
                       <span>{{ form.errors.phone }}</span>
                     </div>
@@ -896,8 +896,8 @@ function downloadIcs() {
                 </div>
 
                 <!-- Trust Guarantee Micro-copy -->
-                <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 flex items-start gap-2.5 leading-relaxed">
-                  <SvgIcon name="i-shield" className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-950 dark:text-amber-200/90 flex items-start gap-2.5 leading-relaxed">
+                  <SvgIcon name="i-shield" className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                   <span>
                     <strong>Privacy & Confidentiality Guarantee:</strong> Your contact information is never shared or marketed. Used strictly for your private consultation with Kulwinder Singh.
                   </span>
@@ -908,10 +908,10 @@ function downloadIcs() {
                   <!-- Conflict guidance right above submit button -->
                   <div
                     v-if="conflictError"
-                    class="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500 text-xs text-rose-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5"
+                    class="p-3.5 rounded-xl bg-rose-50 border border-rose-300 text-xs text-rose-900 dark:bg-rose-950/70 dark:border-rose-500 dark:text-rose-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5"
                   >
                     <div class="flex items-center gap-2">
-                      <span class="text-rose-400 font-bold">⚠️</span>
+                      <span class="text-rose-600 dark:text-rose-400 font-bold">⚠️</span>
                       <span>Slot conflict: Please pick another slot to confirm.</span>
                     </div>
                     <button
@@ -936,7 +936,7 @@ function downloadIcs() {
                     <button
                       type="submit"
                       :disabled="form.processing"
-                      class="btn-shimmer w-full sm:w-auto min-h-[44px] px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black hover:brightness-105 transition shadow-xl shadow-amber-500/15 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                      class="btn-shimmer w-full sm:w-auto min-h-[44px] px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 hover:brightness-105 transition shadow-xl shadow-amber-500/15 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <SvgIcon name="i-cal" className="w-4 h-4" />
                       <span>{{ form.processing ? 'Securing Slot...' : 'Confirm 30-Min Consultation' }}</span>
@@ -953,10 +953,10 @@ function downloadIcs() {
             <div class="card-luxury p-6 space-y-5 border-amber-500/30">
               <div class="flex items-center justify-between pb-3.5 border-b border-kb-line">
                 <div class="space-y-0.5">
-                  <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Appointment Overview</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">Appointment Overview</span>
                   <p class="text-[11px] text-kb-muted">Real-time booking details</p>
                 </div>
-                <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
+                <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
                   Free · Zero Obligation
                 </span>
               </div>
@@ -966,12 +966,12 @@ function downloadIcs() {
                   <span class="text-kb-muted">Lead Advisor</span>
                   <div class="text-right">
                     <span class="font-bold text-kb-text block">Kulwinder Singh</span>
-                    <span class="text-[10px] text-amber-300 font-mono">ARN-178400 (AMFI)</span>
+                    <span class="text-[10px] text-amber-800 dark:text-amber-300 font-mono font-semibold">ARN-178400 (AMFI)</span>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-kb-muted">Format</span>
-                  <span class="font-bold text-amber-300 px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20">{{ form.mode }}</span>
+                  <span class="font-bold text-amber-800 dark:text-amber-300 px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20">{{ form.mode }}</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-kb-muted">Topic</span>
@@ -983,7 +983,7 @@ function downloadIcs() {
                     <span class="font-bold text-kb-text font-mono bg-kb-surface-2 px-2 py-0.5 rounded border border-kb-border/50">
                       {{ form.date }} · {{ form.time }}
                     </span>
-                    <span v-if="conflictError" class="text-[10px] text-rose-400 font-bold block mt-1">
+                    <span v-if="conflictError" class="text-[10px] text-rose-600 dark:text-rose-400 font-bold block mt-1">
                       ⚠️ Slot Conflict: Already Booked
                     </span>
                   </div>
@@ -994,14 +994,14 @@ function downloadIcs() {
               <div class="p-3.5 rounded-xl bg-kb-surface-2/60 border border-kb-border/50 text-xs text-kb-muted leading-relaxed space-y-1.5">
                 <div class="font-bold text-kb-text flex items-center justify-between">
                   <div class="flex items-center gap-1.5">
-                    <SvgIcon name="i-pin" className="w-3.5 h-3.5 text-amber-400" />
+                    <SvgIcon name="i-pin" className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                     <span>Central Town Consultation Room</span>
                   </div>
                   <a
                     href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
                     target="_blank"
                     rel="noopener"
-                    class="text-[11px] text-amber-400 hover:underline font-bold inline-flex items-center gap-1"
+                    class="text-[11px] text-amber-800 dark:text-amber-400 hover:underline font-bold inline-flex items-center gap-1"
                   >
                     <span>View Map</span>
                     <SvgIcon name="i-arr" className="w-3 h-3" />
@@ -1016,7 +1016,7 @@ function downloadIcs() {
             <!-- Contextual 'What to Bring' Checklist -->
             <div class="card-luxury p-6 space-y-4">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center text-amber-400">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center text-amber-600 dark:text-amber-400">
                   <SvgIcon name="i-doc" className="w-4 h-4" />
                 </div>
                 <div>
@@ -1031,7 +1031,7 @@ function downloadIcs() {
                   :key="idx"
                   class="flex items-start gap-2.5 pb-2.5 border-b border-kb-line/40 last:border-0 last:pb-0"
                 >
-                  <span class="text-emerald-400 font-bold text-sm leading-none shrink-0 mt-0.5">✓</span>
+                  <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm leading-none shrink-0 mt-0.5">✓</span>
                   <div>
                     <div class="font-semibold text-kb-text">{{ item.doc }}</div>
                     <div class="text-[11px] text-kb-muted leading-tight mt-0.5">{{ item.reason }}</div>
@@ -1051,14 +1051,14 @@ function downloadIcs() {
                   href="tel:+917973461669"
                   class="min-h-[44px] py-2.5 px-3 rounded-xl border border-kb-line hover:border-kb-border transition text-xs font-bold text-kb-text flex items-center justify-center gap-2 hover:bg-kb-surface-2"
                 >
-                  <SvgIcon name="i-phone" className="w-3.5 h-3.5 text-amber-400" />
+                  <SvgIcon name="i-phone" className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>Call Office</span>
                 </a>
                 <a
                   href="https://wa.me/917973461669?text=Hello%20KB%20Finvest,%20I%20would%20like%20to%20speak%20with%20Kulwinder%20Singh."
                   target="_blank"
                   rel="noopener"
-                  class="min-h-[44px] py-2.5 px-3 rounded-xl border border-emerald-500/40 text-emerald-400 bg-emerald-950/20 hover:bg-emerald-950/40 transition text-xs font-bold flex items-center justify-center gap-2"
+                  class="min-h-[44px] py-2.5 px-3 rounded-xl border border-emerald-500/30 text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:text-emerald-400 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 transition text-xs font-bold flex items-center justify-center gap-2"
                 >
                   <SvgIcon name="i-wa" className="w-3.5 h-3.5" />
                   <span>WhatsApp</span>

@@ -30,8 +30,8 @@ const never = computed(() => props.data.never || []);
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl space-y-4">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider text-amber-300">
-            <SvgIcon name="shield-check" class="w-3.5 h-3.5 text-amber-400" />
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+            <SvgIcon name="shield-check" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span>Independent & Fiduciary-Aligned Practice</span>
           </div>
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-kb-text">
@@ -80,7 +80,7 @@ const never = computed(() => props.data.never || []);
                   rel="noopener"
                   class="card-luxury p-5 hover:border-amber-400/50 hover:scale-[1.01] transition-all duration-300 group block"
                 >
-                  <div class="font-bold text-sm text-amber-300 font-display group-hover:text-amber-200 flex items-center justify-between">
+                  <div class="font-bold text-sm text-amber-800 dark:text-amber-300 font-display group-hover:text-amber-900 dark:group-hover:text-amber-200 flex items-center justify-between">
                     <span>{{ f.b }}</span>
                     <SvgIcon name="i-arr" className="w-3.5 h-3.5 text-kb-muted group-hover:text-amber-400 group-hover:translate-x-0.5 transition-transform" />
                   </div>
@@ -108,7 +108,7 @@ const never = computed(() => props.data.never || []);
                 <div>
                   <div class="flex items-center gap-2">
                     <h3 class="text-xl font-bold text-kb-text font-display">Kulwinder Singh</h3>
-                    <span class="px-2 py-0.5 rounded-full bg-amber-500/15 text-[10px] font-bold text-amber-300 border border-amber-500/30">ARN-178400</span>
+                    <span class="px-2 py-0.5 rounded-full bg-amber-500/15 text-[10px] font-bold text-amber-800 dark:text-amber-300 border border-amber-500/30">ARN-178400</span>
                   </div>
                   <p class="text-xs text-kb-accent font-medium mt-0.5">Founder · Mutual Fund Distributor</p>
                   <p class="text-xs text-kb-muted">Central Town, Ludhiana, Punjab</p>
@@ -133,7 +133,7 @@ const never = computed(() => props.data.never || []);
               <!-- Office Card -->
               <div class="p-4 rounded-xl bg-kb-surface-2/60 border border-kb-border/50 text-xs space-y-2">
                 <div class="font-bold text-kb-text flex items-center gap-2">
-                  <SvgIcon name="i-pin" className="w-4 h-4 text-amber-400" />
+                  <SvgIcon name="i-pin" className="w-4 h-4 text-kb-accent" />
                   <span>Central Town Desk & Consultation Room</span>
                 </div>
                 <p class="text-kb-muted leading-relaxed">
@@ -144,7 +144,7 @@ const never = computed(() => props.data.never || []);
                     href="https://maps.app.goo.gl/KuroHh51TGhBCMMz7?g_st=aw"
                     target="_blank"
                     rel="noopener"
-                    class="text-amber-400 font-bold hover:underline inline-flex items-center gap-1.5"
+                    class="text-amber-700 dark:text-amber-400 font-bold hover:underline inline-flex items-center gap-1.5"
                   >
                     <span>View on Google Maps</span>
                     <SvgIcon name="i-arr" className="w-3.5 h-3.5" />
@@ -179,12 +179,12 @@ const never = computed(() => props.data.never || []);
 
         <div class="card-luxury overflow-hidden border-kb-line p-0">
           <div class="grid grid-cols-1 md:grid-cols-2 text-xs divide-y md:divide-y-0 md:divide-x divide-kb-line">
-            <div class="p-4 sm:p-5 bg-rose-500/10 font-bold uppercase tracking-wider text-rose-400 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+            <div class="p-4 sm:p-5 bg-rose-500/10 font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-rose-600 dark:bg-rose-400"></span>
               <span>The Conventional Product-Led Pitch</span>
             </div>
-            <div class="p-4 sm:p-5 bg-amber-500/15 font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <div class="p-4 sm:p-5 bg-amber-500/15 font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-600 dark:bg-amber-400"></span>
               <span>How KB Finvest Runs Instead</span>
             </div>
           </div>
@@ -195,16 +195,16 @@ const never = computed(() => props.data.never || []);
               class="grid grid-cols-1 md:grid-cols-2 text-xs divide-y md:divide-y-0 md:divide-x divide-kb-line/40 hover:bg-kb-surface-2/40 transition-colors"
             >
               <div class="p-4 sm:p-5 text-kb-muted flex items-start gap-3">
-                <span class="text-rose-400 font-bold text-sm leading-none shrink-0 mt-0.5">✕</span>
+                <span class="text-rose-600 dark:text-rose-400 font-bold text-sm leading-none shrink-0 mt-0.5">✕</span>
                 <div>
-                  <span class="md:hidden text-[10px] font-bold uppercase tracking-wider text-rose-400 block mb-0.5">Conventional Approach</span>
+                  <span class="md:hidden text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 block mb-0.5">Conventional Approach</span>
                   <span class="leading-relaxed">{{ row[0] }}</span>
                 </div>
               </div>
               <div class="p-4 sm:p-5 text-kb-text font-medium flex items-start gap-3 bg-amber-500/5">
-                <span class="text-emerald-400 font-bold text-sm leading-none shrink-0 mt-0.5">✓</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm leading-none shrink-0 mt-0.5">✓</span>
                 <div>
-                  <span class="md:hidden text-[10px] font-bold uppercase tracking-wider text-amber-300 block mb-0.5">KB Finvest Approach</span>
+                  <span class="md:hidden text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 block mb-0.5">KB Finvest Approach</span>
                   <span class="leading-relaxed">{{ row[1] }}</span>
                 </div>
               </div>
@@ -221,7 +221,7 @@ const never = computed(() => props.data.never || []);
           <!-- Fee Policy -->
           <div class="card-luxury p-6 sm:p-8 space-y-5 border-emerald-500/20">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center text-emerald-400">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <SvgIcon name="i-coin" className="w-5 h-5" />
               </div>
               <div>
@@ -231,7 +231,7 @@ const never = computed(() => props.data.never || []);
             </div>
             <ul class="space-y-3.5 text-xs sm:text-sm text-kb-body pt-2">
               <li v-for="(fee, idx) in fees" :key="idx" class="flex items-start gap-3">
-                <SvgIcon name="i-check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <SvgIcon name="i-check" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <span class="leading-relaxed">{{ fee }}</span>
               </li>
             </ul>
@@ -240,7 +240,7 @@ const never = computed(() => props.data.never || []);
           <!-- What We Never Do -->
           <div class="card-luxury p-6 sm:p-8 space-y-5 border-rose-500/20">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-rose-500/15 flex items-center justify-center text-rose-400">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/15 flex items-center justify-center text-rose-600 dark:text-rose-400">
                 <SvgIcon name="i-lock" className="w-5 h-5" />
               </div>
               <div>
@@ -250,7 +250,7 @@ const never = computed(() => props.data.never || []);
             </div>
             <ul class="space-y-3.5 text-xs sm:text-sm text-kb-body pt-2">
               <li v-for="(n, idx) in never" :key="idx" class="flex items-start gap-3">
-                <span class="text-rose-400 font-bold text-sm leading-none shrink-0 mt-0.5">✕</span>
+                <span class="text-rose-600 dark:text-rose-400 font-bold text-sm leading-none shrink-0 mt-0.5">✕</span>
                 <span class="leading-relaxed">{{ n }}</span>
               </li>
             </ul>

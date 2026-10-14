@@ -4,11 +4,14 @@ import { Link, usePage } from '@inertiajs/vue3';
 import SvgIcon from '@/Components/SvgIcon.vue';
 import SearchModal from '@/Components/SearchModal.vue';
 import KbLogo from '@/Components/KbLogo.vue';
+import { useTheme } from '@/Composables/useTheme.js';
 
 const page = usePage();
 const site = computed(() => page.props.site || {});
 const navigation = computed(() => page.props.navigation || []);
 const flash = computed(() => page.props.flash || {});
+
+const { isDark, toggleTheme } = useTheme();
 
 const showSearch = ref(false);
 const mobileMenuOpen = ref(false);
@@ -63,11 +66,6 @@ function handleScroll() {
 }
 
 onMounted(() => {
-  try {
-    localStorage.removeItem('kb_theme');
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } catch (e) {}
-
   calculateOfficeState();
   const timer = setInterval(calculateOfficeState, 60000);
   window.addEventListener('keydown', handleGlobalKey);
@@ -242,7 +240,7 @@ function scrollToTop() {
               @mouseenter="openDropdown('services')"
               @mouseleave="scheduleCloseDropdown"
             >
-              <div class="bg-kb-surface/98 backdrop-blur-2xl border border-kb-border/50 rounded-2xl p-5 shadow-2xl ring-1 ring-black/40 grid grid-cols-2 gap-4">
+              <div class="bg-kb-surface/98 backdrop-blur-2xl border border-kb-border/50 rounded-2xl p-5 shadow-2xl ring-1 ring-black/5 dark:ring-black/40 grid grid-cols-2 gap-4">
                 <!-- Wealth & Investments -->
                 <div class="space-y-2">
                   <div class="text-[11px] font-bold uppercase tracking-wider text-kb-accent px-2.5 pb-1 border-b border-kb-line/60 flex items-center gap-1.5">
@@ -311,7 +309,7 @@ function scrollToTop() {
                   >
                     <div class="font-semibold text-xs text-kb-text group-hover:text-kb-accent flex items-center justify-between">
                       <span>Loans & CGTMSE Finance</span>
-                      <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Collateral-Free</span>
+                      <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">Collateral-Free</span>
                     </div>
                     <p class="text-[11px] text-kb-muted mt-0.5 leading-snug">Home loans, LAP, and collateral-free MSME credit up to ₹10 Cr</p>
                   </Link>
@@ -361,7 +359,7 @@ function scrollToTop() {
               @mouseenter="openDropdown('tools')"
               @mouseleave="scheduleCloseDropdown"
             >
-              <div class="bg-kb-surface/98 backdrop-blur-2xl border border-kb-border/50 rounded-2xl p-5 shadow-2xl ring-1 ring-black/40 grid grid-cols-2 gap-4">
+              <div class="bg-kb-surface/98 backdrop-blur-2xl border border-kb-border/50 rounded-2xl p-5 shadow-2xl ring-1 ring-black/5 dark:ring-black/40 grid grid-cols-2 gap-4">
                 <div class="space-y-2">
                   <div class="text-[11px] font-bold uppercase tracking-wider text-kb-accent px-2.5 pb-1 border-b border-kb-line/60 flex items-center gap-1.5">
                     <SvgIcon name="i-calc" className="w-3.5 h-3.5" />
@@ -451,7 +449,7 @@ function scrollToTop() {
               @mouseenter="openDropdown('company')"
               @mouseleave="scheduleCloseDropdown"
             >
-              <div class="bg-kb-surface/98 backdrop-blur-2xl border border-kb-border/50 rounded-2xl p-4 shadow-2xl ring-1 ring-black/40 space-y-1.5">
+              <div class="bg-kb-surface/98 backdrop-blur-2xl border border-kb-border/50 rounded-2xl p-4 shadow-2xl ring-1 ring-black/5 dark:ring-black/40 space-y-1.5">
                 <Link
                   href="/about"
                   class="group block p-2.5 rounded-xl hover:bg-kb-surface-2 transition"
@@ -491,6 +489,7 @@ function scrollToTop() {
         <div class="flex items-center gap-2 sm:gap-3">
           <!-- Quick Search Button -->
           <button
+            id="header-search-btn"
             @click="showSearch = true"
             class="p-2.5 rounded-lg border border-kb-line hover:border-kb-border hover:bg-kb-surface transition text-kb-muted hover:text-kb-text flex items-center gap-1.5 cursor-pointer"
             title="Search (Press /)"
@@ -500,6 +499,38 @@ function scrollToTop() {
             <span class="hidden md:inline-flex text-[10px] font-mono px-1.5 py-0.5 rounded bg-kb-surface-2 border border-kb-line text-kb-muted">/</span>
           </button>
 
+          <!-- Theme Toggle Button -->
+          <button
+            id="theme-toggle-btn"
+            @click="toggleTheme"
+            :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+            :aria-label="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+            :aria-pressed="!isDark"
+            class="relative p-2.5 rounded-lg border border-kb-line hover:border-kb-border hover:bg-kb-surface transition text-kb-muted hover:text-kb-text cursor-pointer overflow-hidden group"
+          >
+            <!-- Sun icon (shown when dark, click makes it light) -->
+            <span
+              :class="[
+                'absolute inset-0 flex items-center justify-center transition-all duration-300',
+                isDark ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 -translate-y-4 -rotate-90'
+              ]"
+              aria-hidden="true"
+            >
+              <SvgIcon name="i-sun" className="w-4 h-4 text-kb-accent" />
+            </span>
+            <!-- Moon icon (shown when light, click makes it dark) -->
+            <span
+              :class="[
+                'absolute inset-0 flex items-center justify-center transition-all duration-300',
+                !isDark ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-4 rotate-90'
+              ]"
+              aria-hidden="true"
+            >
+              <SvgIcon name="i-moon" className="w-4 h-4 text-kb-primary" />
+            </span>
+            <!-- Spacer to maintain button size -->
+            <span class="w-4 h-4 block opacity-0" aria-hidden="true"></span>
+          </button>
 
           <!-- Book Consultation CTA (With nowrap and shrink-0 to prevent awkward wrapping) -->
           <Link
@@ -537,13 +568,43 @@ function scrollToTop() {
             <Link href="/" class="flex items-center" @click="mobileMenuOpen = false">
               <KbLogo class="h-10 w-auto" />
             </Link>
-            <button
-              @click="mobileMenuOpen = false"
-              class="p-2 rounded-lg text-kb-muted hover:text-kb-text border border-kb-line cursor-pointer"
-              aria-label="Close navigation menu"
-            >
-              <SvgIcon name="i-x" className="w-5 h-5" />
-            </button>
+            <div class="flex items-center gap-2">
+              <!-- Theme Toggle (Mobile Drawer) -->
+              <button
+                id="theme-toggle-mobile-btn"
+                @click="toggleTheme"
+                :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+                :aria-label="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+                class="relative p-2 rounded-lg border border-kb-line text-kb-muted hover:text-kb-text hover:bg-kb-surface-2 transition overflow-hidden cursor-pointer"
+              >
+                <span
+                  :class="[
+                    'absolute inset-0 flex items-center justify-center transition-all duration-300',
+                    isDark ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+                  ]"
+                  aria-hidden="true"
+                >
+                  <SvgIcon name="i-sun" className="w-4 h-4 text-kb-accent" />
+                </span>
+                <span
+                  :class="[
+                    'absolute inset-0 flex items-center justify-center transition-all duration-300',
+                    !isDark ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  ]"
+                  aria-hidden="true"
+                >
+                  <SvgIcon name="i-moon" className="w-4 h-4 text-kb-primary" />
+                </span>
+                <span class="w-4 h-4 block opacity-0" aria-hidden="true"></span>
+              </button>
+              <button
+                @click="mobileMenuOpen = false"
+                class="p-2 rounded-lg text-kb-muted hover:text-kb-text border border-kb-line cursor-pointer"
+                aria-label="Close navigation menu"
+              >
+                <SvgIcon name="i-x" className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           <nav class="flex flex-col gap-1 py-4">
@@ -638,14 +699,14 @@ function scrollToTop() {
           <Link
             href="/book"
             @click="mobileMenuOpen = false"
-            class="w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-black shadow-lg shadow-amber-500/10 btn-shimmer"
+            class="w-full text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-gold-gradient text-slate-950 shadow-lg shadow-amber-500/10 btn-shimmer"
           >
             Book a 30-min Consultation
           </Link>
           <a
             :href="`https://wa.me/${site.wa}`"
             target="_blank"
-            class="w-full text-center py-2.5 rounded-xl border border-emerald-500/40 text-emerald-400 font-medium text-xs flex items-center justify-center gap-2 bg-emerald-950/20"
+            class="w-full text-center py-2.5 rounded-xl border border-emerald-500/30 text-emerald-700 bg-emerald-500/10 hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:text-emerald-400 dark:bg-emerald-950/20 font-medium text-xs flex items-center justify-center gap-2"
           >
             <SvgIcon name="i-wa" className="w-4 h-4" /> Message on WhatsApp
           </a>
@@ -653,7 +714,7 @@ function scrollToTop() {
             href="https://www.instagram.com/kb_finvest_"
             target="_blank"
             rel="noopener"
-            class="w-full text-center py-2.5 rounded-xl border border-pink-500/40 text-pink-400 font-medium text-xs flex items-center justify-center gap-2 bg-pink-950/20"
+            class="w-full text-center py-2.5 rounded-xl border border-pink-500/30 text-pink-700 bg-pink-500/10 hover:bg-pink-500/20 dark:border-pink-500/40 dark:text-pink-400 dark:bg-pink-950/20 font-medium text-xs flex items-center justify-center gap-2"
           >
             <SvgIcon name="instagram" className="w-4 h-4" /> Follow @kb_finvest_ on Instagram
           </a>
@@ -664,9 +725,9 @@ function scrollToTop() {
     <!-- Flash message toast -->
     <div
       v-if="flash.success"
-      class="fixed top-20 sm:top-24 left-4 right-4 sm:left-auto sm:right-4 z-50 max-w-md bg-emerald-950/95 text-emerald-200 border border-emerald-500/40 rounded-xl p-4 shadow-xl backdrop-blur-md flex items-start gap-3 animate-in slide-in-from-top-4"
+      class="fixed top-20 sm:top-24 left-4 right-4 sm:left-auto sm:right-4 z-50 max-w-md bg-emerald-800 text-white dark:bg-emerald-950/95 dark:text-emerald-200 border border-emerald-500/40 rounded-xl p-4 shadow-xl backdrop-blur-md flex items-start gap-3 animate-in slide-in-from-top-4"
     >
-      <SvgIcon name="i-check" className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+      <SvgIcon name="i-check" className="w-5 h-5 text-emerald-300 dark:text-emerald-400 shrink-0 mt-0.5" />
       <div class="text-sm font-medium">{{ flash.success }}</div>
     </div>
 
@@ -684,12 +745,12 @@ function scrollToTop() {
         :href="`https://wa.me/${site.wa}?text=Hello%20KB%20Finvest,%20I%20would%20like%20to%20consult%20you.`"
         target="_blank"
         rel="noopener"
-        class="h-11 px-4 rounded-full bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 font-bold text-xs flex items-center gap-2 shadow-xl shadow-emerald-950/60 hover:bg-emerald-900/90 hover:scale-105 active:scale-95 transition backdrop-blur-md"
+        class="h-11 px-4 rounded-full bg-emerald-600 border border-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-xl shadow-emerald-600/30 hover:bg-emerald-700 dark:bg-emerald-950/90 dark:border-emerald-500/50 dark:text-emerald-300 dark:shadow-emerald-950/60 dark:hover:bg-emerald-900/90 hover:scale-105 active:scale-95 transition backdrop-blur-md"
         title="Chat on WhatsApp"
         aria-label="Direct WhatsApp consultation"
       >
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-400 shrink-0" />
+        <span class="w-2 h-2 rounded-full bg-emerald-200 dark:bg-emerald-400 animate-pulse"></span>
+        <SvgIcon name="i-wa" className="w-4 h-4 text-white dark:text-emerald-400 shrink-0" />
         <span>WhatsApp</span>
       </a>
 
@@ -712,7 +773,7 @@ function scrollToTop() {
         :href="`https://wa.me/${site.wa}?text=Hello%20KB%20Finvest,%20I%20would%20like%20to%20consult%20you.`"
         target="_blank"
         rel="noopener"
-        class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-400 font-semibold text-xs active:scale-95 transition min-h-[44px]"
+        class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 hover:bg-emerald-500/25 dark:bg-emerald-950/50 dark:border-emerald-500/40 dark:text-emerald-400 font-semibold text-xs active:scale-95 transition min-h-[44px]"
       >
         <SvgIcon name="i-wa" className="w-4 h-4 shrink-0" />
         <span class="truncate">WhatsApp</span>
@@ -726,7 +787,7 @@ function scrollToTop() {
       </a>
       <Link
         href="/book"
-        class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-gold-gradient text-black font-bold text-xs shadow-md shadow-amber-500/20 active:scale-95 transition btn-shimmer min-h-[44px]"
+        class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-gold-gradient text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 active:scale-95 transition btn-shimmer min-h-[44px]"
       >
         <SvgIcon name="i-cal" className="w-4 h-4 shrink-0" />
         <span class="truncate">Book 30m</span>
@@ -765,7 +826,7 @@ function scrollToTop() {
                   href="https://www.instagram.com/kb_finvest_"
                   target="_blank"
                   rel="noopener"
-                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-400 text-xs font-semibold transition"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-700 dark:text-pink-400 text-xs font-semibold transition"
                 >
                   <SvgIcon name="instagram" className="w-3.5 h-3.5" />
                   <span>@kb_finvest_</span>
@@ -784,7 +845,7 @@ function scrollToTop() {
                   href="https://p.njw.bz/11786"
                   target="_blank"
                   rel="noopener"
-                  class="text-emerald-400 hover:text-emerald-300 transition inline-flex items-center gap-1 font-semibold"
+                  class="text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 transition inline-flex items-center gap-1 font-semibold"
                   title="NJ Wealth Partner Onboarding Desk (ARN-178400)"
                 >
                   <span>Start SIP / SWP Online (e-KYC)</span>

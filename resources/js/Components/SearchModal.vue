@@ -157,13 +157,13 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeyDown));
                 href="https://wa.me/917973461669?text=Hello%20KB%20Finvest,%20I%20have%20a%20query."
                 target="_blank"
                 rel="noopener"
-                class="p-2.5 rounded-xl bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/30 transition flex items-center justify-between group"
+                class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border border-emerald-500/30 transition flex items-center justify-between group"
               >
                 <div>
-                  <div class="text-xs font-semibold text-emerald-300">Chat on WhatsApp</div>
-                  <div class="text-[11px] text-emerald-400/80">Direct reply from Kulwinder Singh</div>
+                  <div class="text-xs font-semibold text-emerald-700 dark:text-emerald-300">Chat on WhatsApp</div>
+                  <div class="text-[11px] text-emerald-600/90 dark:text-emerald-400/80">Direct reply from Kulwinder Singh</div>
                 </div>
-                <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-400" />
+                <SvgIcon name="i-wa" className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </a>
             </div>
           </div>

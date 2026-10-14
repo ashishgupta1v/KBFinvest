@@ -5,7 +5,9 @@
 @source '../views/**/*.blade.php';
 @source '../js/**/*.{vue,js,ts}';
 
-:root {
+/* ── Dark Theme (default) ── */
+:root,
+[data-theme="dark"] {
   --kb-bg: #070E1C;
   --kb-bg-soft: #0A1526;
   --kb-surface: #0D1A31;
@@ -35,6 +37,37 @@
   color-scheme: dark;
 }
 
+/* ── Light Theme ── */
+[data-theme="light"] {
+  --kb-bg: #F5F1EA;
+  --kb-bg-soft: #EDE8DF;
+  --kb-surface: #FFFFFF;
+  --kb-surface-2: #F0EBE1;
+  --kb-surface-3: #E6DFD4;
+  --kb-primary: #1E5BBD;
+  --kb-primary-deep: #143E82;
+  --kb-accent: #8E6000;
+  --kb-accent-hi: #7A5308;
+  --kb-accent-lo: #5E3D04;
+  --kb-champagne: #5E3D04;
+  --kb-text: #0D1829;
+  --kb-body: #2C3E5C;
+  --kb-muted: #4B5E78;
+  --accent-text: #7A5308;
+  --on-accent: #FFFFFF;
+  --kb-border: rgba(142, 96, 0, 0.30);
+  --kb-line: rgba(44, 62, 92, 0.14);
+  --kb-hair: rgba(0, 0, 0, 0.06);
+  --kb-whatsapp: #128C4A;
+  --kb-success: #15803D;
+  --kb-error: #B91C1C;
+  --kb-warning: #B45309;
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.86));
+  --card-flat: rgba(0, 0, 0, 0.03);
+  --glass: rgba(245, 241, 234, 0.92);
+  color-scheme: light;
+}
+
 
 @theme {
   /* Typography */
@@ -62,10 +95,15 @@
 }
 
 /* ── Base ── */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--kb-bg);
   color: var(--kb-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, .font-display {
@@ -77,8 +115,16 @@ h1, h2, h3, .font-display {
   background: linear-gradient(135deg, #F7E9C4 0%, #EFD08A 20%, #D4A537 58%, #A67C1F 100%);
 }
 
+[data-theme="light"] .bg-gold-gradient {
+  background: linear-gradient(135deg, #F5D77F 0%, #E5B842 35%, #D4A537 70%, #B8860B 100%);
+}
+
 .bg-gold-soft {
   background: linear-gradient(160deg, rgba(247, 233, 196, 0.16), rgba(212, 165, 55, 0.04));
+}
+
+[data-theme="light"] .bg-gold-soft {
+  background: linear-gradient(160deg, rgba(184, 134, 11, 0.08), rgba(212, 165, 55, 0.02));
 }
 
 .text-gold-gradient {
@@ -93,6 +139,12 @@ h1, h2, h3, .font-display {
   margin-right: -0.18em;
 }
 
+[data-theme="light"] .text-gold-gradient {
+  background: linear-gradient(135deg, #875500 0%, #B8860B 40%, #855500 80%, #5E3A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 .gold-glow {
   box-shadow: 0 0 30px rgba(212, 165, 55, 0.15);
@@ -100,6 +152,14 @@ h1, h2, h3, .font-display {
 
 .gold-glow-lg {
   box-shadow: 0 0 50px rgba(212, 165, 55, 0.22);
+}
+
+[data-theme="light"] .gold-glow {
+  box-shadow: 0 4px 20px rgba(184, 134, 11, 0.12);
+}
+
+[data-theme="light"] .gold-glow-lg {
+  box-shadow: 0 8px 30px rgba(184, 134, 11, 0.16);
 }
 
 .card-frame {
@@ -113,6 +173,11 @@ h1, h2, h3, .font-display {
 .card-frame:hover {
   border-color: var(--kb-border);
   box-shadow: 0 10px 30px rgba(2, 7, 16, 0.4);
+}
+
+[data-theme="light"] .card-frame:hover {
+  border-color: var(--kb-border);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
 }
 
 .card-frame-gold {
@@ -129,50 +194,82 @@ h1, h2, h3, .font-display {
   box-shadow: 0 8px 30px rgba(212, 165, 55, 0.16);
 }
 
+[data-theme="light"] .card-frame-gold {
+  box-shadow: 0 4px 20px rgba(184, 134, 11, 0.06);
+}
+
+[data-theme="light"] .card-frame-gold:hover {
+  border-color: var(--kb-accent);
+  box-shadow: 0 8px 25px rgba(184, 134, 11, 0.14);
+}
+
 /* Luxury card with subtle inner depth & gold foil edge */
 .card-luxury {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.015) 100%);
+  background: var(--card-bg);
   border: 1px solid rgba(212, 165, 55, 0.25);
   border-radius: 1.25rem;
   backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px -4px rgba(2, 7, 16, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px -4px rgba(2, 7, 16, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+[data-theme="light"] .card-luxury {
+  box-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
 .card-luxury:hover {
   border-color: var(--kb-accent);
-  box-shadow: 0 16px 40px -4px rgba(2, 7, 16, 0.65), 0 0 24px rgba(212, 165, 55, 0.18);
+  box-shadow: 0 16px 40px -4px rgba(2, 7, 16, 0.3), 0 0 24px rgba(212, 165, 55, 0.18);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .card-luxury:hover {
+  border-color: var(--kb-accent);
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.09), 0 0 20px rgba(184, 134, 11, 0.12);
   transform: translateY(-2px);
 }
 
 /* Wealth-Tech Prestige Card with ambient gold sheen */
 .card-prestige {
   position: relative;
-  background: radial-gradient(120% 120% at 50% 0%, rgba(212, 165, 55, 0.06) 0%, rgba(13, 26, 49, 0.95) 50%, rgba(7, 14, 28, 0.98) 100%);
+  background: radial-gradient(120% 120% at 50% 0%, rgba(212, 165, 55, 0.06) 0%, var(--kb-surface) 50%, var(--kb-bg) 100%);
   border: 1px solid rgba(212, 165, 55, 0.22);
   border-radius: 1.5rem;
   backdrop-filter: blur(20px);
-  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+[data-theme="light"] .card-prestige {
+  background: radial-gradient(120% 120% at 50% 0%, rgba(184, 134, 11, 0.05) 0%, var(--kb-surface) 50%, var(--kb-bg) 100%);
+  box-shadow: 0 8px 30px -6px rgba(0, 0, 0, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
 .card-prestige:hover {
   border-color: var(--kb-accent);
-  box-shadow: 0 20px 48px -12px rgba(2, 7, 16, 0.75), 0 0 32px rgba(212, 165, 55, 0.22);
+  box-shadow: 0 20px 48px -12px rgba(2, 7, 16, 0.35), 0 0 32px rgba(212, 165, 55, 0.18);
+  transform: translateY(-3px);
+}
+
+[data-theme="light"] .card-prestige:hover {
+  border-color: var(--kb-accent);
+  box-shadow: 0 14px 36px -8px rgba(0, 0, 0, 0.10), 0 0 24px rgba(184, 134, 11, 0.12);
   transform: translateY(-3px);
 }
 
 /* Glass panel for high-contrast overlays and navigation bars */
 .glass-panel {
-  background: rgba(13, 26, 49, 0.82);
+  background: var(--glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(212, 165, 55, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
 }
 
+[data-theme="light"] .glass-panel {
+  border: 1px solid rgba(184, 134, 11, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
 
 /* Refined Pill Badges */
 .badge-gold {
@@ -181,11 +278,22 @@ h1, h2, h3, .font-display {
   color: var(--kb-accent-hi);
 }
 
+[data-theme="light"] .badge-gold {
+  background: rgba(184, 134, 11, 0.12);
+  border: 1px solid rgba(184, 134, 11, 0.35);
+  color: #7A5308;
+}
 
 .badge-emerald {
   background: rgba(52, 176, 127, 0.12);
   border: 1px solid rgba(52, 176, 127, 0.35);
   color: #6EE7B7;
+}
+
+[data-theme="light"] .badge-emerald {
+  background: rgba(22, 101, 52, 0.10);
+  border: 1px solid rgba(22, 101, 52, 0.30);
+  color: #14532D;
 }
 
 
@@ -351,6 +459,17 @@ input[type="number"].no-spin {
   -moz-appearance: textfield;
 }
 
+select option {
+  background-color: var(--kb-surface);
+  color: var(--kb-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--kb-muted);
+  opacity: 0.8;
+}
+
 /* ── Accessibility & Focus Rings ── */
 :focus-visible {
   outline: 2px solid var(--kb-accent);
@@ -382,24 +501,24 @@ input[type="number"].no-spin {
   }
 }
 
-/* ── Custom Dark Luxury Scrollbar ── */
+/* ── Custom Luxury Scrollbar (theme-aware) ── */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #070E1C;
+  background: var(--kb-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1A2E4F;
+  background: var(--kb-surface-3);
   border-radius: 5px;
-  border: 2px solid #070E1C;
+  border: 2px solid var(--kb-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4A537;
+  background: var(--kb-accent);
 }
 
 /* ── Print / PDF Advisory Report ── */
